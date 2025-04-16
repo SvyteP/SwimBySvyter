@@ -13,10 +13,12 @@ import com.example.swimbysvyter.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
+    ProfileViewModel profileViewModel = new ProfileViewModel();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 }

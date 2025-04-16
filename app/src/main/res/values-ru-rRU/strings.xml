@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SwimBySvyter</string>
+    <string name="navigation_drawer_open">Открытая навигационная панель</string>
+    <string name="navigation_drawer_close">Закрытая навигационная панель</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Навигационный заголовок</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_home">Дом</string>
+    <string name="menu_gallery">Галлерея</string>
+    <string name="menu_slideshow">Слайд шоу</string>
+    <string name="menu_profile">Профиль</string>
+</resources>

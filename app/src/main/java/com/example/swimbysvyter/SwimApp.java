@@ -6,6 +6,7 @@ import com.example.swimbysvyter.services.api.SwimAPI;
 
 public class SwimApp extends Application {
     public static SwimAPI swimAPI;
+    public static SwimAPI JWTToken;
 
 
 }

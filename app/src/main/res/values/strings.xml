@@ -1,4 +1,11 @@
 <resources>
+    <!--Setting's-->
+    <!--Адрес основного сервера-->
+    <string name="swim_api_server_address" translatable="false">77.95.94.42:8080</string>
+
+
+
+    <!--All-->
     <string name="app_name">SwimBySvyter</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,6 +14,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!--Page's-->
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>

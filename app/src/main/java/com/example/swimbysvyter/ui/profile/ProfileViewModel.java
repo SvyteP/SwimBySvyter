@@ -1,12 +1,21 @@
 package com.example.swimbysvyter.ui.profile;
 
-import androidx.annotation.NonNull;
+
+import static com.example.swimbysvyter.SwimApp.swimAPI;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.io.Closeable;
+import com.example.swimbysvyter.SwimApp;
+import com.example.swimbysvyter.entity.Customers;
+import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.services.api.RequestCallBack;
+import com.example.swimbysvyter.services.api.SwimAPI;
 
 public class ProfileViewModel extends ViewModel {
+    private Customers customers;
+    private Questioner questioner;
+
     private final MutableLiveData<String> name;
     private final MutableLiveData<String> email;
 
@@ -19,15 +28,34 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> cmplexity;
 
     public ProfileViewModel() {
-        this.name = new MutableLiveData<>();
-        this.email = new MutableLiveData<>();
-        this.age = new MutableLiveData<>();
-        this.countTrainOneWeek = new MutableLiveData<>();
-        this.countWeek = new MutableLiveData<>();
-        this.gender = new MutableLiveData<>();
-        this.lengthPool = new MutableLiveData<>();
-        this.timeTrain = new MutableLiveData<>();
-        this.cmplexity = new MutableLiveData<>();
+        this.name = customers.getName();
+        this.email = customers.getEmail();
+        this.age = questioner.getAge();
+        this.countTrainOneWeek = questioner.;
+        this.countWeek = ;
+        this.gender = ;
+        this.lengthPool = ;
+        this.timeTrain = ;
+        this.cmplexity = ;
+    }
+
+    private void getQuestioner(){
+
+    }
+
+    private void getCustomer(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        /*swimAPI.get*/
     }
 
 }

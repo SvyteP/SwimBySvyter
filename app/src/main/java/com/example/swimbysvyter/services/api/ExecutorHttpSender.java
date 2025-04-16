@@ -50,6 +50,7 @@ public class ExecutorHttpSender {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(TIME_OUT);
             connection.setRequestMethod(method);
+
             if (token != null){
                 connection.setRequestProperty("Authorization","Bearer " + token);
             }
