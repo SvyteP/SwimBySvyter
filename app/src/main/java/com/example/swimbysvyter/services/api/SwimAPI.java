@@ -52,10 +52,10 @@ public class SwimAPI {
 
     public void Login(String login, String pass, Context ctx, RequestCallBack callBack){
         String url = swimServerAddresses + "/login/user";
-
-        try {
-            url = String.format(url + "?")
-        }
+    /*
+            try {
+                url = String.format(url + "?")
+            }*/
 
         RequestResult requestResult = result -> {
 
