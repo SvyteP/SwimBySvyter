@@ -1,21 +1,16 @@
 package com.example.swimbysvyter.ui.profile;
 
 
-import static com.example.swimbysvyter.SwimApp.swimAPI;
-
+import static com.example.swimbysvyter.SwimApp.customer;
+import static com.example.swimbysvyter.SwimApp.questioner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.swimbysvyter.SwimApp;
-import com.example.swimbysvyter.entity.Customers;
-import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.services.api.RequestCallBack;
-import com.example.swimbysvyter.services.api.SwimAPI;
 
+import lombok.Getter;
+
+@Getter
 public class ProfileViewModel extends ViewModel {
-    private Customers customers;
-    private Questioner questioner;
-
     private final MutableLiveData<String> name;
     private final MutableLiveData<String> email;
 
@@ -28,34 +23,14 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> cmplexity;
 
     public ProfileViewModel() {
-        this.name = customers.getName();
-        this.email = customers.getEmail();
-        this.age = questioner.getAge();
-        this.countTrainOneWeek = questioner.;
-        this.countWeek = ;
-        this.gender = ;
-        this.lengthPool = ;
-        this.timeTrain = ;
-        this.cmplexity = ;
+        this.name = new MutableLiveData<>(customer.getName());
+        this.email = new MutableLiveData<>(customer.getEmail());
+        this.age = new MutableLiveData<>(String.valueOf(questioner.getAge()));
+        this.countTrainOneWeek = new MutableLiveData<>(String.valueOf(questioner.getCountTrainOneWeek()));
+        this.countWeek = new MutableLiveData<>(String.valueOf(questioner.getCountWeek()));
+        this.gender = new MutableLiveData<>(questioner.getGender());
+        this.lengthPool = new MutableLiveData<>(String.valueOf(questioner.getLengthPool()));
+        this.timeTrain = new MutableLiveData<>(String.valueOf(questioner.getTimeTrain()));
+        this.cmplexity = new MutableLiveData<>(questioner.getComplexityName());
     }
-
-    private void getQuestioner(){
-
-    }
-
-    private void getCustomer(){
-        RequestCallBack callBack = new RequestCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-
-            }
-
-            @Override
-            public void onError(Object object) {
-
-            }
-        };
-        /*swimAPI.get*/
-    }
-
 }
