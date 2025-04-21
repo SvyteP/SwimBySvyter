@@ -20,7 +20,7 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> gender;
     private final MutableLiveData<String> lengthPool;
     private final MutableLiveData<String> timeTrain;
-    private final MutableLiveData<String> cmplexity;
+    private final MutableLiveData<String> complexity;
 
     public ProfileViewModel() {
         this.name = new MutableLiveData<>(customer.getName());
@@ -31,6 +31,6 @@ public class ProfileViewModel extends ViewModel {
         this.gender = new MutableLiveData<>(questioner.getGender());
         this.lengthPool = new MutableLiveData<>(String.valueOf(questioner.getLengthPool()));
         this.timeTrain = new MutableLiveData<>(String.valueOf(questioner.getTimeTrain()));
-        this.cmplexity = new MutableLiveData<>(questioner.getComplexityName());
+        this.complexity = new MutableLiveData<>(questioner.getComplexityName());
     }
 }

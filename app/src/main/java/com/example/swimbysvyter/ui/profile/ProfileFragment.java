@@ -63,6 +63,6 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getGender().observe(getViewLifecycleOwner(),genderText::setText);
         profileViewModel.getLengthPool().observe(getViewLifecycleOwner(),lengthPoolText::setText);
         profileViewModel.getTimeTrain().observe(getViewLifecycleOwner(),timeTrainText::setText);
-        profileViewModel.getCmplexity().observe(getViewLifecycleOwner(),complexityText::setText);
+        profileViewModel.getComplexity().observe(getViewLifecycleOwner(),complexityText::setText);
     }
 }
