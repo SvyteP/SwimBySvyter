@@ -3,8 +3,6 @@
     <!--Адрес основного сервера-->
     <string name="swim_api_server_address" translatable="false">77.95.94.42:8080</string>
 
-
-
     <!--All-->
     <string name="app_name">SwimBySvyter</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -19,4 +17,14 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_profile">Profile</string>
+
+    <!--Profile-->
+    <string name="profile_age">Age</string>
+    <string name="profile_count_train_one_week">The number of training for 1 week</string>
+    <string name="profile_count_week">Count week</string>
+    <string name="profile_gender">Gender</string>
+    <string name="profile_length_pool">Length pool</string>
+    <string name="profile_time_train">Training time</string>
+    <string name="profile_complexity">Complexity</string>
+
 </resources>

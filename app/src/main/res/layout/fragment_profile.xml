@@ -1,89 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/top_text_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_700"
-        android:orientation="vertical">
-
         <LinearLayout
-            android:id="@+id/name_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/name_text"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--Header-->
+            <LinearLayout
+                android:id="@+id/top_text_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/indent_edge_screen"
+                android:paddingTop="@dimen/indent_edge_screen">
 
-        <LinearLayout
-            android:id="@+id/email_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/name_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/email_text"
+                    <TextView
+                        android:id="@+id/name_text"
+                        style="@style/textHeader.profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:text="Name" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/email_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/email_text"
+                        style="@style/textHeader.profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="123" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Questioner-->
+            <LinearLayout
+                android:id="@+id/questioner_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/indent_edge_screen">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_age" />
+
+                    <TextView
+                        android:id="@+id/age_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_count_train_one_week" />
+
+                    <TextView
+                        android:id="@+id/count_train_one_week_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_count_week" />
+
+                    <TextView
+                        android:id="@+id/count_week_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_gender" />
+
+                    <TextView
+                        android:id="@+id/gender_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_length_pool" />
+
+                    <TextView
+                        android:id="@+id/length_pool_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_time_train" />
+
+                    <TextView
+                        android:id="@+id/time_train_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/textQuestioner.boxHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_complexity" />
+
+
+                    <TextView
+                        android:id="@+id/complexity_text"
+                        style="@style/textQuestioner.infoBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/indent_edge_screen">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/questioner_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_200"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/age_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/count_train_one_week_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/count_week_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/gender_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/length_pool_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/time_train_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/complexity_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

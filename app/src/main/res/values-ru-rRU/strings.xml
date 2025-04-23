@@ -7,8 +7,20 @@
     <string name="nav_header_desc">Навигационный заголовок</string>
     <string name="action_settings">Настройки</string>
 
+    <!--Page's-->
     <string name="menu_home">Дом</string>
     <string name="menu_gallery">Галлерея</string>
     <string name="menu_slideshow">Слайд шоу</string>
     <string name="menu_profile">Профиль</string>
+
+    <!--Profile-->
+    <string name="profile_age">Возраст</string>
+    <string name="profile_count_train_one_week">Кол-во тренировок в неделю</string>
+    <string name="profile_count_week">Кол-во недель</string>
+    <string name="profile_gender">Пол</string>
+    <string name="profile_length_pool">Длинна бассейна</string>
+    <string name="profile_time_train">Время тренировки</string>
+    <string name="profile_complexity">Сложность</string>
+
+
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--All-->
+    <style name="textHeader">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/headers</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Profile's-->
+    <style name="textQuestioner">
+        <item name="android:textColor">?attr/colorOutline</item>
+        <item name="android:textSize">@dimen/info_txt</item>
+    </style>
+    <style name="textQuestioner.infoBox">
+        <item name="android:background">@drawable/info_gray_block</item>
+        <item name="android:padding">@dimen/indent_text_in_box</item>
+    </style>
+
+    <style name="textQuestioner.boxHeader">
+        <item name="android:paddingVertical">@dimen/indent_from_box</item>
+        <item name="android:paddingLeft">@dimen/indent_from_box</item>
+    </style>
+    
+
+    <style name="textHeader.profile">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+
+</resources>
