@@ -17,5 +17,7 @@
     <dimen name="headers">20sp</dimen>
 
     <dimen name="profile_image">50dp</dimen>
+    <dimen name="btn_width">50dp</dimen>
+    <dimen name="stroke_weight_btn">2dp</dimen>
 
 </resources>
