@@ -8,9 +8,9 @@
     <string name="action_settings">Настройки</string>
 
     <!--Page's-->
-    <string name="menu_home">Дом</string>
-    <string name="menu_gallery">Галлерея</string>
-    <string name="menu_slideshow">Слайд шоу</string>
+    <string name="menu_home">Тренировки</string>
+    <string name="menu_favorite">Избранные</string>
+    <string name="menu_theory">Теория</string>
     <string name="menu_profile">Профиль</string>
 
     <!--Profile-->
@@ -21,6 +21,7 @@
     <string name="profile_length_pool">Длинна бассейна</string>
     <string name="profile_time_train">Время тренировки</string>
     <string name="profile_complexity">Сложность</string>
+    <string name="profile_edit_btn">Изменить</string>
 
 
 </resources>

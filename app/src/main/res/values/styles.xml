@@ -3,9 +3,25 @@
 
     <!--All-->
     <style name="textHeader">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:textSize">@dimen/headers</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="textBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/btn_txt_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/btn_txt_small_size</item>
     </style>
 
     <!--Profile's-->
@@ -19,8 +35,8 @@
     </style>
 
     <style name="textQuestioner.boxHeader">
-        <item name="android:paddingVertical">@dimen/indent_from_box</item>
-        <item name="android:paddingLeft">@dimen/indent_from_box</item>
+        <item name="android:paddingVertical">@dimen/small_indent_from_box</item>
+        <item name="android:paddingLeft">@dimen/small_indent_from_box</item>
     </style>
     
 
@@ -32,7 +48,21 @@
     <style name="btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/btn_width</item>
-        <item name="android:background">@drawable/</item>
+        <item name="android:background">@drawable/ripple_btn</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
+    <style name="bubbleBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/item_bubble_box</item>
+    </style>
+
+    <style name="bubbleBox.btn">
+        <item name="android:background">@drawable/ripple_bubble_box</item>
     </style>
 
 </resources>

@@ -3,21 +3,24 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_header_height">90dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     
-    <dimen name="corner_radius_info">10dp</dimen>
+    <dimen name="main_corner_radius">10dp</dimen>
     <dimen name="stroke_weight_info">2dp</dimen>
 
     <dimen name="indent_edge_screen">24dp</dimen>
     <dimen name="info_txt">14sp</dimen>
     <dimen name="indent_text_in_box">10dp</dimen>
-    <dimen name="indent_from_box">5dp</dimen>
+    <dimen name="small_indent_from_box">5dp</dimen>
+    <dimen name="medium_indent_from_box">10dp</dimen>
 
     <dimen name="headers">20sp</dimen>
 
     <dimen name="profile_image">50dp</dimen>
     <dimen name="btn_width">50dp</dimen>
-    <dimen name="stroke_weight_btn">2dp</dimen>
+    <dimen name="stroke_weight_btn">1dp</dimen>
+    <dimen name="btn_txt_size">16sp</dimen>
+    <dimen name="btn_txt_small_size">14sp</dimen>
 
 </resources>
