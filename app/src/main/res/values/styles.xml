@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--All-->
     <style name="textHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:textSize">@dimen/headers</item>
         <item name="android:textStyle">bold</item>
@@ -63,6 +65,15 @@
 
     <style name="bubbleBox.btn">
         <item name="android:background">@drawable/ripple_bubble_box</item>
+    </style>
+    
+    <style name="backArrow">
+        <item name="android:layout_width">@dimen/ic_medium_size</item>
+        <item name="android:layout_height">@dimen/ic_medium_size</item>
+        <item name="android:src">@drawable/ic_right_arrow</item>
+        <item name="android:clickable">false</item>
+        <item name="android:rotation">180</item>
+        <item name="android:tint">?attr/colorAccent</item>
     </style>
 
 </resources>

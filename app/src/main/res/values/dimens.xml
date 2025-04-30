@@ -23,4 +23,6 @@
     <dimen name="btn_txt_size">16sp</dimen>
     <dimen name="btn_txt_small_size">14sp</dimen>
 
+    <dimen name="ic_medium_size">30dp</dimen>
+
 </resources>

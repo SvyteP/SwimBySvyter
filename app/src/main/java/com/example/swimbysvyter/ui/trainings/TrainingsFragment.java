@@ -1,5 +1,6 @@
 package com.example.swimbysvyter.ui.trainings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.databinding.FragmentHomeBinding;
+import com.example.swimbysvyter.entity.Training;
+import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 
 public class TrainingsFragment extends Fragment {
 
@@ -40,7 +43,10 @@ public class TrainingsFragment extends Fragment {
     }
 
     private void updateViews(){
-        trainingsViewModel.getRVTrainingsAdapter().observe(getViewLifecycleOwner(),trainingsRec::setAdapter);
+        trainingsViewModel.getRVTrainingsAdapter(pos -> {
+            trainingsViewModel.getTrainings().observe(getViewLifecycleOwner(),
+                    t -> clickTraining(t.get(pos)));
+        }).observe(getViewLifecycleOwner(),trainingsRec::setAdapter);
         trainingsRec.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
@@ -48,5 +54,11 @@ public class TrainingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void clickTraining(Training training){
+        Intent intent = new Intent(getContext(), TrainingDetailActivity.class);
+        intent.putExtra("trainingDetail",training);
+        startActivity(intent);
     }
 }

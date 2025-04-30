@@ -24,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.TrainingDetailActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SwimBySvyter.NoActionBar"/>
     </application>
 
 </manifest>
