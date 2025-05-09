@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
+import com.example.swimbysvyter.helpers.RVTrainings;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.Getter;
-
+@Getter
 public class TrainingsViewModel extends ViewModel implements Serializable {
-    @Getter
+
     private MutableLiveData<ArrayList<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
 

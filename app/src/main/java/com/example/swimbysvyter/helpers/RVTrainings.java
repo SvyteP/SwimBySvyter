@@ -1,6 +1,5 @@
-package com.example.swimbysvyter.ui.trainings;
+package com.example.swimbysvyter.helpers;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.entity.Training;
-import com.example.swimbysvyter.helpers.ClickItemListener;
-import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 
 import java.util.ArrayList;
 

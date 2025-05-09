@@ -15,7 +15,7 @@
         android:id="@+id/nav_favorite"
         android:name="com.example.swimbysvyter.ui.favorite.FavoriteFragment"
         android:label="@string/menu_favorite"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_favourite" />
 
     <fragment
         android:id="@+id/nav_theory"

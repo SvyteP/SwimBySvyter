@@ -1,5 +1,6 @@
 package com.example.swimbysvyter.ui.favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,24 +10,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.swimbysvyter.databinding.FragmentGalleryBinding;
+import com.example.swimbysvyter.databinding.FragmentFavouriteBinding;
+import com.example.swimbysvyter.entity.Training;
+import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 
 public class FavoriteFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentFavouriteBinding binding;
+    private RecyclerView recFavTraining;
+    private View mainView;
+    private FavoriteViewModel favoriteViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FavoriteViewModel favoriteViewModel =
+        initView(inflater, container, savedInstanceState);
+        updateView();
+        return mainView;
+    }
+
+    private void initView(@NonNull LayoutInflater inflater,
+                          ViewGroup container, Bundle savedInstanceState){
+        favoriteViewModel =
                 new ViewModelProvider(this).get(FavoriteViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        binding = FragmentFavouriteBinding.inflate(inflater, container, false);
+        mainView = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        favoriteViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        recFavTraining = binding.recFavTrainings;
+    }
+
+    private void updateView(){
+        favoriteViewModel.getRVTrainingsAdapter(pos -> {
+            favoriteViewModel.getTrainings().observe(getViewLifecycleOwner(),
+                    t -> clickTraining(t.get(pos)));
+        }).observe(getViewLifecycleOwner(),recFavTraining::setAdapter);
+        recFavTraining.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    public void clickTraining(Training training){
+        Intent intent = new Intent(getContext(), TrainingDetailActivity.class);
+        intent.putExtra("trainingDetail",training);
+        startActivity(intent);
     }
 
     @Override
