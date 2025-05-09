@@ -16,6 +16,7 @@
             android:layout_weight="10">
 
             <TextView
+                android:id="@+id/name_training_txt"
                 style="@style/textBtn"
                 android:text="Trainng name" />
         </LinearLayout>
@@ -26,15 +27,18 @@
             android:layout_weight="10">
 
             <TextView
+                android:id="@+id/inventory_txt"
                 style="@style/text"
                 android:text="Inventory name Inventory name Inventory name" />
         </LinearLayout>
     </LinearLayout>
         <ImageView
+            android:id="@+id/arrow_img"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_right_arrow"
             android:layout_weight="10"
+            android:clickable="false"
             app:tint="?attr/colorOnPrimary"/>
 
 

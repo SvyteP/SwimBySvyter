@@ -9,7 +9,7 @@
     <dimen name="main_corner_radius">10dp</dimen>
     <dimen name="stroke_weight_info">2dp</dimen>
 
-    <dimen name="indent_edge_screen">24dp</dimen>
+    <dimen name="indent_edge_screen">16dp</dimen>
     <dimen name="info_txt">14sp</dimen>
     <dimen name="indent_text_in_box">10dp</dimen>
     <dimen name="small_indent_from_box">5dp</dimen>
@@ -22,5 +22,7 @@
     <dimen name="stroke_weight_btn">1dp</dimen>
     <dimen name="btn_txt_size">16sp</dimen>
     <dimen name="btn_txt_small_size">14sp</dimen>
+
+    <dimen name="ic_medium_size">30dp</dimen>
 
 </resources>

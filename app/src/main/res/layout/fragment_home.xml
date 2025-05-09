@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:paddingHorizontal="@dimen/indent_edge_screen"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.trainings.TrainingsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_trainings"
