@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="false"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/indent_edge_screen">
 
@@ -19,11 +20,12 @@
             android:contentDescription="close"
             android:src="@drawable/ic_cross_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/questioner_ll"
+        android:id="@+id/dialog_edit_questioner_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -36,7 +38,7 @@
             android:paddingBottom="@dimen/medium_indent_from_box">
 
             <EditText
-                android:id="@+id/age_text"
+                android:id="@+id/dialog_edit_age"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,12 +54,13 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/medium_indent_from_box">
 
-            <TextView
-                android:id="@+id/count_train_one_week_text"
+            <EditText
+                android:id="@+id/dialog_edit_count_train_one_week"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_count_train_one_week"/>
+                android:hint="@string/profile_count_train_one_week"
+                android:inputType="number"/>
 
         </LinearLayout>
 
@@ -67,12 +70,13 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/medium_indent_from_box">
 
-            <TextView
-                android:id="@+id/count_week_text"
+            <EditText
+                android:id="@+id/dialog_edit_count_week"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_count_week"/>
+                android:hint="@string/profile_count_week"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,12 +85,11 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/medium_indent_from_box">
 
-            <TextView
-                android:id="@+id/gender_text"
+            <Spinner
+                android:id="@+id/dialog_edit_gender"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/profile_gender"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -95,12 +98,13 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/medium_indent_from_box">
 
-            <TextView
-                android:id="@+id/length_pool_text"
+            <EditText
+                android:id="@+id/dialog_edit_length_pool"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_length_pool"/>
+                android:hint="@string/profile_length_pool"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
@@ -109,25 +113,25 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/medium_indent_from_box">
 
-            <TextView
-                android:id="@+id/time_train_text"
+            <EditText
+                android:id="@+id/dialog_edit_time_train"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_time_train"/>
+                android:hint="@string/profile_time_train"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/complexity_text"
+            <Spinner
+                android:id="@+id/dialog_edit_complexity"
                 style="@style/textQuestioner.editor.infoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_complexity"/>
+                />
         </LinearLayout>
 
     </LinearLayout>
@@ -146,7 +150,6 @@
                 style="@style/textBtn"
                 android:text="@string/save" />
         </LinearLayout>
-
 
     </LinearLayout>
 </LinearLayout>
