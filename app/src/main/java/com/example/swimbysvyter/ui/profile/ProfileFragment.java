@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,8 @@ public class ProfileFragment extends Fragment {
     private TextView timeTrainText;
     private TextView complexityText;
     private View mainView;
+    private EditProfileDialogFragment editDialogFragment;
+    private LinearLayout editBtn;
 
 
     @Nullable
@@ -33,6 +36,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initView(inflater, container,savedInstanceState);
         updateView();
+        updateListeners();
         return mainView;
     }
 
@@ -51,6 +55,7 @@ public class ProfileFragment extends Fragment {
         lengthPoolText = binding.lengthPoolText;
         timeTrainText = binding.timeTrainText;
         complexityText = binding.complexityText;
+        editBtn = binding.editBtn;
     }
 
     private void updateView(){
@@ -64,5 +69,15 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getLengthPool().observe(getViewLifecycleOwner(),lengthPoolText::setText);
         profileViewModel.getTimeTrain().observe(getViewLifecycleOwner(),timeTrainText::setText);
         profileViewModel.getComplexity().observe(getViewLifecycleOwner(),complexityText::setText);
+
+        editDialogFragment = new EditProfileDialogFragment();
+    }
+
+    private void updateListeners(){
+        editBtn.setOnClickListener(this::clickEditBtn);
+    }
+
+    private void clickEditBtn(View v){
+        editDialogFragment.show(requireActivity().getSupportFragmentManager(),"Edit_Dialog");
     }
 }

@@ -32,7 +32,7 @@ public class FavoriteViewModel extends ViewModel {
         ArrayList<Inventory> inventories = new ArrayList<>();
         inventories.add(new Inventory(1L,"name"));
 
-        trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories));
+        trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories,false,false));
 
         return trainings1;
     }

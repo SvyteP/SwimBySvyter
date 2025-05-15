@@ -1,66 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/indent_edge_screen">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/indent_edge_screen">
-        <LinearLayout
-            android:id="@+id/detail_training_back_ll"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:paddingTop="@dimen/indent_edge_screen"
-            android:gravity="center">
-            <ImageView
-                style="@style/backArrow"/>
-
-        </LinearLayout>
+    <!-- Прокручиваемый контент -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_button_ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/medium_indent_from_box"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/detail_training_name"
-                style="@style/textHeader"
-                android:text="123"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Верхняя панель -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/detail_training_back_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/indent_edge_screen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView style="@style/backArrow" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/detail_training_favorite_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/indent_edge_screen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/favoriteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="true"
+                        android:contentDescription="Favorite"
+                        android:focusable="false"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_baseline_star_border_24" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Содержимое -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/medium_indent_from_box"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/detail_training_name"
+                        style="@style/textHeader"
+                        android:text="123" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/bubbleBox"
+                    android:layout_marginBottom="@dimen/small_indent_from_box"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/detail_training_warm_up"
+                        style="@style/text"
+                        android:text="123" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/bubbleBox"
+                    android:layout_marginBottom="@dimen/small_indent_from_box"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/detail_training_main"
+                        style="@style/text"
+                        android:text="123" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/bubbleBox"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/detail_training_hitch"
+                        style="@style/text"
+                        android:text="123" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/detail_training_inv_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/medium_indent_from_box">
+
+                    <TextView
+                        style="@style/textHeader"
+                        android:text="@string/inv_header" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_detail_inv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/medium_indent_from_box" />
+            </LinearLayout>
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Кнопка прижата к низу -->
+    <LinearLayout
+        android:id="@+id/bottom_button_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingVertical="@dimen/medium_indent_from_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            style="@style/bubbleBox"
-            android:layout_marginBottom="@dimen/small_indent_from_box"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/detail_training_warm_up"
-                style="@style/text"
-                android:text="123"/>
+            android:id="@+id/detail_training_completed_btn"
+            style="@style/bubbleBox.btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_width"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        </LinearLayout>
-        <LinearLayout
-            style="@style/bubbleBox"
-            android:layout_marginBottom="@dimen/small_indent_from_box"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/detail_training_main"
-                style="@style/text"
-                android:text="123"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_24"
+                android:clickable="false"/>
 
-        </LinearLayout>
-        <LinearLayout
-            style="@style/bubbleBox"
-            android:gravity="center">
             <TextView
-                android:id="@+id/detail_training_hitch"
-                style="@style/text"
-                android:text="123"/>
-
+                style="@style/textBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/small_indent_from_box"
+                android:text="@string/completed"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

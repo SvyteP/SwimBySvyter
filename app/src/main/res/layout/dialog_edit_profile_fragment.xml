@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/indent_edge_screen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingTop="@dimen/indent_edge_screen">
+
+        <ImageView
+            android:id="@+id/dialog_edit_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="close"
+            android:src="@drawable/ic_cross_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/questioner_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/indent_edge_screen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <EditText
+                android:id="@+id/age_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Age"
+                android:hint="@string/profile_age"
+                android:inputType="number" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <TextView
+                android:id="@+id/count_train_one_week_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_count_train_one_week"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <TextView
+                android:id="@+id/count_week_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_count_week"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <TextView
+                android:id="@+id/gender_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_gender"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <TextView
+                android:id="@+id/length_pool_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_length_pool"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/medium_indent_from_box">
+
+            <TextView
+                android:id="@+id/time_train_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_time_train"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/complexity_text"
+                style="@style/textQuestioner.editor.infoBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/profile_complexity"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:padding="@dimen/indent_edge_screen">
+
+        <LinearLayout
+            android:id="@+id/dialog_edit_save_btn"
+            style="@style/btn">
+
+            <TextView
+                style="@style/textBtn"
+                android:text="@string/save" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -18,8 +18,10 @@ import com.example.swimbysvyter.entity.Training;
 import java.util.ArrayList;
 
 public class RVTrainings extends RecyclerView.Adapter {
+
     private ArrayList<Training> items;
     private ClickItemListener clickItemListener;
+
     public RVTrainings(MutableLiveData<ArrayList<Training>> items,ClickItemListener clickItemListener) {
         ArrayList<Training> mItems = items.getValue();
         this.clickItemListener = clickItemListener;

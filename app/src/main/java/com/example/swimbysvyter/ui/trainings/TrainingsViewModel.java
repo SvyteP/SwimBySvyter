@@ -20,17 +20,17 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
 
     public TrainingsViewModel() {
         this.trainings = new MutableLiveData<>(new ArrayList<>(setTrainings()));
-        this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {
-
-        }));
+        this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
     }
 
     private ArrayList<Training> setTrainings(){
         ArrayList<Training> trainings1 =  new ArrayList<>();
         ArrayList<Inventory> inventories = new ArrayList<>();
-        inventories.add(new Inventory(1L,"name"));
+        inventories.add(new Inventory(1L,"1 inventory"));
+        inventories.add(new Inventory(1L,"2 inventory"));
 
-        trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories));
+        trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories,false,false));
+        trainings1.add(new Training(2L,"2name","2warmUp","2main","2hitch",inventories,false,true));
 
         return trainings1;
     }
@@ -40,4 +40,31 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
         return adapterRVTrainings;
     }
 
+    public void updateTraining(Training updated) {
+        ArrayList<Training> current = trainings.getValue();
+        if (current == null) return;
+
+        for (int i = 0; i < current.size(); i++) {
+            if (current.get(i).getId().equals(updated.getId())) {
+                current.set(i, updated);
+                adapterRVTrainings.getValue().notifyItemChanged(i);
+                break;
+            }
+        }
+        trainings.setValue(current);
+    }
+
+    public void delTraining(Training t) {
+        ArrayList<Training> current = trainings.getValue();
+        if (current == null) return;
+
+       for(int i = 0; i<current.size(); i++){
+           if (current.get(i).getId() == t.getId()){
+               current.remove(t);
+               adapterRVTrainings.getValue().notifyItemRemoved(i);
+           }
+        }
+
+        trainings.setValue(current);
+    }
 }
