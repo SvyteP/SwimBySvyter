@@ -13,8 +13,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorOutline">@color/light_gray</item>
         <item name="colorAccent">@color/dark_gray</item>
+        <item name="colorEditBackground">@color/purple_100</item>
+        <item name="colorNoAccent">@color/light_gray</item>
 
     </style>
 
@@ -26,4 +27,9 @@
     <style name="Theme.SwimBySvyter.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SwimBySvyter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ThemeOverlay.SwimBySvyter.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
 </resources>

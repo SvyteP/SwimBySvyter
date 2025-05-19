@@ -14,10 +14,17 @@
         <!-- Customize your theme here. -->
         <item name="colorOutline">@color/gray</item>
         <item name="colorAccent">@color/light_gray</item>
+        <item name="colorEditBackground">@color/purple_100</item>
+        <item name="colorNoAccent">@color/light_gray</item>
     </style>
 
     <style name="Theme.SwimBySvyter.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ThemeOverlay.SwimBySvyter.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
 </resources>

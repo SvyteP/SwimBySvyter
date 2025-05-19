@@ -1,5 +1,7 @@
 package com.example.swimbysvyter.ui.profile;
 
+import static com.example.swimbysvyter.SwimApp.complexities;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.swimbysvyter.databinding.FragmentProfileBinding;
+import com.example.swimbysvyter.entity.Complexity;
+import com.example.swimbysvyter.entity.Questioner;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
@@ -78,6 +82,28 @@ public class ProfileFragment extends Fragment {
     }
 
     private void clickEditBtn(View v){
+        Bundle args = new Bundle();
+        args.putSerializable("profileQuestioner",getProfileQuestioner());
+        editDialogFragment.setArguments(args);
         editDialogFragment.show(requireActivity().getSupportFragmentManager(),"Edit_Dialog");
+    }
+
+    public Questioner getProfileQuestioner(){
+        String complexityName = complexityText.getText().toString();
+        Integer complexityId =  complexities.get(complexityName);
+        if (complexityId == null)
+            return null;
+        return new Questioner(
+                Integer.parseInt(ageText.getText().toString()),
+                Integer.parseInt(countTrainOneWeekText.getText().toString()),
+                Integer.parseInt(countWeekText.getText().toString()),
+                genderText.getText().toString(),
+                Integer.parseInt(lengthPoolText.getText().toString()),
+                Integer.parseInt(timeTrainText.getText().toString()),
+                new Complexity(
+                        complexityId,
+                        complexityText.getText().toString()
+                )
+        );
     }
 }

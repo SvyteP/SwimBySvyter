@@ -7,13 +7,15 @@
     <dimen name="fab_margin">16dp</dimen>
     
     <dimen name="main_corner_radius">10dp</dimen>
-    <dimen name="stroke_weight_info">2dp</dimen>
+    <dimen name="stroke_weight_info">1dp</dimen>
 
     <dimen name="indent_edge_screen">16dp</dimen>
     <dimen name="info_txt">14sp</dimen>
-    <dimen name="indent_text_in_box">10dp</dimen>
+    <dimen name="small_indent_text_in_box">5dp</dimen>
+    <dimen name="medium_indent_text_in_box">10dp</dimen>
     <dimen name="small_indent_from_box">5dp</dimen>
     <dimen name="medium_indent_from_box">10dp</dimen>
+    <dimen name="high_indent_from_box">15dp</dimen>
 
     <dimen name="headers">20sp</dimen>
 
@@ -24,5 +26,7 @@
     <dimen name="btn_txt_small_size">14sp</dimen>
 
     <dimen name="ic_medium_size">30dp</dimen>
+
+    <dimen name="stroke_edit_focused">2dp</dimen>
 
 </resources>

@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel;
 
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> name;
     private final MutableLiveData<String> email;
@@ -31,6 +33,6 @@ public class ProfileViewModel extends ViewModel {
         this.gender = new MutableLiveData<>(questioner.getGender());
         this.lengthPool = new MutableLiveData<>(String.valueOf(questioner.getLengthPool()));
         this.timeTrain = new MutableLiveData<>(String.valueOf(questioner.getTimeTrain()));
-        this.complexity = new MutableLiveData<>(questioner.getComplexityName());
+        this.complexity = new MutableLiveData<>(questioner.getComplexity().getName());
     }
 }

@@ -21,9 +21,21 @@
     <style name="text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">@dimen/btn_txt_small_size</item>
     </style>
+
+    <style name="text.onPrimary">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="text.accent">
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="text.noAccent">
+        <item name="android:textColor">?attr/colorNoAccent</item>
+    </style>
+
 
     <style name="btn">
         <item name="android:layout_width">match_parent</item>
@@ -65,12 +77,13 @@
 
     <!--Profile's-->
     <style name="textQuestioner">
-        <item name="android:textColor">?attr/colorOutline</item>
+        <item name="android:textColor">?attr/colorNoAccent</item>
         <item name="android:textSize">@dimen/info_txt</item>
     </style>
+
     <style name="textQuestioner.infoBox">
         <item name="android:background">@drawable/info_gray_block</item>
-        <item name="android:padding">@dimen/indent_text_in_box</item>
+        <item name="android:padding">@dimen/medium_indent_text_in_box</item>
     </style>
 
     <style name="textQuestioner.boxHeader">
@@ -88,14 +101,20 @@
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:textSize">@dimen/info_txt</item>
     </style>
+
     <style name="textQuestioner.editor.infoBox">
         <item name="android:background">@drawable/edit_field_active</item>
-        <item name="android:padding">@dimen/indent_text_in_box</item>
+        <item name="android:padding">@dimen/medium_indent_text_in_box</item>
     </style>
 
     <style name="textQuestioner.editor.boxHeader">
         <item name="android:paddingVertical">@dimen/small_indent_from_box</item>
         <item name="android:paddingLeft">@dimen/small_indent_from_box</item>
+    </style>
+
+    <style name="Widget.Theme.SwimBySvyter.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
 

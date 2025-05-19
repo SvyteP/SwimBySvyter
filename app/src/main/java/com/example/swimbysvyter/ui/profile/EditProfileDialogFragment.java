@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,12 +16,13 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
-import com.example.swimbysvyter.databinding.FragmentFavouriteBinding;
+import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.helpers.SetterSelectionForSpinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditProfileDialogFragment extends DialogFragment {
+    private final EditProfileDialogViewModel editViewModel;
     private DialogEditProfileFragmentBinding binding;
     private View mainView;
     private EditText
@@ -34,8 +34,14 @@ public class EditProfileDialogFragment extends DialogFragment {
     private LinearLayout llSave;
     private ImageView closeBtn;
     private Spinner
-            editGender,
-            editComplexity;
+            spinnerGender,
+            spinnerComplexity;
+    private ArrayAdapter<String> genderAdapter, complexityAdapter;
+    private Questioner profileQuestioner;
+
+    public EditProfileDialogFragment() {
+        this.editViewModel = new EditProfileDialogViewModel();
+    }
 
     @Nullable
     @Override
@@ -65,50 +71,84 @@ public class EditProfileDialogFragment extends DialogFragment {
         editAge = binding.dialogEditAge;
         editNumTrainingWeek = binding.dialogEditCountTrainOneWeek;
         editCountWeek = binding.dialogEditCountWeek;
-        editGender = binding.dialogEditGender;
+        spinnerGender = binding.dialogEditGender;
         editLengthPool = binding.dialogEditLengthPool;
         editTrainingTime = binding.dialogEditTimeTrain;
-        editComplexity = binding.dialogEditComplexity;
+        spinnerComplexity = binding.dialogEditComplexity;
 
 
         llSave = binding.dialogEditSaveBtn;
         closeBtn = binding.dialogEditClose;
+
+        profileQuestioner = (Questioner) getArguments().getSerializable("profileQuestioner");
     }
 
     private void updateView(){
-        //Заменить данными из ViewMode(Создать ее)
-        String[] genders = {"Мужской", "Женский"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                requireContext(),
-                R.layout.item_spinner,
-                genders
-        );
-        adapter.setDropDownViewResource(R.layout.item_spiner_dropdown);
-        editGender.setAdapter(adapter);
-        editGender.setDropDownVerticalOffset(100);
+        if (profileQuestioner != null){
+            editAge.setText(String.valueOf(profileQuestioner.getAge()));
+            editNumTrainingWeek.setText(String.valueOf(profileQuestioner.getCountTrainOneWeek()));
+            editCountWeek.setText(String.valueOf(profileQuestioner.getCountWeek()));
+            editLengthPool.setText(String.valueOf(profileQuestioner.getLengthPool()));
+            editTrainingTime.setText(String.valueOf(profileQuestioner.getTimeTrain()));
+        }
 
         //Заменить данными из ViewMode(Создать ее)
-        ArrayList<String> list = new ArrayList<>(List.of("Низкая", "Средняя", "Высокая"));
-        ArrayAdapter<String> complexityAdapter = new ArrayAdapter<>(
-                requireContext(),
-                R.layout.item_spinner,
-                list
-        );
-        complexityAdapter.setDropDownViewResource(R.layout.item_spiner_dropdown);
-        editComplexity.setAdapter(complexityAdapter);
-        editComplexity.setDropDownVerticalOffset(100);
+        editViewModel.getGenderList().observe(getViewLifecycleOwner(),g ->updateArrayAdapter(
+                g,
+                genderAdapter,
+                spinnerGender,
+                profileQuestioner, ((questioner, list, spinner) -> {
+                    if (questioner.getGender() == null) return;
+
+                    for (int i = 0; i < list.size(); i++){
+                        if (list.get(i).equals(questioner.getGender())) {
+                            spinner.setSelection(i);
+                        }
+                    }
+                })));
+        //Заменить данными из ViewMode(Создать ее)
+        editViewModel.getComplexityList().observe(getViewLifecycleOwner(),c -> updateArrayAdapter(
+                c,
+                complexityAdapter,
+                spinnerComplexity,
+                profileQuestioner, (questioner, list, spinner) -> {
+            if (questioner.getComplexity().getName() == null) return;
+
+            for (int i = 0; i < list.size(); i++){
+                if (list.get(i).equals(questioner.getComplexity().getName())) {
+                    spinner.setSelection(i);
+                }
+            }
+        }));
+
+        spinnerGender.setDropDownVerticalOffset(100);
+        spinnerComplexity.setDropDownVerticalOffset(100);
     }
 
     private void updateListener(){
         llSave.setOnClickListener(this::clickSave);
-        closeBtn.setOnClickListener(v -> dismiss());
+        closeBtn.setOnClickListener(this::clickClose);
     }
 
     private void clickSave(View v){
         //проверяем данные и отправляем их на сервер обновляться
+
     }
 
     private void clickClose(View v){
         dismiss();
     }
+
+    private void updateArrayAdapter(List<String> list, ArrayAdapter<String> adapter, Spinner spinner, Questioner questioner, SetterSelectionForSpinner setter){
+        adapter = new ArrayAdapter<>(
+                requireContext(),
+                R.layout.item_spinner,
+                list
+        );
+        adapter.setDropDownViewResource(R.layout.item_spiner_dropdown);
+        spinner.setAdapter(adapter);
+
+        setter.startBlock(questioner,list,spinner);
+    }
+
 }

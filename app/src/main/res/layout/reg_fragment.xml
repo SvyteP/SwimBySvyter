@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/indent_edge_screen">
+    <!--Hi-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="120dp">
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/item_bubble_box"
+            android:gravity="center">
+            <TextView
+                style="@style/textBtn"
+                android:textSize="70dp"
+                android:text="Hi"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--SwimSvyter-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textHeader"
+            android:text="SwimSvyter"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="40dp"/>
+    </LinearLayout>
+    <!--Comment-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/small_indent_from_box">
+        <TextView
+            android:id="@+id/login_comment_txt"
+            style="@style/text.accent"
+            android:textAlignment="center"
+            android:text="Хватит откладывать на потом, индивидульные тренировки уже ждут тебя!"/>
+    </LinearLayout>
+    <!--Reg form-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="80dp">
+        <!--login-->
+        <EditText
+            android:id="@+id/reg_login_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_width"
+            android:background="@drawable/edit_field_with_color_selector"
+            android:padding="@dimen/medium_indent_text_in_box"
+            android:hint="login"
+            android:inputType="text"/>
+        <!--email-->
+        <EditText
+            android:id="@+id/reg_email_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_width"
+            android:background="@drawable/edit_field_with_color_selector"
+            android:padding="@dimen/medium_indent_text_in_box"
+            android:layout_marginTop="@dimen/medium_indent_from_box"
+            android:hint="email"
+            android:inputType="text"/>
+        <!--pass-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/reg_pass_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_width"
+                android:background="@drawable/edit_field_with_color_selector"
+                android:layout_marginTop="@dimen/high_indent_from_box"
+                android:paddingVertical="@dimen/small_indent_text_in_box"
+                android:padding="@dimen/medium_indent_text_in_box"
+                android:paddingRight="50dp"
+                android:hint="password"
+                android:inputType="textPassword">
+            </EditText>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reg_eye_cl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/high_indent_from_box"
+                android:clickable="false"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:id="@+id/reg_eye_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:src="@drawable/ic_eye_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+        <!--repeat pass-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/reg_pass_edit_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_width"
+                android:background="@drawable/edit_field_with_color_selector"
+                android:layout_marginTop="@dimen/high_indent_from_box"
+                android:paddingVertical="@dimen/small_indent_text_in_box"
+                android:padding="@dimen/medium_indent_text_in_box"
+                android:paddingRight="50dp"
+                android:hint="password"
+                android:inputType="textPassword">
+            </EditText>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reg_eye_cl_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/high_indent_from_box"
+                android:clickable="false"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:id="@+id/reg_eye_img_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:src="@drawable/ic_eye_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+        <!--сonfidentiality-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/small_indent_from_box">
+            <CheckBox
+                android:id="@+id/reg_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:buttonTint="@color/purple_700"/>
+            <TextView
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Я согласен с условиями обслуживания и политикой конфиденциальности"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--Reg btn-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:clickable="false">
+        <LinearLayout
+            android:id="@+id/reg_create_account_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_width"
+            style="@style/btn"
+            android:clickable="true">
+            <TextView
+                style="@style/textBtn"
+                android:text="Create account"
+                android:clickable="false"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--Sing In link-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/medium_indent_from_box"
+        android:gravity="center"
+        android:clickable="false">
+        <TextView
+            style="@style/text"
+            android:text="Do you have account?"/>
+        <TextView
+            android:id="@+id/reg_link_sign_in_txt"
+            style="@style/text"
+            android:text="Sing In"
+            android:textColor="?attr/colorPrimary"
+            android:paddingLeft="5dp"
+            android:clickable="true"/>
+    </LinearLayout>
+
+</LinearLayout>
