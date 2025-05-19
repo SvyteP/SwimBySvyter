@@ -8,9 +8,10 @@
     <!--Hi-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="120dp">
+        android:layout_height="match_parent"
+        android:layout_weight="94"
+
+        android:gravity="center|bottom">
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -25,9 +26,9 @@
     <!--SwimSvyter-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="80dp">
+        android:layout_height="match_parent"
+        android:layout_weight="120"
+        android:gravity="center|bottom">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,8 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="@dimen/small_indent_from_box">
+        android:gravity="center">
         <TextView
             android:id="@+id/login_comment_txt"
             style="@style/text.accent"
@@ -51,10 +51,10 @@
     <!--Login form-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="160dp">
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/login_login_edit"
@@ -87,18 +87,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/high_indent_from_box"
-                android:clickable="false"
-                android:paddingRight="15dp">
-
+                android:clickable="false">
+                <LinearLayout
+                    android:id="@+id/login_eye_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
                 <ImageView
                     android:id="@+id/login_eye_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_eye_off"
                     android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:paddingRight="15dp"/>
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>
@@ -120,8 +126,9 @@
     <!--Login btn-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="32dp"
+        android:layout_height="match_parent"
+        android:layout_weight="130"
+        android:gravity="bottom"
         android:clickable="false">
         <LinearLayout
             android:id="@+id/login_log_in_btn"

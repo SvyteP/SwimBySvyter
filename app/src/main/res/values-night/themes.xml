@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="colorOutline">@color/gray</item>
         <item name="colorAccent">@color/light_gray</item>
-        <item name="colorEditBackground">@color/purple_100</item>
+        <item name="colorEditBackground">@color/purple_dark_100</item>
         <item name="colorNoAccent">@color/light_gray</item>
     </style>
 

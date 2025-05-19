@@ -8,9 +8,9 @@
     <!--Hi-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="120dp">
+        android:layout_height="match_parent"
+        android:layout_weight="130.95"
+        android:gravity="center|bottom">
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -25,9 +25,9 @@
     <!--SwimSvyter-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="30dp">
+        android:layout_height="match_parent"
+        android:layout_weight="180"
+        android:gravity="center|bottom">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
     <!--Comment-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="@dimen/small_indent_from_box">
+        android:layout_height="match_parent"
+        android:layout_weight="180"
+        android:gravity="center|top">
         <TextView
             android:id="@+id/login_comment_txt"
             style="@style/text.accent"
@@ -52,9 +52,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="80dp">
+        android:orientation="vertical">
         <!--login-->
         <EditText
             android:id="@+id/reg_login_edit"
@@ -171,8 +171,9 @@
     <!--Reg btn-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:layout_height="match_parent"
+        android:layout_weight="185"
+        android:gravity="bottom"
         android:clickable="false">
         <LinearLayout
             android:id="@+id/reg_create_account_btn"
@@ -189,8 +190,8 @@
     <!--Sing In link-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/medium_indent_from_box"
+        android:layout_height="match_parent"
+        android:layout_weight="190"
         android:gravity="center"
         android:clickable="false">
         <TextView
