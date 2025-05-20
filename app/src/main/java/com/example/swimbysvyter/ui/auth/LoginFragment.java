@@ -1,30 +1,40 @@
 package com.example.swimbysvyter.ui.auth;
 
+import static com.example.swimbysvyter.SwimApp.disableBtn;
+import static com.example.swimbysvyter.SwimApp.enabledBtn;
+import static com.example.swimbysvyter.SwimApp.invalidEditText;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.text.method.SingleLineTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.FragmentLoginBinding;
-import com.example.swimbysvyter.services.api.RequestCallBack;
-import com.example.swimbysvyter.services.api.SwimAPI;
+import com.example.swimbysvyter.helpers.ModelCallBack;
+import com.example.swimbysvyter.helpers.ValidText;
+
 
 public class LoginFragment extends Fragment {
+    private final LogInViewModel logInViewModel;
     private FragmentLoginBinding binding;
     private View mainView;
     private EditText login;
@@ -32,8 +42,13 @@ public class LoginFragment extends Fragment {
     private TextView forgetPass;
     private TextView linkSingUp;
     private LinearLayout logInBtn;
+    private LinearLayout loginEyeLL;
     private NavController navController;
+    private ImageView loginEyeImg;
 
+    public LoginFragment() {
+        this.logInViewModel = new LogInViewModel();
+    }
 
 
     @Nullable
@@ -60,6 +75,9 @@ public class LoginFragment extends Fragment {
         forgetPass = binding.loginForgetPassTxt;
         linkSingUp = binding.loginLinkSingUpTxt;
         logInBtn = binding.loginLogInBtn;
+        loginEyeLL = binding.loginEyeLl;
+        loginEyeImg = binding.loginEyeImg;
+
     }
 
     private void updateView(){
@@ -73,34 +91,97 @@ public class LoginFragment extends Fragment {
 
         });
 
-        logInBtn.setOnClickListener(v -> clickLogInBtn(v, login, pass));
+        logInBtn.setOnClickListener(v -> clickLogInBtn(v));
+        logInBtn.setEnabled(false);
+
+        TextWatcher validWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (login.length() > 0 &&
+                        pass.length() > 0 &&
+                        ValidText.emailValid(login.getText().toString())){
+                    enabledBtn(logInBtn);
+                } else {
+                    disableBtn(logInBtn);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        login.addTextChangedListener(validWatcher);
+        login.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                logInViewModel.setLogin(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        pass.addTextChangedListener(validWatcher);
+        pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                logInViewModel.setPass(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        loginEyeImg.setOnClickListener(v -> {
+           int  cursorPos = pass.getSelectionEnd();
+            if (pass.getInputType() ==
+                    (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                pass.setInputType(
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                loginEyeImg.setImageResource(R.drawable.ic_eye_on);
+            } else {
+                pass.setInputType(
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                loginEyeImg.setImageResource(R.drawable.ic_eye_off);
+            }
+            // Обновление позиции курсора
+            pass.setSelection(cursorPos);
+        });
     }
 
     private void clickLinkSingUp(View v, NavController controller){
         controller.navigate(R.id.action_loginFragment_to_regFragment);
     }
 
-    private void clickLogInBtn(View v,EditText editLogin, EditText editPass){
-        String login = editLogin.getText().toString();
-        String pass = editPass.getText().toString();
-
-        if (login.isBlank() || pass.isBlank()) {
-            editLogin.setError("Поле обязательно для заполнения");
-        }
-
-        RequestCallBack callBack = new RequestCallBack() {
+    private void clickLogInBtn(View v){
+        logInViewModel.sendLogInInfo(new ModelCallBack() {
             @Override
-            public void onSuccess(Object object) {
+            public void success(Object o) {
                 startMainMenu();
             }
 
             @Override
-            public void onError(Object object) {
-                Log.e("LoginFragment","clickLogInBtn onError: " + object.toString());
+            public void error(Object o) {
+                Toast.makeText(requireContext(),o.toString(),Toast.LENGTH_LONG).show();
             }
-        };
-
-        //swimAPI.Login(login,pass,callBack);
+        });
     }
 
     private void startMainMenu(){

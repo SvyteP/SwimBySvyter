@@ -1,6 +1,8 @@
 package com.example.swimbysvyter;
 
 import android.app.Application;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Customer;
@@ -35,5 +37,20 @@ public class SwimApp extends Application {
 
         genderNames = new ArrayList<>(List.of("Мужской","Женский","Man","Women"));
 
+        swimAPI = new SwimAPI("10.0.2.2:8080");
+
+    }
+
+    public static void disableBtn(LinearLayout layout){
+        layout.setClickable(false);
+        layout.setEnabled(false);
+    }
+    public static void enabledBtn(LinearLayout layout){
+        layout.setClickable(true);
+        layout.setEnabled(true);
+    }
+
+    public static void invalidEditText(EditText editText){
+        editText.setBackgroundResource(R.drawable.edit_field_with_color_invalid);
     }
 }

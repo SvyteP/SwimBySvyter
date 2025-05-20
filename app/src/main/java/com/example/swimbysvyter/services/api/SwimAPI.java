@@ -36,7 +36,6 @@ public class SwimAPI {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request().newBuilder()
-                        .addHeader("","")
                         .build();
                 return chain.proceed(request);
             }
