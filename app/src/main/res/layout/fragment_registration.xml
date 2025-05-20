@@ -63,7 +63,7 @@
             android:background="@drawable/edit_field_with_color_selector"
             android:padding="@dimen/medium_indent_text_in_box"
             android:hint="login"
-            android:inputType="text"/>
+            android:inputType="text" />
         <!--email-->
         <EditText
             android:id="@+id/reg_email_edit"
