@@ -1,5 +1,6 @@
 package com.example.swimbysvyter.services.api;
 
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,14 +10,18 @@ import com.example.swimbysvyter.dto.ResponseRetrofitDto;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,7 +35,8 @@ public class SwimAPI {
     public SwimAPI(String swimServerAddresses) {
         String baseSwimURL = "http://" + swimServerAddresses;
 
-        this.clientWithToken =  new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
+        this.clientWithToken =  new OkHttpClient().newBuilder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new Interceptor() {
             @NonNull
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
@@ -47,14 +53,24 @@ public class SwimAPI {
     }
 
     public void Login(String login, String pass, RequestCallBack callBack){
-        requestsSwimAPI.login(new LoginDto(login,pass)).enqueue(new Callback<>() {
+        String encodeLogin = Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
+        String encodePass = Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
+        requestsSwimAPI.login(new LoginDto(encodeLogin,encodePass)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<JSONObject> call, retrofit2.Response<JSONObject> response) {
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()){
-                    JSONObject resultJSON = response.body();
+                    JSONObject resultJSON;
+                    try {
+                        resultJSON = new JSONObject(response.body().string());
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     Customer result = new Customer();
 
-                    callBack.onSuccess(result);
+
+                    callBack.onSuccess(resultJSON);
                 }
                 else {
                     callBack.onError(call);
@@ -63,7 +79,7 @@ public class SwimAPI {
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callBack.onError(call);
                 Log.e(TAG,String.format("Send request login is failed with exception: %s",t.getMessage()));
             }
