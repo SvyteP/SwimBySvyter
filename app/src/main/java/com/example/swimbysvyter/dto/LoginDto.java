@@ -8,11 +8,11 @@ public class LoginDto {
     @NonNull
     String login;
     @NonNull
-    String pass;
+    String password;
 
-    public LoginDto(String login, String pass) {
+    public LoginDto(String login, String password) {
         this.login = login;
-        this.pass = pass;
+        this.password = password;
     }
 }
 
