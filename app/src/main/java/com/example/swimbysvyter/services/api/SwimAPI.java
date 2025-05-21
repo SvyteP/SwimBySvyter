@@ -1,5 +1,6 @@
 package com.example.swimbysvyter.services.api;
 
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.example.swimbysvyter.helpers.HttpNames;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -48,7 +50,9 @@ public class SwimAPI {
     }
 
     public void Login(String login, String pass, RequestCallBack callBack){
-        requestsSwimAPI.login(new LoginDto(login,pass)).enqueue(new Callback<>() {
+        String encodeLogin = Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
+        String encodePass = Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
+        requestsSwimAPI.login(new LoginDto(encodeLogin,encodePass)).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<JSONObject> call, retrofit2.Response<JSONObject> response) {
                 if (response.isSuccessful()){
