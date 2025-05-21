@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.swimbysvyter.databinding.FragmentProfileBinding;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.ui.profile.dialog.EditProfileDialogFragment;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;

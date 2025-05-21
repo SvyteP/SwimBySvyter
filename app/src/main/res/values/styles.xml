@@ -75,6 +75,17 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!--Sign In / Sign Up-->
+    <style name="colorEditor" parent="Theme.SwimBySvyter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/btn_width</item>
+        <item name="android:paddingTop">@dimen/medium_indent_from_box</item>
+        <item name="android:background">@drawable/edit_field_with_color_selector</item>"
+        <item name="android:paddingVertical">@dimen/small_indent_from_box</item>
+        <item name="android:paddingLeft">@dimen/medium_indent_text_in_box</item>
+        <item name="android:layout_marginTop">@dimen/medium_indent_from_box</item>
+    </style>
+
     <!--Profile's-->
     <style name="textQuestioner">
         <item name="android:textColor">?attr/colorNoAccent</item>

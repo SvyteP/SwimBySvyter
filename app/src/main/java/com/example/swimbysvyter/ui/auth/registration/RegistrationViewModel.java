@@ -1,6 +1,4 @@
-package com.example.swimbysvyter.ui.auth;
-
-import android.view.View;
+package com.example.swimbysvyter.ui.auth.registration;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

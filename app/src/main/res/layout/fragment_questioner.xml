@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/indent_edge_screen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--Comment-->
+
+
+        <!--Questioner form-->
+
+        <TextView
+            android:id="@+id/login_comment_txt"
+            style="@style/text.accent"
+
+            android:text="Укажите данные для подбора курса тренировок"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/medium_indent_from_box"
+            app:layout_constraintBottom_toTopOf="@+id/reg_create_account_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!--age-->
+            <EditText
+                android:id="@+id/quest_age_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_width"
+                android:background="@drawable/edit_field_with_color_selector"
+                android:hint="Age"
+                android:inputType="number"
+                android:padding="@dimen/medium_indent_text_in_box" />
+            <!--Count train One Week-->
+            <EditText
+                android:id="@+id/quest_count_train_one_week_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_width"
+                android:layout_marginTop="@dimen/medium_indent_from_box"
+                android:background="@drawable/edit_field_with_color_selector"
+                android:hint="Count training one week"
+                android:inputType="number"
+                android:padding="@dimen/medium_indent_text_in_box" />
+            <!--count week-->
+            <EditText
+                android:id="@+id/quest_count_week_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_width"
+                android:layout_marginTop="@dimen/medium_indent_from_box"
+                android:background="@drawable/edit_field_with_color_selector"
+                android:hint="Count week"
+                android:inputType="number"
+                android:paddingVertical="@dimen/small_indent_text_in_box"
+                android:paddingLeft="@dimen/medium_indent_text_in_box"
+                android:paddingRight="50dp" />
+
+            <!--gender-->
+
+            <Spinner
+                android:id="@+id/quest_gender_spinner"
+                style="@style/colorEditor" />
+
+            <!--lengthPool-->
+            <EditText
+                android:id="@+id/quest_length_pool_edit"
+                style="@style/colorEditor"
+                android:hint="Length pool"
+                android:inputType="number" />
+
+
+            <!--timeTrain-->
+            <EditText
+                android:id="@+id/quest_time_train_edit"
+                style="@style/colorEditor"
+                android:hint="password"
+                android:inputType="textPassword" />
+
+
+            <!--complexity-->
+
+            <Spinner
+                android:id="@+id/quest_complexity_sinner"
+                style="@style/colorEditor" />
+        </LinearLayout>
+
+
+        <!--Reg btn-->
+
+
+        <LinearLayout
+            android:id="@+id/quest_save_btn"
+            style="@style/btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_width"
+            android:layout_marginBottom="@dimen/indent_edge_screen"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                style="@style/textBtn"
+                android:clickable="false"
+                android:text="Save" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

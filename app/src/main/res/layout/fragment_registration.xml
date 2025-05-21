@@ -58,34 +58,22 @@
         <!--login-->
         <EditText
             android:id="@+id/reg_login_edit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_width"
-            android:background="@drawable/edit_field_with_color_selector"
-            android:padding="@dimen/medium_indent_text_in_box"
+            style="@style/colorEditor"
             android:hint="login"
             android:inputType="text" />
         <!--email-->
         <EditText
             android:id="@+id/reg_email_edit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_width"
-            android:background="@drawable/edit_field_with_color_selector"
-            android:padding="@dimen/medium_indent_text_in_box"
-            android:layout_marginTop="@dimen/medium_indent_from_box"
+            style="@style/colorEditor"
             android:hint="email"
-            android:inputType="text"/>
+            android:inputType="textEmailAddress"/>
         <!--pass-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/reg_pass_edit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/btn_width"
-                android:background="@drawable/edit_field_with_color_selector"
-                android:layout_marginTop="@dimen/medium_indent_from_box"
-                android:paddingVertical="@dimen/small_indent_text_in_box"
-                android:paddingLeft="@dimen/medium_indent_text_in_box"
+                style="@style/colorEditor"
                 android:paddingRight="50dp"
                 android:hint="password"
                 android:inputType="textPassword">
@@ -124,12 +112,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/reg_pass_edit_repeat"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/btn_width"
-                android:background="@drawable/edit_field_with_color_selector"
-                android:layout_marginTop="@dimen/medium_indent_from_box"
-                android:paddingVertical="@dimen/small_indent_text_in_box"
-                android:paddingLeft="@dimen/medium_indent_text_in_box"
+                style="@style/colorEditor"
                 android:paddingRight="50dp"
                 android:hint="password"
                 android:inputType="textPassword">

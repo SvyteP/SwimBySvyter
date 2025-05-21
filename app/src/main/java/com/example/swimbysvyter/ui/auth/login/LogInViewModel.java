@@ -1,4 +1,4 @@
-package com.example.swimbysvyter.ui.auth;
+package com.example.swimbysvyter.ui.auth.login;
 
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 

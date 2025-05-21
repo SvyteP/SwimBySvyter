@@ -1,4 +1,6 @@
-package com.example.swimbysvyter.ui.profile;
+package com.example.swimbysvyter.ui.profile.dialog;
+
+import static com.example.swimbysvyter.helpers.SpinnerUtils.updateArrayAdapter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +19,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.helpers.SetterSelectionForSpinner;
-
-import java.util.List;
 
 public class EditProfileDialogFragment extends DialogFragment {
     private final EditProfileDialogViewModel editViewModel;
@@ -27,7 +26,7 @@ public class EditProfileDialogFragment extends DialogFragment {
     private View mainView;
     private EditText
             editAge,
-            editNumTrainingWeek,
+            editCountTrainingOneWeek,
             editCountWeek,
             editLengthPool,
             editTrainingTime;
@@ -69,7 +68,7 @@ public class EditProfileDialogFragment extends DialogFragment {
         mainView = binding.getRoot();
 
         editAge = binding.dialogEditAge;
-        editNumTrainingWeek = binding.dialogEditCountTrainOneWeek;
+        editCountTrainingOneWeek = binding.dialogEditCountTrainOneWeek;
         editCountWeek = binding.dialogEditCountWeek;
         spinnerGender = binding.dialogEditGender;
         editLengthPool = binding.dialogEditLengthPool;
@@ -86,7 +85,7 @@ public class EditProfileDialogFragment extends DialogFragment {
     private void updateView(){
         if (profileQuestioner != null){
             editAge.setText(String.valueOf(profileQuestioner.getAge()));
-            editNumTrainingWeek.setText(String.valueOf(profileQuestioner.getCountTrainOneWeek()));
+            editCountTrainingOneWeek.setText(String.valueOf(profileQuestioner.getCountTrainOneWeek()));
             editCountWeek.setText(String.valueOf(profileQuestioner.getCountWeek()));
             editLengthPool.setText(String.valueOf(profileQuestioner.getLengthPool()));
             editTrainingTime.setText(String.valueOf(profileQuestioner.getTimeTrain()));
@@ -97,7 +96,7 @@ public class EditProfileDialogFragment extends DialogFragment {
                 g,
                 genderAdapter,
                 spinnerGender,
-                profileQuestioner, ((questioner, list, spinner) -> {
+                profileQuestioner, (questioner, list, spinner) -> {
                     if (questioner.getGender() == null) return;
 
                     for (int i = 0; i < list.size(); i++){
@@ -105,7 +104,7 @@ public class EditProfileDialogFragment extends DialogFragment {
                             spinner.setSelection(i);
                         }
                     }
-                })));
+                }, requireContext()));
         //Заменить данными из ViewMode(Создать ее)
         editViewModel.getComplexityList().observe(getViewLifecycleOwner(),c -> updateArrayAdapter(
                 c,
@@ -119,7 +118,7 @@ public class EditProfileDialogFragment extends DialogFragment {
                     spinner.setSelection(i);
                 }
             }
-        }));
+        }, requireContext()));
 
         spinnerGender.setDropDownVerticalOffset(100);
         spinnerComplexity.setDropDownVerticalOffset(100);
@@ -139,16 +138,6 @@ public class EditProfileDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    private void updateArrayAdapter(List<String> list, ArrayAdapter<String> adapter, Spinner spinner, Questioner questioner, SetterSelectionForSpinner setter){
-        adapter = new ArrayAdapter<>(
-                requireContext(),
-                R.layout.item_spinner,
-                list
-        );
-        adapter.setDropDownViewResource(R.layout.item_spiner_dropdown);
-        spinner.setAdapter(adapter);
 
-        setter.startBlock(questioner,list,spinner);
-    }
 
 }

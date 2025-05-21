@@ -1,4 +1,4 @@
-package com.example.swimbysvyter.ui.auth;
+package com.example.swimbysvyter.ui.auth.registration;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +14,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.swimbysvyter.R;
@@ -25,6 +25,7 @@ import com.example.swimbysvyter.helpers.ValidText;
 public class RegistrationFragment extends Fragment implements TextWatcher{
     private final RegistrationViewModel registrationViewModel;
     private FragmentRegistrationBinding binding;
+    private NavController navController;
     private View mainView;
 
     private EditText editLogin, editPass, editEmail, editPassRepeat;
@@ -62,6 +63,8 @@ public class RegistrationFragment extends Fragment implements TextWatcher{
 
         createAccountBtn = binding.regCreateAccountBtn;
         createAccountBtn.setEnabled(false);
+
+        navController = NavHostFragment.findNavController(this);
     }
 
     private void updateView(){
@@ -76,7 +79,7 @@ public class RegistrationFragment extends Fragment implements TextWatcher{
         editEmail.addTextChangedListener(this);
 
         mainView.findViewById(R.id.reg_link_sign_in_txt).setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_regFragment_to_loginFragment);
+            navController.navigate(R.id.action_regFragment_to_loginFragment);
         });
 
         checkConfid.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -88,6 +91,7 @@ public class RegistrationFragment extends Fragment implements TextWatcher{
         eyeImg.setOnClickListener(v -> EditTextUtils.clickEyeImg(v,editPass));
         eyeImgRepeat.setOnClickListener(v -> EditTextUtils.clickEyeImg(v,editPassRepeat));
 
+        createAccountBtn.setOnClickListener(v -> navController.navigate(R.id.action_regFragment_to_questionerFragment));
     }
 
 
@@ -107,9 +111,7 @@ public class RegistrationFragment extends Fragment implements TextWatcher{
     }
 
     private void checkFieldsFilled(){
-        createAccountBtn.setEnabled(editEmail.getText().length() > 0 &&
-                editLogin.getText().length() > 0 &&
-                editPass.getText().length() > 5 &&
+        createAccountBtn.setEnabled(ValidText.sizeValid(editEmail,editLogin,editPass) &&
                 editPass.getText().toString().equals(editPassRepeat.getText().toString()) &&
                 ValidText.emailValid(editEmail.getText().toString()) &&
                 checkConfid.isChecked());

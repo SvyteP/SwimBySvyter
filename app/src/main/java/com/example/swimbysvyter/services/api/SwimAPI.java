@@ -8,7 +8,6 @@ import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.ResponseRetrofitDto;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.helpers.HttpNames;
 
 import org.json.JSONObject;
 
@@ -29,7 +28,7 @@ public class SwimAPI {
 
 
     public SwimAPI(String swimServerAddresses) {
-        String baseSwimURL = HttpNames.HTTP_PREFIX + swimServerAddresses;
+        String baseSwimURL = "http://" + swimServerAddresses;
 
         this.clientWithToken =  new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @NonNull
