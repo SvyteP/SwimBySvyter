@@ -24,6 +24,7 @@
     <string name="menu_favorite">Favorite</string>
     <string name="menu_theory">Theory</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_exit">Exit</string>
 
     <!--Profile-->
     <string name="profile_age">Age</string>

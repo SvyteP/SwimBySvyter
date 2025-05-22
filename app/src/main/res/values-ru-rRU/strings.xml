@@ -19,6 +19,7 @@
     <string name="menu_favorite">Избранные</string>
     <string name="menu_theory">Теория</string>
     <string name="menu_profile">Профиль</string>
+    <string name="menu_exit">Выход</string>
 
     <!--Profile-->
     <string name="profile_age">Возраст</string>

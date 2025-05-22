@@ -1,12 +1,19 @@
 package com.example.swimbysvyter.ui.auth.login;
 
+import static com.example.swimbysvyter.SwimApp.context;
 import static com.example.swimbysvyter.SwimApp.disableBtn;
 import static com.example.swimbysvyter.SwimApp.enabledBtn;
+import static com.example.swimbysvyter.SwimApp.loginShared;
+import static com.example.swimbysvyter.SwimApp.masterKey;
+import static com.example.swimbysvyter.SwimApp.secFileShared;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +28,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.security.crypto.EncryptedSharedPreferences;
+
 import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.FragmentLoginBinding;
 import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.ValidText;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 
 public class LoginFragment extends Fragment {
@@ -58,6 +70,32 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(loginShared, Context.MODE_PRIVATE);
+            SharedPreferences encSharedPreferences = EncryptedSharedPreferences.create(
+                    context,
+                    secFileShared,
+                    masterKey,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+
+            if (sharedPreferences.getAll().isEmpty()) {
+                Log.d("sharedPreferences", "SharedPreferences пусты");
+            } else {
+                Log.d("sharedPreferences", "SharedPreferences содержат данные: " + sharedPreferences.getAll().toString());
+            }
+            if (encSharedPreferences.getAll().isEmpty()) {
+                Log.d("sharedPreferences", "SharedPreferences пусты");
+            } else {
+                Log.d("sharedPreferences", "SharedPreferences содержат данные: " + encSharedPreferences.getAll().toString());
+            }
+
+
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e("LogInViewModel","EncryptedSharedPreferences or MasterKey error: " + e.getMessage());
+        }
+
 
         if(logInViewModel.checkAuthorized(null,null)){
             startMainMenu();

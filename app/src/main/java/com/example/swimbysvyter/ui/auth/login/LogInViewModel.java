@@ -2,7 +2,10 @@ package com.example.swimbysvyter.ui.auth.login;
 
 import static com.example.swimbysvyter.SwimApp.context;
 import static com.example.swimbysvyter.SwimApp.customer;
+import static com.example.swimbysvyter.SwimApp.loginShared;
+import static com.example.swimbysvyter.SwimApp.masterKey;
 import static com.example.swimbysvyter.SwimApp.questioner;
+import static com.example.swimbysvyter.SwimApp.secFileShared;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import android.content.Context;
@@ -26,15 +29,10 @@ import lombok.Getter;
 
 @Getter
 public class LogInViewModel extends ViewModel {
-
-    private final String FILE_NAME = "secure_auth_prefs";
     private final MutableLiveData<String> login;
     private final MutableLiveData<String> pass;
     private final MutableLiveData<Boolean> isAuthorized;
     private final Convertors convertor;
-
-    @SuppressWarnings("deprecation")
-    private MasterKey masterKey;
     private SharedPreferences encSharedPreferences;
     private final SharedPreferences sharedPreferences;
 
@@ -44,14 +42,12 @@ public class LogInViewModel extends ViewModel {
         this.login = new MutableLiveData<>();
         this.pass = new MutableLiveData<>();
         this.convertor = new ConvertorJSON();
-        this.sharedPreferences = context.getSharedPreferences("loginPref", Context.MODE_PRIVATE);
+        this.sharedPreferences = context.getSharedPreferences(loginShared, Context.MODE_PRIVATE);
         try {
-            this.masterKey = new MasterKey.Builder(context)
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build();
+
             this.encSharedPreferences = EncryptedSharedPreferences.create(
                     context,
-                    FILE_NAME,
+                    secFileShared,
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
