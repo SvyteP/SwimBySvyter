@@ -52,11 +52,12 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        if(logInViewModel.checkAuthorized(null,null)){
+           startMainMenu();
+        }
         initView(inflater,container,savedInstanceState);
         updateView();
         updateListener();
-
 
         return mainView;
     }
@@ -153,9 +154,11 @@ public class LoginFragment extends Fragment {
     }
 
     private void clickLogInBtn(View v){
+
         logInViewModel.sendLogInInfo(new ModelCallBack() {
             @Override
             public void success(Object o) {
+
                 startMainMenu();
             }
 

@@ -33,12 +33,14 @@ android {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    annotationProcessor libs.lombok //or v. 1.16.2 in your case.
+    annotationProcessor libs.lombok
     implementation libs.lombok
 
     implementation libs.retrofit
     implementation libs.converter.gson
     implementation libs.logging.interceptor
+
+    implementation libs.security.crypto
 
     implementation libs.appcompat
     implementation libs.material

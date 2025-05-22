@@ -15,6 +15,8 @@
     <!--hint's-->
     <string name="hint_login">Login</string>
     <string name="hint_pass">Password</string>
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="hint_pass_repeat">Repeat password</string>
 
 
     <!--Page's-->
@@ -48,4 +50,10 @@
     <string name="log_in">Log In</string>
     <string name="reg_account_txt">Don\'t have account?</string>
     <string name="sing_up">Sing Up</string>
+
+    <!--Registration-->
+    <string name="reg_confidentiality">I agree with the conditions of service and the confidentiality policy</string>
+    <string name="reg_btn">Create account</string>
+    <string name="reg_have_account">Do you have account?</string>
+    <string name="sing_in">Sing In</string>
 </resources>

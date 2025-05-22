@@ -6,20 +6,20 @@ import lombok.Data;
 
 @Data
 public class Customer {
-    private String name;
+    private String login;
     private String email;
     private String token;
 
     public Customer() {}
 
-    public Customer(String name, String email, String token) {
-        this.name = name;
+    public Customer(String login, String email, String token) {
+        this.login = login;
         this.email = email;
         this.token = token;
     }
 
     public Customer(JSONObject object) {
-        this.name = object.optString("login");
+        this.login = object.optString("login");
         this.email = object.optString("email");
         this.token = object.optString("token");
     }

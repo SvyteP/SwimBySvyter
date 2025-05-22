@@ -11,6 +11,8 @@
     <!--hint's-->
     <string name="hint_login">Логин</string>
     <string name="hint_pass">Пароль</string>
+    <string name="hint_pass_repeat">Повторите пароль</string>
+
 
     <!--Page's-->
     <string name="menu_home">Тренировки</string>
@@ -41,6 +43,11 @@
     <string name="reg_account_txt">Еще нет аккаунта?</string>
     <string name="sing_up">Зарегистрировать</string>
 
+    <!--Registration-->
+    <string name="reg_confidentiality">Я согласен с условиями обслуживания и политикой конфиденциальности</string>
+    <string name="reg_btn">Создать аккаунт</string>
+    <string name="reg_have_account">Уже есть аккаунт?</string>
+    <string name="sing_in">Войти</string>
 
 
 </resources>

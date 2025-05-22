@@ -1,9 +1,11 @@
 package com.example.swimbysvyter;
 
 import android.app.Application;
+import android.content.Context;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.swimbysvyter.databinding.ContentMainBinding;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
@@ -21,24 +23,23 @@ public class SwimApp extends Application {
     public static Questioner questioner;
     public static Map<String, Integer> complexities;
     public static List<String> genderNames;
+    public static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        customer = new Customer("name","email@mail.ru","token");
+        customer = new Customer("login","email@mail.ru","token");
         questioner = new Questioner(18,1,4,"Man",25,45,new Complexity(1L,"Easy"));
         complexities = new HashMap<>();
-        complexities.put("Низкая", 1);
-        complexities.put("Средняя", 2);
-        complexities.put("Высокая", 3);
         complexities.put("Easy", 1);
-        complexities.put("Medium", 1);
-        complexities.put("High", 1);
+        complexities.put("Medium", 2);
+        complexities.put("High", 3);
 
-        genderNames = new ArrayList<>(List.of("Мужской","Женский","Man","Women"));
+        genderNames = new ArrayList<>(List.of("Man","Women"));
 
         swimAPI = new SwimAPI("10.0.2.2:8080");
 
+        context = getApplicationContext();
     }
 
     public static void disableBtn(LinearLayout layout){

@@ -25,7 +25,7 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> complexity;
 
     public ProfileViewModel() {
-        this.name = new MutableLiveData<>(customer.getName());
+        this.name = new MutableLiveData<>(customer.getLogin());
         this.email = new MutableLiveData<>(customer.getEmail());
         this.age = new MutableLiveData<>(String.valueOf(questioner.getAge()));
         this.countTrainOneWeek = new MutableLiveData<>(String.valueOf(questioner.getCountTrainOneWeek()));

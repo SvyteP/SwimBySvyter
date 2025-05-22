@@ -65,14 +65,14 @@ public class SwimAPI {
                     JSONObject data;
                     try {
                         data = new JSONObject(response.body().string()).getJSONObject("data");
+                        SwimApp.customer = new Customer(data);
+                        SwimApp.questioner = new Questioner(data.optJSONObject("questioner"));
+                        callBack.onSuccess(data);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    SwimApp.customer = new Customer(data);
-                    SwimApp.questioner = new Questioner(data.optJSONObject("questioner"));
-                    callBack.onSuccess(data);
                 } else {
                     callBack.onError(call);
                     Log.e(TAG,String.format("Execution request login is failed with code: %s and body %s",response.code(),response.body()));
