@@ -1,17 +1,12 @@
-package com.example.swimbysvyter.ui.auth;
+package com.example.swimbysvyter.ui.auth.login;
 
 import static com.example.swimbysvyter.SwimApp.disableBtn;
 import static com.example.swimbysvyter.SwimApp.enabledBtn;
-import static com.example.swimbysvyter.SwimApp.invalidEditText;
-import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.SingleLineTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +24,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.FragmentLoginBinding;
+import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.ValidText;
 
@@ -91,7 +87,7 @@ public class LoginFragment extends Fragment {
 
         });
 
-        logInBtn.setOnClickListener(v -> clickLogInBtn(v));
+        logInBtn.setOnClickListener(this::clickLogInBtn);
         logInBtn.setEnabled(false);
 
         TextWatcher validWatcher = new TextWatcher() {
@@ -101,8 +97,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (login.length() > 0 &&
-                        pass.length() > 0 &&
+                if (ValidText.sizeValid(login,pass) &&
                         ValidText.emailValid(login.getText().toString())){
                     enabledBtn(logInBtn);
                 } else {
@@ -131,6 +126,7 @@ public class LoginFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
+
         pass.addTextChangedListener(validWatcher);
         pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,21 +145,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        loginEyeImg.setOnClickListener(v -> {
-           int  cursorPos = pass.getSelectionEnd();
-            if (pass.getInputType() ==
-                    (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                pass.setInputType(
-                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                loginEyeImg.setImageResource(R.drawable.ic_eye_on);
-            } else {
-                pass.setInputType(
-                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                loginEyeImg.setImageResource(R.drawable.ic_eye_off);
-            }
-            // Обновление позиции курсора
-            pass.setSelection(cursorPos);
-        });
+        loginEyeImg.setOnClickListener(v -> EditTextUtils.clickEyeImg(v,pass));
     }
 
     private void clickLinkSingUp(View v, NavController controller){

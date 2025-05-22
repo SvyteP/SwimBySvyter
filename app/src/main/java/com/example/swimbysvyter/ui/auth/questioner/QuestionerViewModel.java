@@ -1,10 +1,7 @@
-package com.example.swimbysvyter.ui.profile;
+package com.example.swimbysvyter.ui.auth.questioner;
 
 import static com.example.swimbysvyter.SwimApp.complexities;
 import static com.example.swimbysvyter.SwimApp.genderNames;
-
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,20 +9,18 @@ import androidx.lifecycle.ViewModel;
 import com.example.swimbysvyter.entity.Questioner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-public class EditProfileDialogViewModel extends ViewModel {
+public class QuestionerViewModel extends ViewModel {
     private final MutableLiveData<List<String>> genderList;
     private final MutableLiveData<List<String>> complexityList;
     private final MutableLiveData<Questioner> questioner;
 
 
-    public EditProfileDialogViewModel() {
+    public QuestionerViewModel() {
         this.genderList = new MutableLiveData<>();
         this.complexityList = new MutableLiveData<>();
         this.questioner = new MutableLiveData<>();
@@ -49,17 +44,11 @@ public class EditProfileDialogViewModel extends ViewModel {
         complexityList.setValue(complexitiesNames);
     }
 
-    public void updateQuestioner(Questioner q){
+    public void createQuestioner(Questioner q){
         if (q == null) return;
 
         questioner.setValue(q);
-        //Отправка запроса на обновление quesioner
+        //Отправка запроса на создание quesioner
 
     }
-
-    public void serQuestioner(Questioner q){
-        if (q == null) return;
-
-    }
-
 }
