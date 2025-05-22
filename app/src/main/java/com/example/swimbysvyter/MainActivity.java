@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("deprecation")
     public MainActivity() {
-        this.sharedPreferences = getSharedPreferences("loginPref",MODE_PRIVATE);
+        this.sharedPreferences = context.getSharedPreferences("loginPref",MODE_PRIVATE);
         try {
             this.encSharedPreferences = EncryptedSharedPreferences.create(context,secFileShared,masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

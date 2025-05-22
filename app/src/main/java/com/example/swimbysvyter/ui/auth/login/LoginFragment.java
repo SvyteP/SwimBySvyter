@@ -70,33 +70,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(loginShared, Context.MODE_PRIVATE);
-            SharedPreferences encSharedPreferences = EncryptedSharedPreferences.create(
-                    context,
-                    secFileShared,
-                    masterKey,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
-
-            if (sharedPreferences.getAll().isEmpty()) {
-                Log.d("sharedPreferences", "SharedPreferences пусты");
-            } else {
-                Log.d("sharedPreferences", "SharedPreferences содержат данные: " + sharedPreferences.getAll().toString());
-            }
-            if (encSharedPreferences.getAll().isEmpty()) {
-                Log.d("sharedPreferences", "SharedPreferences пусты");
-            } else {
-                Log.d("sharedPreferences", "SharedPreferences содержат данные: " + encSharedPreferences.getAll().toString());
-            }
-
-
-        } catch (GeneralSecurityException | IOException e) {
-            Log.e("LogInViewModel","EncryptedSharedPreferences or MasterKey error: " + e.getMessage());
-        }
-
-
         if(logInViewModel.checkAuthorized(null,null)){
             startMainMenu();
         } else{
