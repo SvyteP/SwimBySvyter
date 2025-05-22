@@ -48,7 +48,6 @@
             android:textAlignment="center"
             android:text="@string/auth_comment"/>
     </LinearLayout>
-
     <!--Login form-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,8 +76,8 @@
                 android:background="@drawable/edit_field_with_color_selector"
                 android:layout_marginTop="@dimen/high_indent_from_box"
                 android:paddingVertical="@dimen/small_indent_text_in_box"
-                android:paddingLeft="@dimen/medium_indent_text_in_box"
-                android:paddingRight="@dimen/very_big_indent"
+                android:paddingStart="@dimen/medium_indent_text_in_box"
+                android:paddingEnd="@dimen/very_big_indent"
                 android:hint="@string/hint_pass"
                 android:inputType="textPassword">
             </EditText>
@@ -98,7 +97,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingRight="10dp">
+                    android:paddingEnd="10dp">
                 <ImageView
                     android:id="@+id/login_eye_img"
                     android:layout_width="wrap_content"
@@ -123,7 +122,7 @@
             android:id="@+id/login_forget_pass_txt"
             style="@style/text.noAccent"
             android:text="@string/forget_pass"
-            android:paddingRight="@dimen/small_indent_text_in_box"/>
+            android:paddingEnd="@dimen/small_indent_text_in_box"/>
     </LinearLayout>
     <!--Login btn-->
     <LinearLayout
@@ -160,7 +159,7 @@
             style="@style/text"
             android:text="@string/sing_up"
             android:textColor="?attr/colorPrimary"
-            android:paddingLeft="@dimen/small_indent_text_in_box"
+            android:paddingStart="@dimen/small_indent_text_in_box"
             android:clickable="true"/>
     </LinearLayout>
 

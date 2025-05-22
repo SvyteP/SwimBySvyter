@@ -34,7 +34,7 @@
             style="@style/textHeader"
             android:text="SwimSvyter"
             android:textColor="?attr/colorPrimary"
-            android:textSize="40dp"/>
+            android:textSize="@dimen/big_text"/>
     </LinearLayout>
     <!--Comment-->
     <LinearLayout
@@ -46,7 +46,7 @@
             android:id="@+id/login_comment_txt"
             style="@style/text.accent"
             android:textAlignment="center"
-            android:text="Хватит откладывать на потом, индивидульные тренировки уже ждут тебя!"/>
+            android:text="@string/auth_comment"/>
     </LinearLayout>
     <!--Reg form-->
     <LinearLayout
@@ -59,13 +59,13 @@
         <EditText
             android:id="@+id/reg_login_edit"
             style="@style/colorEditor"
-            android:hint="login"
+            android:hint="@string/hint_login"
             android:inputType="text" />
         <!--email-->
         <EditText
             android:id="@+id/reg_email_edit"
             style="@style/colorEditor"
-            android:hint="email"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"/>
         <!--pass-->
         <FrameLayout
@@ -74,8 +74,8 @@
             <EditText
                 android:id="@+id/reg_pass_edit"
                 style="@style/colorEditor"
-                android:paddingRight="50dp"
-                android:hint="password"
+                android:paddingRight="@dimen/very_big_indent"
+                android:hint="@string/hint_pass"
                 android:inputType="textPassword">
             </EditText>
 
@@ -93,7 +93,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingRight="10dp"
+                    android:paddingEnd="@dimen/medium_indent_from_box"
                     android:clickable="true">
                     <ImageView
                         android:id="@+id/reg_eye_img"
@@ -113,8 +113,8 @@
             <EditText
                 android:id="@+id/reg_pass_edit_repeat"
                 style="@style/colorEditor"
-                android:paddingRight="50dp"
-                android:hint="password"
+                android:paddingRight="@dimen/very_big_indent"
+                android:hint="@string/hint_pass_repeat"
                 android:inputType="textPassword">
             </EditText>
 
@@ -131,7 +131,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/medium_indent_from_box"
                     android:clickable="true">
                     <ImageView
                         android:id="@+id/reg_eye_img_repeat"
@@ -160,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Я согласен с условиями обслуживания и политикой конфиденциальности"/>
+                android:text="@string/reg_confidentiality"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -179,7 +179,7 @@
             android:clickable="true">
             <TextView
                 style="@style/textBtn"
-                android:text="Create account"
+                android:text="@string/reg_btn"
                 android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
@@ -192,13 +192,13 @@
         android:clickable="false">
         <TextView
             style="@style/text"
-            android:text="Do you have account?"/>
+            android:text="@string/reg_have_account"/>
         <TextView
             android:id="@+id/reg_link_sign_in_txt"
             style="@style/text"
-            android:text="Sing In"
+            android:text="Sing Up"
             android:textColor="?attr/colorPrimary"
-            android:paddingLeft="5dp"
+            android:paddingLeft="@dimen/small_indent_text_in_box"
             android:clickable="true"/>
     </LinearLayout>
 
