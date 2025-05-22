@@ -5,30 +5,23 @@ import static com.example.swimbysvyter.SwimApp.customer;
 import static com.example.swimbysvyter.SwimApp.questioner;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.JsonReader;
 import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
-
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ConvertorJSON;
 import com.example.swimbysvyter.helpers.Convertors;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.services.api.RequestCallBack;
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Optional;
-
 import lombok.Getter;
 
 @Getter
@@ -43,7 +36,7 @@ public class LogInViewModel extends ViewModel {
     @SuppressWarnings("deprecation")
     private MasterKey masterKey;
     private SharedPreferences encSharedPreferences;
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     @SuppressWarnings("deprecation")
     public LogInViewModel() {
@@ -51,6 +44,7 @@ public class LogInViewModel extends ViewModel {
         this.login = new MutableLiveData<>();
         this.pass = new MutableLiveData<>();
         this.convertor = new ConvertorJSON();
+        this.sharedPreferences = context.getSharedPreferences("loginPref", Context.MODE_PRIVATE);
         try {
             this.masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

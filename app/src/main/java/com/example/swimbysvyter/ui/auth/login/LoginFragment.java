@@ -46,20 +46,25 @@ public class LoginFragment extends Fragment {
         this.logInViewModel = new LogInViewModel();
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        if(logInViewModel.checkAuthorized(null,null)){
-           startMainMenu();
-        }
         initView(inflater,container,savedInstanceState);
-        updateView();
-        updateListener();
-
         return mainView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if(logInViewModel.checkAuthorized(null,null)){
+            startMainMenu();
+        } else{
+            updateView();
+            updateListener();
+        }
     }
 
     private void initView(@NonNull LayoutInflater inflater,
@@ -74,7 +79,6 @@ public class LoginFragment extends Fragment {
         logInBtn = binding.loginLogInBtn;
         loginEyeLL = binding.loginEyeLl;
         loginEyeImg = binding.loginEyeImg;
-
     }
 
     private void updateView(){

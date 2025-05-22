@@ -33,7 +33,6 @@ public class SwimAPI {
     private final OkHttpClient clientWithToken;
 /*    private final OkHttpClient clientWithoutToken;*/
 
-
     public SwimAPI(String swimServerAddresses) {
         String baseSwimURL = "http://" + swimServerAddresses;
 
