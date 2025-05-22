@@ -33,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/textHeader"
-            android:text="SwimSvyter"
+            android:text="@string/app_name"
             android:textColor="?attr/colorPrimary"
-            android:textSize="40dp"/>
+            android:textSize="@dimen/big_text"/>
     </LinearLayout>
     <!--Comment-->
     <LinearLayout
@@ -46,8 +46,9 @@
             android:id="@+id/login_comment_txt"
             style="@style/text.accent"
             android:textAlignment="center"
-            android:text="Хватит откладывать на потом, индивидульные тренировки уже ждут тебя!"/>
+            android:text="@string/auth_comment"/>
     </LinearLayout>
+
     <!--Login form-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +64,7 @@
             android:background="@drawable/edit_field_with_color_selector"
             android:paddingHorizontal="@dimen/medium_indent_from_box"
             android:paddingVertical="@dimen/small_indent_text_in_box"
-            android:hint="login"
+            android:hint="@string/hint_login"
             android:inputType="text"/>
 
         <FrameLayout
@@ -77,8 +78,8 @@
                 android:layout_marginTop="@dimen/high_indent_from_box"
                 android:paddingVertical="@dimen/small_indent_text_in_box"
                 android:paddingLeft="@dimen/medium_indent_text_in_box"
-                android:paddingRight="50dp"
-                android:hint="password"
+                android:paddingRight="@dimen/very_big_indent"
+                android:hint="@string/hint_pass"
                 android:inputType="textPassword">
             </EditText>
 
@@ -121,7 +122,7 @@
         <TextView
             android:id="@+id/login_forget_pass_txt"
             style="@style/text.noAccent"
-            android:text="Forget password?"
+            android:text="@string/forget_pass"
             android:paddingRight="@dimen/small_indent_text_in_box"/>
     </LinearLayout>
     <!--Login btn-->
@@ -140,7 +141,7 @@
             android:focusable="false">
             <TextView
                 style="@style/textBtn"
-                android:text="Log In"
+                android:text="@string/log_in"
                 android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
@@ -153,13 +154,13 @@
         android:clickable="false">
         <TextView
             style="@style/text"
-            android:text="Don't have account?"/>
+            android:text="@string/reg_account_txt"/>
         <TextView
             android:id="@+id/login_link_sing_up_txt"
             style="@style/text"
-            android:text="Sing Up"
+            android:text="@string/sing_up"
             android:textColor="?attr/colorPrimary"
-            android:paddingLeft="5dp"
+            android:paddingLeft="@dimen/small_indent_text_in_box"
             android:clickable="true"/>
     </LinearLayout>
 

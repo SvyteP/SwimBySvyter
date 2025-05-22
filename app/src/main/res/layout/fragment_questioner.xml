@@ -30,17 +30,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.2" />
 
+
+        <!--Reg btn-->
+
+
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:gravity="center"
             android:orientation="vertical"
             android:paddingVertical="@dimen/medium_indent_from_box"
-            app:layout_constraintBottom_toTopOf="@+id/reg_create_account_btn"
+            app:layout_constraintBottom_toTopOf="@+id/quest_save_btn"
             app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
             <!--age-->
             <EditText
                 android:id="@+id/quest_age_edit"
@@ -101,10 +109,6 @@
                 android:id="@+id/quest_complexity_sinner"
                 style="@style/colorEditor" />
         </LinearLayout>
-
-
-        <!--Reg btn-->
-
 
         <LinearLayout
             android:id="@+id/quest_save_btn"

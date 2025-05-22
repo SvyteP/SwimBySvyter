@@ -8,6 +8,10 @@
     <string name="action_settings">Настройки</string>
     <string name="save">Сохранить</string>
 
+    <!--hint's-->
+    <string name="hint_login">Логин</string>
+    <string name="hint_pass">Пароль</string>
+
     <!--Page's-->
     <string name="menu_home">Тренировки</string>
     <string name="menu_favorite">Избранные</string>
@@ -27,5 +31,16 @@
     <!--Detail-->
     <string name="inv_header">Инвентарь</string>
     <string name="completed">Выполнена</string>
+
+    <!--Questioner-->
+    <string name="auth_comment">Хватит откладывать на потом, индивидульные тренировки уже ждут тебя!</string>
+
+    <!--Login-->
+    <string name="forget_pass">Забыли пароль?</string>
+    <string name="log_in">Войти</string>
+    <string name="reg_account_txt">Еще нет аккаунта?</string>
+    <string name="sing_up">Зарегистрировать</string>
+
+
 
 </resources>

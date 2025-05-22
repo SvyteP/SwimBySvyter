@@ -38,8 +38,8 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
             spinnerComplexity;
     private ArrayAdapter<String> genderAdapter, complexityAdapter;
 
-    public QuestionerFragment(QuestionerViewModel questionerViewModel) {
-        this.questionerViewModel = questionerViewModel;
+    public QuestionerFragment() {
+        this.questionerViewModel = new QuestionerViewModel();
     }
 
     @Nullable

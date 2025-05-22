@@ -13,6 +13,7 @@
     <dimen name="info_txt">14sp</dimen>
     <dimen name="small_indent_text_in_box">5dp</dimen>
     <dimen name="medium_indent_text_in_box">10dp</dimen>
+
     <dimen name="small_indent_from_box">5dp</dimen>
     <dimen name="medium_indent_from_box">10dp</dimen>
     <dimen name="high_indent_from_box">15dp</dimen>
@@ -22,11 +23,16 @@
     <dimen name="profile_image">50dp</dimen>
     <dimen name="btn_width">50dp</dimen>
     <dimen name="stroke_weight_btn">1dp</dimen>
+
     <dimen name="btn_txt_size">16sp</dimen>
     <dimen name="btn_txt_small_size">14sp</dimen>
 
     <dimen name="ic_medium_size">30dp</dimen>
 
     <dimen name="stroke_edit_focused">2dp</dimen>
+
+    <dimen name="big_text">40sp</dimen>
+    <dimen name="very_big_indent">50dp</dimen>
+
 
 </resources>
