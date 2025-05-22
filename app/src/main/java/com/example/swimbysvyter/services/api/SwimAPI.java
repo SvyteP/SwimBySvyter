@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.ResponseRetrofitDto;
 import com.example.swimbysvyter.entity.Customer;
@@ -60,20 +61,18 @@ public class SwimAPI {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()){
-                    JSONObject resultJSON;
+                    JSONObject data;
                     try {
-                        resultJSON = new JSONObject(response.body().string());
+                        data = new JSONObject(response.body().string()).getJSONObject("data");
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    Customer result = new Customer();
-
-
-                    callBack.onSuccess(resultJSON);
-                }
-                else {
+                    SwimApp.customer = new Customer(data);
+                    SwimApp.questioner = new Questioner(data.optJSONObject("questioner"));
+                    callBack.onSuccess(data);
+                } else {
                     callBack.onError(call);
                     Log.e(TAG,String.format("Execution request login is failed with code: %s and body %s",response.code(),response.body()));
                 }

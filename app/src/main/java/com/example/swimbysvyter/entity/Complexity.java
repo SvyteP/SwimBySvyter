@@ -1,5 +1,7 @@
 package com.example.swimbysvyter.entity;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 import lombok.Data;
@@ -17,5 +19,10 @@ public class Complexity implements Serializable {
         this.id = id;
         this.name = name;
     }
+    public Complexity(JSONObject object) {
+        this.id = object.optLong("id");
+        this.name = object.optString("name");
+    }
+
 
 }

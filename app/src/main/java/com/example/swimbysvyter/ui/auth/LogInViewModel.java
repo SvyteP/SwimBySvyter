@@ -35,7 +35,10 @@ public class LogInViewModel extends ViewModel {
                 Log.e("LoginFragment","clickLogInBtn onError: " + object);
             }
         };
-
+        if (login.getValue() == null || pass.getValue() == null){
+            Log.e("LogInViewModel" , "sendLogInInfo error about login or pass == null");
+            return;
+        }
         swimAPI.Login(login.getValue(),pass.getValue(),callBack);
     }
     public void setLogin(String l){
