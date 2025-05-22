@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RequestsSwimAPI extends API{
@@ -19,5 +20,8 @@ public interface RequestsSwimAPI extends API{
 
     @GET("questioner/{id}")
     Call<ResponseRetrofitDto<Questioner>> getQuestioner(@Path("id")Long userId);
+
+    @PUT("questioner/{id}")
+    Call<ResponseRetrofitDto<Questioner>> updateQuestioner(@Path("id")Long userId);
 
 }

@@ -31,6 +31,7 @@ public class SwimAPI {
     private final String TAG = "SwimAPI";
     private final RequestsSwimAPI requestsSwimAPI;
     private final OkHttpClient clientWithToken;
+/*    private final OkHttpClient clientWithoutToken;*/
 
 
     public SwimAPI(String swimServerAddresses) {
@@ -51,6 +52,7 @@ public class SwimAPI {
                 GsonConverterFactory.create(),
                 clientWithToken,
                 RequestsSwimAPI.class);
+
     }
 
     public void Login(String login, String pass, RequestCallBack callBack){
@@ -109,5 +111,29 @@ public class SwimAPI {
             }
         });
     }
+
+    public void updateQuestioner(Long customerId, RequestCallBack callBack){
+        requestsSwimAPI.getQuestioner(customerId).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseRetrofitDto<Questioner>> call, retrofit2.Response<ResponseRetrofitDto<Questioner>> response) {
+                if (response.isSuccessful()) {
+                    Questioner result = response.body().getData();
+                    if (result != null) {
+                        callBack.onSuccess(result);
+                    } else {
+                        callBack.onError(call);
+                        Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRetrofitDto<Questioner>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, String.format("Send request login is failed with exception: %s", t.getMessage()));
+            }
+        });
+    }
+
 
 }
