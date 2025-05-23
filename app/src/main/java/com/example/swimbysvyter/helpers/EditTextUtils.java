@@ -5,7 +5,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+
 import com.example.swimbysvyter.R;
+import com.example.swimbysvyter.entity.Questioner;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EditTextUtils {
     public static void clickEyeImg(View v, EditText passField){

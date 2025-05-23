@@ -1,8 +1,11 @@
 package com.example.swimbysvyter.ui.profile.dialog;
 
+import static com.example.swimbysvyter.SwimApp.complexities;
 import static com.example.swimbysvyter.helpers.SpinnerUtils.updateArrayAdapter;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +22,10 @@ import androidx.fragment.app.DialogFragment;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.helpers.ValidText;
 
-public class EditProfileDialogFragment extends DialogFragment {
-    private final EditProfileDialogViewModel editViewModel;
+public class EditProfileDialogFragment extends DialogFragment implements TextWatcher {
+    private final EditProfileDialogViewModel dialogViewModel;
     private DialogEditProfileFragmentBinding binding;
     private View mainView;
     private EditText
@@ -39,7 +43,7 @@ public class EditProfileDialogFragment extends DialogFragment {
     private Questioner profileQuestioner;
 
     public EditProfileDialogFragment() {
-        this.editViewModel = new EditProfileDialogViewModel();
+        this.dialogViewModel = new EditProfileDialogViewModel();
     }
 
     @Nullable
@@ -92,7 +96,7 @@ public class EditProfileDialogFragment extends DialogFragment {
         }
 
         //Заменить данными из ViewMode(Создать ее)
-        editViewModel.getGenderList().observe(getViewLifecycleOwner(),g ->updateArrayAdapter(
+        dialogViewModel.getGenderList().observe(getViewLifecycleOwner(), g ->updateArrayAdapter(
                 g,
                 genderAdapter,
                 spinnerGender,
@@ -106,7 +110,7 @@ public class EditProfileDialogFragment extends DialogFragment {
                     }
                 }, requireContext()));
         //Заменить данными из ViewMode(Создать ее)
-        editViewModel.getComplexityList().observe(getViewLifecycleOwner(),c -> updateArrayAdapter(
+        dialogViewModel.getComplexityList().observe(getViewLifecycleOwner(), c -> updateArrayAdapter(
                 c,
                 complexityAdapter,
                 spinnerComplexity,
@@ -125,13 +129,29 @@ public class EditProfileDialogFragment extends DialogFragment {
     }
 
     private void updateListener(){
+        editAge.addTextChangedListener(this);
+        editCountTrainingOneWeek.addTextChangedListener(this);
+        editCountWeek.addTextChangedListener(this);
+        editLengthPool.addTextChangedListener(this);
+        editTrainingTime.addTextChangedListener(this);
+
         llSave.setOnClickListener(this::clickSave);
         closeBtn.setOnClickListener(this::clickClose);
     }
 
     private void clickSave(View v){
-        //проверяем данные и отправляем их на сервер обновляться
+            dialogViewModel.updateQuestioner(createQuestioner());
+    }
 
+
+    private Questioner createQuestioner(){
+        return new Questioner(Integer.parseInt(editAge.getText().toString()),
+                Integer.parseInt(editCountTrainingOneWeek.getText().toString()),
+                Integer.parseInt(editCountWeek.getText().toString()),
+                spinnerGender.getSelectedItem().toString(),
+                Integer.parseInt(editLengthPool.getText().toString()),
+                Integer.parseInt(editTrainingTime.getText().toString()),
+                complexities.get(spinnerComplexity.getSelectedItem()));
     }
 
     private void clickClose(View v){
@@ -139,5 +159,19 @@ public class EditProfileDialogFragment extends DialogFragment {
     }
 
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        llSave.setEnabled(ValidText.sizeValid(editAge,editCountTrainingOneWeek,editCountWeek,
+                editLengthPool,editTrainingTime));
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }

@@ -1,30 +1,21 @@
 package com.example.swimbysvyter.ui.auth.login;
 
-import static com.example.swimbysvyter.SwimApp.context;
+import static com.example.swimbysvyter.SwimApp.convertorJSON;
 import static com.example.swimbysvyter.SwimApp.customer;
-import static com.example.swimbysvyter.SwimApp.loginShared;
-import static com.example.swimbysvyter.SwimApp.masterKey;
+import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
 import static com.example.swimbysvyter.SwimApp.questioner;
-import static com.example.swimbysvyter.SwimApp.secFileShared;
+import static com.example.swimbysvyter.SwimApp.sharedPreferences;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKey;
+import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.helpers.ConvertorJSON;
-import com.example.swimbysvyter.helpers.Convertors;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.services.api.RequestCallBack;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import lombok.Getter;
 
 @Getter
@@ -32,28 +23,12 @@ public class LogInViewModel extends ViewModel {
     private final MutableLiveData<String> login;
     private final MutableLiveData<String> pass;
     private final MutableLiveData<Boolean> isAuthorized;
-    private final Convertors convertor;
-    private SharedPreferences encSharedPreferences;
-    private final SharedPreferences sharedPreferences;
 
-    @SuppressWarnings("deprecation")
+
     public LogInViewModel() {
         this.isAuthorized = new MutableLiveData<>();
         this.login = new MutableLiveData<>();
         this.pass = new MutableLiveData<>();
-        this.convertor = new ConvertorJSON();
-        this.sharedPreferences = context.getSharedPreferences(loginShared, Context.MODE_PRIVATE);
-        try {
-
-            this.encSharedPreferences = EncryptedSharedPreferences.create(
-                    context,
-                    secFileShared,
-                    masterKey,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
-        } catch (GeneralSecurityException | IOException e) {
-            Log.e("LogInViewModel","EncryptedSharedPreferences or MasterKey error: " + e.getMessage());
-        }
         updateViewModel();
     }
 
@@ -76,10 +51,8 @@ public class LogInViewModel extends ViewModel {
                        questionerInfo = new Questioner(questionerJSON);
                     }
 
-                    sharedPreferences.edit().putString("questionerInfo",data.optString("questioner")).apply();
-                    encSharedPreferences.edit().putString("customerInfo",convertor.ConvertObjectToStringJSON(customerInfo)).apply();
-                    encSharedPreferences.edit().putString("authToken",data.optString("token")).apply();
                     checkAuthorized(customerInfo,questionerInfo);
+                    encSharedPreferences.edit().putString("authToken",data.optString("token")).apply();
                     isAuthorized.setValue(true);
 
                     modelCallBack.success(object);
@@ -129,15 +102,15 @@ public class LogInViewModel extends ViewModel {
             String questionerPref = sharedPreferences.getString("questionerInfo",null);
 
             if (customerPref != null && questionerPref != null){
-                customer = convertor.ConvertJSONToObject(customerPref,Customer.class);
-                questioner = convertor.ConvertJSONToObject(questionerPref,Questioner.class);
+                customer = convertorJSON.ConvertJSONToObject(customerPref,Customer.class);
+                questioner = convertorJSON.ConvertJSONToObject(questionerPref,Questioner.class);
             } else {
                 Log.e("LogInViewModel" , "checkAuthorized error about customerPref or questionerPref == null");
             }
 
         } else if (customerInfo != null && questionerInfo != null){
-            customer = customerInfo;
-            questioner = questionerInfo;
+            SwimApp.updateQuestionerForApp(questionerInfo);
+            SwimApp.updateCustomerForApp(customerInfo);
         } else {
             Log.e("LogInViewModel" , "checkAuthorized error about customerPref or questionerPref == null");
         }

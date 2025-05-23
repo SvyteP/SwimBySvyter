@@ -1,6 +1,7 @@
 package com.example.swimbysvyter.services.api;
 
 import com.example.swimbysvyter.dto.LoginDto;
+import com.example.swimbysvyter.dto.ResponseDto;
 import com.example.swimbysvyter.dto.ResponseRetrofitDto;
 import com.example.swimbysvyter.entity.Questioner;
 
@@ -22,6 +23,6 @@ public interface RequestsSwimAPI extends API{
     Call<ResponseRetrofitDto<Questioner>> getQuestioner(@Path("id")Long userId);
 
     @PUT("questioner/{id}")
-    Call<ResponseRetrofitDto<Questioner>> updateQuestioner(@Path("id")Long userId);
+    Call<ResponseRetrofitDto<ResponseDto<Questioner>>> updateQuestioner(@Path("id")Long userId,@Body Questioner questioner);
 
 }

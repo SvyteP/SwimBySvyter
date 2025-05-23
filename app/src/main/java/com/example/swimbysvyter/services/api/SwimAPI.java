@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.dto.LoginDto;
+import com.example.swimbysvyter.dto.ResponseDto;
 import com.example.swimbysvyter.dto.ResponseRetrofitDto;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
@@ -92,6 +93,7 @@ public class SwimAPI {
             @Override
             public void onResponse(Call<ResponseRetrofitDto<Questioner>> call, retrofit2.Response<ResponseRetrofitDto<Questioner>> response) {
                 if(response.isSuccessful()){
+
                     Questioner result = response.body().getData();
                     if (result != null){
                         callBack.onSuccess(result);
@@ -111,14 +113,15 @@ public class SwimAPI {
         });
     }
 
-    public void updateQuestioner(Long customerId, RequestCallBack callBack){
-        requestsSwimAPI.getQuestioner(customerId).enqueue(new Callback<>() {
+    public void updateQuestioner(Long customerId, Questioner questioner, RequestCallBack callBack){
+        requestsSwimAPI.updateQuestioner(customerId,questioner).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseRetrofitDto<Questioner>> call, retrofit2.Response<ResponseRetrofitDto<Questioner>> response) {
+            public void onResponse(Call<ResponseRetrofitDto<ResponseDto<Questioner>>> call,
+                                   retrofit2.Response<ResponseRetrofitDto<ResponseDto<Questioner>>> response) {
                 if (response.isSuccessful()) {
-                    Questioner result = response.body().getData();
-                    if (result != null) {
-                        callBack.onSuccess(result);
+                    Questioner quest = response.body().getData().getData();
+                    if (quest != null) {
+                        callBack.onSuccess(quest);
                     } else {
                         callBack.onError(call);
                         Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
@@ -127,9 +130,9 @@ public class SwimAPI {
             }
 
             @Override
-            public void onFailure(Call<ResponseRetrofitDto<Questioner>> call, Throwable t) {
+            public void onFailure(Call<ResponseRetrofitDto<ResponseDto<Questioner>>> call, Throwable t) {
                 callBack.onError(call);
-                Log.e(TAG, String.format("Send request login is failed with exception: %s", t.getMessage()));
+                Log.e(TAG, "UpdateQuestioner failed with code: " + t.getMessage());
             }
         });
     }

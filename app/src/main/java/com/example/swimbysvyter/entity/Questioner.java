@@ -20,6 +20,8 @@ public class Questioner implements Serializable {
     private int timeTrain;
     private Complexity complexity;
 
+    public Questioner() {
+    }
 
     public Questioner(int age, int countTrainOneWeek, int countWeek, String gender, int lengthPool, int timeTrain, Complexity complexity) {
         this.age = age;

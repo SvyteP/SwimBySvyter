@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
 
     public Questioner getProfileQuestioner(){
         String complexityName = complexityText.getText().toString();
-        Integer complexityId =  complexities.get(complexityName);
+        Long complexityId =  complexities.get(complexityName).getId();
         if (complexityId == null)
             return null;
         return new Questioner(
