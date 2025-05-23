@@ -12,9 +12,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#040404</color>
     <color name="white">#FDFDFD</color>
-    <color name="light_gray">#B1B1B5</color>
-    <color name="gray">#636368</color>
-    <color name="dark_gray">#262626</color>
+    <color name="gray_100">#E0E0E0</color>
+    <color name="gray_300">#B1B1B5</color>
+    <color name="gray_400">#808085</color>
+    <color name="gray_500">#636368</color>
+    <color name="gray_700">#262626</color>
     <color name="gold">#FFB700</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
@@ -22,4 +24,5 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="red">#B50000</color>
+
 </resources>

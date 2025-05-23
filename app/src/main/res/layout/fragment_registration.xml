@@ -196,7 +196,7 @@
         <TextView
             android:id="@+id/reg_link_sign_in_txt"
             style="@style/text"
-            android:text="Sing Up"
+            android:text="@string/sing_in"
             android:textColor="?attr/colorPrimary"
             android:paddingLeft="@dimen/small_indent_text_in_box"
             android:clickable="true"/>

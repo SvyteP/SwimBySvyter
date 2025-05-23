@@ -13,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.databinding.FragmentProfileBinding;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.helpers.RVInventories;
 import com.example.swimbysvyter.ui.profile.dialog.EditProfileDialogFragment;
 
 public class ProfileFragment extends Fragment {
@@ -34,7 +36,7 @@ public class ProfileFragment extends Fragment {
     private View mainView;
     private EditProfileDialogFragment editDialogFragment;
     private LinearLayout editBtn;
-
+    private RecyclerView recInventory;
 
     @Nullable
     @Override

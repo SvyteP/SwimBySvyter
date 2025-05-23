@@ -42,7 +42,7 @@
     <string name="forget_pass">Забыли пароль?</string>
     <string name="log_in">Войти</string>
     <string name="reg_account_txt">Еще нет аккаунта?</string>
-    <string name="sing_up">Зарегистрировать</string>
+    <string name="sing_up">Зарегистрироваться</string>
 
     <!--Registration-->
     <string name="reg_confidentiality">Я согласен с условиями обслуживания и политикой конфиденциальности</string>

@@ -7,6 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 
+import com.example.swimbysvyter.entity.Inventory;
+import com.example.swimbysvyter.helpers.RVInventories;
+
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +29,9 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> timeTrain;
     private final MutableLiveData<String> complexity;
 
+    private MutableLiveData<RVInventories> rvInventories;
+    private MutableLiveData<List<Inventory>> inventories;
+
     public ProfileViewModel() {
         this.name = new MutableLiveData<>(customer.getLogin());
         this.email = new MutableLiveData<>(customer.getEmail());
@@ -34,5 +42,10 @@ public class ProfileViewModel extends ViewModel {
         this.lengthPool = new MutableLiveData<>(String.valueOf(questioner.getLengthPool()));
         this.timeTrain = new MutableLiveData<>(String.valueOf(questioner.getTimeTrain()));
         this.complexity = new MutableLiveData<>(questioner.getComplexity().getName());
+
+        this.rvInventories = new MutableLiveData<>();
+        this.inventories = new MutableLiveData<>();
     }
+
+
 }
