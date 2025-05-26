@@ -52,6 +52,7 @@ public class FavoriteFragment extends Fragment {
 
     public void clickTraining(Training training){
         Intent intent = new Intent(getContext(), TrainingDetailActivity.class);
+        intent.putExtra("trainingsView",false);
         intent.putExtra("trainingDetail",training);
         startActivity(intent);
     }

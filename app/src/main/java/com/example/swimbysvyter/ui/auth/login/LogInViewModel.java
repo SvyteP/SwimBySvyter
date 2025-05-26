@@ -1,9 +1,9 @@
 package com.example.swimbysvyter.ui.auth.login;
 
 import static com.example.swimbysvyter.SwimApp.convertorJSON;
-import static com.example.swimbysvyter.SwimApp.customer;
+import static com.example.swimbysvyter.SwimApp.baseCustomer;
 import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
-import static com.example.swimbysvyter.SwimApp.questioner;
+import static com.example.swimbysvyter.SwimApp.baseQuestioner;
 import static com.example.swimbysvyter.SwimApp.sharedPreferences;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 import android.util.Log;
@@ -102,8 +102,8 @@ public class LogInViewModel extends ViewModel {
             String questionerPref = sharedPreferences.getString("questionerInfo",null);
 
             if (customerPref != null && questionerPref != null){
-                customer = convertorJSON.ConvertJSONToObject(customerPref,Customer.class);
-                questioner = convertorJSON.ConvertJSONToObject(questionerPref,Questioner.class);
+                baseCustomer = convertorJSON.ConvertJSONToObject(customerPref,Customer.class);
+                baseQuestioner = convertorJSON.ConvertJSONToObject(questionerPref,Questioner.class);
             } else {
                 Log.e("LogInViewModel" , "checkAuthorized error about customerPref or questionerPref == null");
             }

@@ -1,6 +1,6 @@
 package com.example.swimbysvyter.ui.profile;
 
-import static com.example.swimbysvyter.SwimApp.complexities;
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.databinding.FragmentProfileBinding;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.helpers.RVInventories;
+import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.ui.profile.dialog.EditProfileDialogFragment;
 
 public class ProfileFragment extends Fragment {
@@ -63,6 +64,7 @@ public class ProfileFragment extends Fragment {
         timeTrainText = binding.timeTrainText;
         complexityText = binding.complexityText;
         editBtn = binding.editBtn;
+        recInventory =binding.recInventory;
     }
 
     private void updateView(){
@@ -76,6 +78,9 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getLengthPool().observe(getViewLifecycleOwner(),lengthPoolText::setText);
         profileViewModel.getTimeTrain().observe(getViewLifecycleOwner(),timeTrainText::setText);
         profileViewModel.getComplexity().observe(getViewLifecycleOwner(),complexityText::setText);
+
+        profileViewModel.getAdapterRVInventories().observe(getViewLifecycleOwner(),recInventory::setAdapter);
+        recInventory.setLayoutManager(new LinearLayoutManager(getContext()));
 
         editDialogFragment = new EditProfileDialogFragment();
     }
@@ -93,7 +98,7 @@ public class ProfileFragment extends Fragment {
 
     public Questioner getProfileQuestioner(){
         String complexityName = complexityText.getText().toString();
-        Long complexityId =  complexities.get(complexityName).getId();
+        Long complexityId =  baseComplexities.get(complexityName).getId();
         if (complexityId == null)
             return null;
         return new Questioner(

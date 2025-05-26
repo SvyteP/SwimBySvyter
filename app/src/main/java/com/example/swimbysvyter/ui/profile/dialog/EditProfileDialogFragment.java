@@ -1,6 +1,6 @@
 package com.example.swimbysvyter.ui.profile.dialog;
 
-import static com.example.swimbysvyter.SwimApp.complexities;
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
 import static com.example.swimbysvyter.helpers.SpinnerUtils.updateArrayAdapter;
 
 import android.os.Bundle;
@@ -151,7 +151,7 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
                 spinnerGender.getSelectedItem().toString(),
                 Integer.parseInt(editLengthPool.getText().toString()),
                 Integer.parseInt(editTrainingTime.getText().toString()),
-                complexities.get(spinnerComplexity.getSelectedItem()));
+                baseComplexities.get(spinnerComplexity.getSelectedItem()));
     }
 
     private void clickClose(View v){

@@ -1,8 +1,11 @@
 package com.example.swimbysvyter.ui.trainings;
 
+import static com.example.swimbysvyter.SwimApp.baseInventories;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
@@ -26,8 +29,8 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
     private ArrayList<Training> setTrainings(){
         ArrayList<Training> trainings1 =  new ArrayList<>();
         ArrayList<Inventory> inventories = new ArrayList<>();
-        inventories.add(new Inventory(1L,"1 inventory"));
-        inventories.add(new Inventory(1L,"2 inventory"));
+        inventories.add(baseInventories.get(1));
+        inventories.add(baseInventories.get(3));
 
         trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories,false,false));
         trainings1.add(new Training(2L,"2name","2warmUp","2main","2hitch",inventories,false,true));

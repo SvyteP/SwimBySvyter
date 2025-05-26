@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.theory.TheoryFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/text.accent"
+            android:text="@string/swim_style_front_crawl"
+            android:paddingHorizontal="@dimen/indent_edge_screen"
+            android:paddingTop="@dimen/indent_edge_screen"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kroll"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            style="@style/text.accent"
+            android:text="@string/swim_style_brass"
+            android:paddingHorizontal="@dimen/indent_edge_screen"
+            android:paddingTop="@dimen/indent_edge_screen" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/brass"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            style="@style/text.accent"
+            android:text="@string/swim_style_butterfly"
+            android:paddingHorizontal="@dimen/indent_edge_screen"
+            android:paddingTop="@dimen/indent_edge_screen"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/butterfly"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            style="@style/text.accent"
+            android:text="@string/swim_style_backstroke"
+            android:paddingHorizontal="@dimen/indent_edge_screen"
+            android:paddingTop="@dimen/indent_edge_screen"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kroll_on_spina"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

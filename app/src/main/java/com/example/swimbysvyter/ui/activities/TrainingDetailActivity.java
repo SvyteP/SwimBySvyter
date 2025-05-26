@@ -29,6 +29,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
     private ImageButton favoriteBtn;
     private LinearLayout completedBtn;
     private Intent result;
+    private Boolean isTrainingsFragment;
 
     private OnBackPressedCallback onBackPressed;
     @Override
@@ -56,6 +57,9 @@ public class TrainingDetailActivity extends AppCompatActivity {
         intentArgs = getIntent();
         if (intentArgs != null) {
             training = intentArgs.getParcelableExtra("trainingDetail");
+            isTrainingsFragment = intentArgs.getBooleanExtra("trainingsView",true);
+        } else {
+            isTrainingsFragment = true;
         }
     }
 
@@ -89,6 +93,9 @@ public class TrainingDetailActivity extends AppCompatActivity {
     private void updateListeners(){
         detailTrainingBackLL.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
         favoriteBtn.setOnClickListener(this::clickFavoriteBtn);
+        if (!isTrainingsFragment){
+            completedBtn.setVisibility(View.GONE);
+        }
         completedBtn.setOnClickListener(this::clickCompletedBtn);
     }
 

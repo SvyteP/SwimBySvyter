@@ -4,28 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.swimbysvyter.databinding.FragmentSlideshowBinding;
+import com.example.swimbysvyter.databinding.FragmentTheoryBinding;
 
 public class TheoryFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentTheoryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         TheoryViewModel theoryViewModel =
                 new ViewModelProvider(this).get(TheoryViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentTheoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        theoryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

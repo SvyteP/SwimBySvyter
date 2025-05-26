@@ -187,7 +187,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_inventory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/indent_edge_screen"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

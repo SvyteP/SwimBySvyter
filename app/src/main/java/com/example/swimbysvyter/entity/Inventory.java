@@ -11,7 +11,9 @@ import lombok.Data;
 public class Inventory implements Parcelable {
     private Long id;
     private String name;
-    public static final Creator<Inventory> CREATOR = new Creator<Inventory>() {
+    private Boolean isStock;
+
+    public static final Creator<Inventory> CREATOR = new Creator<>() {
         @Override
         public Inventory createFromParcel(Parcel in) {
             return new Inventory(in);
@@ -26,9 +28,10 @@ public class Inventory implements Parcelable {
     public Inventory() {
     }
 
-    public Inventory(Long id, String name) {
+    public Inventory(Long id, String name, Boolean isStock) {
         this.id = id;
         this.name = name;
+        this.isStock = isStock;
     }
 
     public Inventory(Parcel in) {
@@ -38,6 +41,7 @@ public class Inventory implements Parcelable {
             id = in.readLong();
         }
         name = in.readString();
+        isStock = in.readBoolean();
     }
 
     @Override
@@ -52,5 +56,6 @@ public class Inventory implements Parcelable {
             dest.writeLong(id);
         }
         dest.writeString(name);
+        dest.writeBoolean(isStock);
     }
 }

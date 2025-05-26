@@ -5,22 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.entity.Inventory;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RVInventories extends RecyclerView.Adapter {
     private List<Inventory> items;
+    private ClickItemListener clickItemListener;
+
+
+    public RVInventories(List<Inventory> items, ClickItemListener clickItemListener) {
+        this.items = items;
+        this.clickItemListener = clickItemListener;
+    }
 
     public static class Holder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
         SwitchMaterial name;
-
 
         Holder(View itemView, RVInventories parent) {
             super(itemView);
@@ -31,20 +33,11 @@ public class RVInventories extends RecyclerView.Adapter {
 
         public void onClick(View v) {
             name.setChecked(!name.isChecked());
-            clickAction(getAdapterPosition());
+            clickAction(getAdapterPosition(), name.isChecked());
         }
 
-        public void clickAction(int pos) {
-            //override
+        public void clickAction(int pos, boolean isChecked) {
         }
-    }
-
-    public void onItemClick(int pos) {
-        //override
-    }
-
-    public RVInventories(ArrayList<Inventory> items) {
-        this.items = items;
     }
 
     public void addInventory(Inventory inv) {
@@ -63,11 +56,14 @@ public class RVInventories extends RecyclerView.Adapter {
         Holder fh = new Holder(v, this) {
 
             @Override
-            public void clickAction(int pos) {
+            public void clickAction(int pos, boolean isChecked) {
                 Inventory cur = items.get(pos);
-                Log.i("RVInventory",String.format("Selected item: ", pos,
-                        cur.getId(), cur.getName()));
-                onItemClick(pos);
+                cur.setIsStock(isChecked);
+                Log.i("RVInventory",String.format("Selected item: ",
+                        pos,
+                        cur.getId(),
+                        cur.getName()));
+                clickItemListener.clickItem(pos);
             }
         };
 
@@ -77,7 +73,7 @@ public class RVInventories extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((Holder) holder).name.setText(items.get(position).getName());
-        /*((Holder) holder).name.setChecked(TApp.markBool.get(position));*/
+        ((Holder) holder).name.setChecked(items.get(position).getIsStock());
     }
 
     @Override

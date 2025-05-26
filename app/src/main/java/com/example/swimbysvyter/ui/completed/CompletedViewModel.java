@@ -1,6 +1,5 @@
-package com.example.swimbysvyter.ui.favorite;
+package com.example.swimbysvyter.ui.completed;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -11,18 +10,18 @@ import com.example.swimbysvyter.helpers.RVTrainings;
 
 import java.util.ArrayList;
 
+import lombok.Data;
 import lombok.Getter;
 
 @Getter
-public class FavoriteViewModel extends ViewModel {
+public class CompletedViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
 
-    public FavoriteViewModel() {
-        this.trainings = new MutableLiveData<>(new ArrayList<>(setTrainings()));
-        this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {
 
-        }));
+    public CompletedViewModel() {
+        this.trainings = new MutableLiveData<>(new ArrayList<>(setTrainings()));
+        this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
     }
 
     private ArrayList<Training> setTrainings(){
@@ -39,6 +38,4 @@ public class FavoriteViewModel extends ViewModel {
         adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener));
         return adapterRVTrainings;
     }
-
-
 }

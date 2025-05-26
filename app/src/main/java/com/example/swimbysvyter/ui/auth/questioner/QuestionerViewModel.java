@@ -1,7 +1,7 @@
 package com.example.swimbysvyter.ui.auth.questioner;
 
-import static com.example.swimbysvyter.SwimApp.complexities;
-import static com.example.swimbysvyter.SwimApp.genderNames;
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
+import static com.example.swimbysvyter.SwimApp.baseGenderNames;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -33,12 +33,12 @@ public class QuestionerViewModel extends ViewModel {
     }
 
     private void loadGenderList(){
-        genderList.setValue(genderNames);
+        genderList.setValue(baseGenderNames);
     }
 
     private void loadComplexityList(){
         List<String> complexitiesNames = new ArrayList<>();
-        complexities.forEach((k,v) -> {
+        baseComplexities.forEach((k, v) -> {
             complexitiesNames.add(k);
         });
         complexityList.setValue(complexitiesNames);

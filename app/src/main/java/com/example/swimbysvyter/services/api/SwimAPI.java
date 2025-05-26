@@ -65,8 +65,8 @@ public class SwimAPI {
                     JSONObject data;
                     try {
                         data = new JSONObject(response.body().string()).getJSONObject("data");
-                        SwimApp.customer = new Customer(data);
-                        SwimApp.questioner = new Questioner(data.optJSONObject("questioner"));
+                        SwimApp.baseCustomer = new Customer(data);
+                        SwimApp.baseQuestioner = new Questioner(data.optJSONObject("questioner"));
                         callBack.onSuccess(data);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

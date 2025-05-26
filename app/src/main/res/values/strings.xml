@@ -24,6 +24,7 @@
     <string name="menu_favorite">Favorite</string>
     <string name="menu_theory">Theory</string>
     <string name="menu_profile">Profile</string>
+    <string name="menu_completed">Completed</string>
     <string name="menu_exit">Exit</string>
 
     <!--Profile-->
@@ -57,4 +58,59 @@
     <string name="reg_btn">Create account</string>
     <string name="reg_have_account">Do you have account?</string>
     <string name="sing_in">Sing In</string>
+
+    <!--Theory-->
+    <string name="swim_style_front_crawl">
+1. Freestyle (Front Crawl)\n
+&#10;Features: The fastest swimming style, used in most competitions. Known for high efficiency and streamlining.\n
+&#10;Technique:\n
+&#10;Arms alternate in circular strokes forward, entering the water in front of the shoulder. After catching the water, the arm pulls under the body and recovers above the surface.\n
+&#10;Legs perform quick and strong flutter kicks from the hips, with heels slightly breaking the surface.\n
+&#10;Breathing — turn your head to the side during the arm recovery phase; avoid lifting it too high.\n
+&#10;Tip:\n
+&#10;- Keep your body elongated and straight.\n
+&#10;- Use minimal effort for maximum glide.\n
+&#10;- Coordinate arms, legs, and breathing smoothly.\n
+</string>
+
+    <string name="swim_style_brass">
+&#10;&#10;2. Breaststroke\n\n
+&#10;Features: The slowest but most stable stroke. Great for long-distance swimming and beginners learning technique.\n
+&#10;Technique:\n
+&#10;Arms move simultaneously forward, then sweep outwards and back to the chest.\n
+&#10;Legs perform a frog kick — heels drawn to the hips, then pushed out and together.\n
+&#10;Breathing — during the head lift at the start of the arm pull.\n
+&#10;Tip:\n
+&#10;- Maintain perfect synchronization of arm and leg movements.\n
+&#10;- Pause briefly in a fully extended glide after each cycle.\n
+&#10;- Focus on clean technique over speed.\n
+    </string>
+
+    <string name="swim_style_butterfly">
+&#10;&#10;3. Butterfly\n\n
+&#10;Features: The most physically demanding style. Requires strength and flexibility, especially in the back and core.\n
+&#10;Technique:\n
+&#10;Arms move together in a wide pull: enter the water in front of the head, catch and push down and back.\n
+&#10;Legs perform dolphin kicks — a fluid wave motion from the chest to the feet. Two kicks per arm cycle.\n
+&#10;Breathing — raise your head after the main arm pull when the shoulders exit the water.\n
+&#10;Tip:\n
+&#10;- Drive the motion with your torso, not just the legs.\n
+&#10;- Breathe rhythmically, ideally every cycle.\n
+&#10;- Train back, shoulder, and core muscles outside the water as well.\n
+
+    </string>
+
+    <string name="swim_style_backstroke">
+&#10;&#10;4. Backstroke\n\n
+&#10;Features: The only style swum on the back. Allows for free breathing but requires good navigation.\n
+&#10;Technique:\n
+&#10;Arms alternate, entering the water above the head and pulling along the side of the body to the hip.\n
+&#10;Legs perform flutter kicks, similar to freestyle. Kicks should be steady and come from the hips.\n
+&#10;Breathing — unrestricted, as the face remains above the water.\n
+&#10;Tip:\n
+&#10;- Look straight up or slightly back; avoid lifting your chin.\n
+&#10;- Keep your arms close to the head during recovery.\n
+&#10;- Use visual cues (ceiling or shore) to stay oriented.\n
+    </string>
+
 </resources>

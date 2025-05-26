@@ -1,9 +1,9 @@
 package com.example.swimbysvyter;
 
 import static com.example.swimbysvyter.SwimApp.context;
-import static com.example.swimbysvyter.SwimApp.customer;
+import static com.example.swimbysvyter.SwimApp.baseCustomer;
 import static com.example.swimbysvyter.SwimApp.masterKey;
-import static com.example.swimbysvyter.SwimApp.questioner;
+import static com.example.swimbysvyter.SwimApp.baseQuestioner;
 import static com.example.swimbysvyter.SwimApp.secFileShared;
 
 import android.content.Intent;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_favorite, R.id.nav_theory, R.id.nav_profile)
+                R.id.nav_home, R.id.nav_favorite, R.id.nav_theory, R.id.nav_profile, R.id.nav_completed)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         sharedPreferences.edit().clear().apply();
         encSharedPreferences.edit().clear().apply();
-        customer = null;
-        questioner = null;
+        baseCustomer = null;
+        baseQuestioner = null;
         finish();
     }
 }

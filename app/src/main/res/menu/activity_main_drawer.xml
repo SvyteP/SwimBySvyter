@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_favorite"
             android:title="@string/menu_favorite" />
         <item
+            android:id="@+id/nav_completed"
+            android:icon="@drawable/ic_completed_24"
+            android:title="@string/menu_completed"/>
+        <item
             android:id="@+id/nav_theory"
             android:icon="@drawable/ic_book"
             android:title="@string/menu_theory" />
@@ -20,6 +24,7 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_user_detail"
             android:title="@string/menu_profile"/>
+
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit_24"

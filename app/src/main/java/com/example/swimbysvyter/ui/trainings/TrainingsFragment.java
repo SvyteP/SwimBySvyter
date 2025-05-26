@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,18 +15,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.swimbysvyter.databinding.FragmentHomeBinding;
+import com.example.swimbysvyter.databinding.FragmentTrainingsBinding;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
+import com.example.swimbysvyter.ui.trainings.dialog.RefreshTrainingsDialogFragment;
+
+import java.util.List;
 
 public class TrainingsFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentTrainingsBinding binding;
     private RecyclerView trainingsRec;
     private View mainView;
     private TrainingsViewModel trainingsViewModel;
     private ActivityResultLauncher<Intent> trainingDetailLauncher;
+    private RefreshTrainingsDialogFragment refreshDialog;
+    private LinearLayout llUpdate;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,19 +45,23 @@ public class TrainingsFragment extends Fragment {
         trainingsViewModel = new ViewModelProvider(this)
                 .get(TrainingsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentTrainingsBinding.inflate(inflater, container, false);
         mainView = binding.getRoot();
 
         trainingsRec = binding.recTrainings;
+        llUpdate = binding.trainingsLlUpdate;
+
+
     }
 
     private void updateViews(){
+
+        isUpdated();
 
         trainingsViewModel.getRVTrainingsAdapter(pos -> {
             clickTraining(trainingsViewModel.getTrainings().getValue().get(pos));
         }).observe(getViewLifecycleOwner(), trainingsRec::setAdapter);
         trainingsRec.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         // Регистрируем коллбэк результата от Activity
         trainingDetailLauncher = registerForActivityResult(
@@ -68,6 +77,9 @@ public class TrainingsFragment extends Fragment {
                             }
                             if (data.getBooleanExtra("completedTraining",false)) {
                                 trainingsViewModel.delTraining(training);
+                                if(trainingsViewModel.getTrainings().getValue().isEmpty()){
+                                    startRefreshDialog();
+                                }
                             }
                         }
                     }
@@ -85,4 +97,23 @@ public class TrainingsFragment extends Fragment {
         intent.putExtra("trainingDetail",training);
         trainingDetailLauncher.launch(intent);
     }
+
+    private void startRefreshDialog(){
+        refreshDialog = new RefreshTrainingsDialogFragment();
+        refreshDialog.show(requireActivity().getSupportFragmentManager(),"RefreshDialog");
+    }
+
+    private void isUpdated(){
+        requireActivity().getSupportFragmentManager().setFragmentResultListener(
+                "resultRefresh",
+                getViewLifecycleOwner(),
+                (requestKey, result) -> {
+                    boolean clickCloseRefresh = result.getBoolean("clickCloseRefresh");
+                    if (clickCloseRefresh || trainingsViewModel.getTrainings().getValue().isEmpty()){
+                        llUpdate.setVisibility(View.VISIBLE);
+                    }
+                }
+        );
+    }
+
 }

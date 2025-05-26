@@ -1,8 +1,7 @@
 package com.example.swimbysvyter.ui.profile.dialog;
 
-import static com.example.swimbysvyter.SwimApp.complexities;
-import static com.example.swimbysvyter.SwimApp.genderNames;
-import static com.example.swimbysvyter.SwimApp.questioner;
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
+import static com.example.swimbysvyter.SwimApp.baseGenderNames;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 import static com.example.swimbysvyter.SwimApp.updateQuestionerForApp;
 
@@ -39,12 +38,12 @@ public class EditProfileDialogViewModel extends ViewModel {
     }
 
     private void loadGenderList(){
-        genderList.setValue(genderNames);
+        genderList.setValue(baseGenderNames);
     }
 
     private void loadComplexityList(){
         List<String> complexitiesNames = new ArrayList<>();
-        complexities.forEach((k,v) -> {
+        baseComplexities.forEach((k, v) -> {
             complexitiesNames.add(k);
         });
         complexityList.setValue(complexitiesNames);
