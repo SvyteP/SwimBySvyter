@@ -5,9 +5,5 @@ import java.util.Date;
 
 import lombok.Data;
 
-@Data
-public class ResponseDto<T> {
-    private T data;
-    private LocalDateTime dateTime;
-
+public record ResponseDto<T> (T data, LocalDateTime dateTime){
 }
