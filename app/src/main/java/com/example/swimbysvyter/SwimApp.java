@@ -54,9 +54,9 @@ public class SwimApp extends Application {
 
 
         baseComplexities = new HashMap<>(Map.of(
-                "Easy", new Complexity(1,"Easy"),
-                "Medium" ,new Complexity(2,"Medium"),
-                "High" ,new Complexity(3,"High")
+                "Easy", new Complexity(3,"Easy"),
+                "Medium" ,new Complexity(5,"Medium"),
+                "High" ,new Complexity(6,"High")
         ));
 
         baseGenderNames = new ArrayList<>(List.of("Man","Women"));

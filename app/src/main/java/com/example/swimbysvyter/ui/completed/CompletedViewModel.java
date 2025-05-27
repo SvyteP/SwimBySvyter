@@ -9,13 +9,14 @@ import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVTrainings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 import lombok.Getter;
 
 @Getter
 public class CompletedViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<Training>> trainings;
+    private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
 
 

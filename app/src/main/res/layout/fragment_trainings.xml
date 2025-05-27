@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:paddingVertical="@dimen/indent_edge_screen"
+            android:clickable="true"
             android:visibility="gone">
             <LinearLayout
                 style="@style/btn">
