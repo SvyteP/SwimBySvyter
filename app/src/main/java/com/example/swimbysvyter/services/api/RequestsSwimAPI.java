@@ -20,11 +20,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RequestsSwimAPI extends API {
-    @POST("auth/login")
-    Call<ResponseDto<AuthDto>> login(@Body LoginDto loginDto);
-
-    @POST("auth/reg")
-    Call<ResponseDto<AuthDto>> registration(@Body RegistrationDto registrationDto);
 
     @PUT("questioner")
     Call<ResponseDto<Questioner>> createQuestioner(@Body QuestionerUpdateDtoRequest questionerUpdateDtoRequest);

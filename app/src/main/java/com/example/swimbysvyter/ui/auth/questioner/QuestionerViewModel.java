@@ -2,10 +2,12 @@ package com.example.swimbysvyter.ui.auth.questioner;
 
 import static com.example.swimbysvyter.SwimApp.baseComplexities;
 import static com.example.swimbysvyter.SwimApp.baseGenderNames;
+import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
 
 import java.util.ArrayList;
@@ -44,10 +46,11 @@ public class QuestionerViewModel extends ViewModel {
         complexityList.setValue(complexitiesNames);
     }
 
-    public void createQuestioner(Questioner q){
+    public void regCustomer(Customer c,String pass, Questioner q){
         if (q == null) return;
 
         questioner.setValue(q);
+        swimAPI.registration(c.getLogin(),c.getEmail(),pass,);
         //Отправка запроса на создание quesioner
 
     }

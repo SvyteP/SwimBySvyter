@@ -1,5 +1,8 @@
 package com.example.swimbysvyter.services.api;
 
+import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
+import static com.example.swimbysvyter.SwimApp.secFileShared;
+
 import android.util.Base64;
 import android.util.Log;
 
@@ -37,7 +40,9 @@ public class SwimAPI {
     private final String TAG = "SwimAPI";
     private final RequestsSwimAPI requestsSwimAPI;
     private final OkHttpClient clientWithToken;
-    /*    private final OkHttpClient clientWithoutToken;*/
+    private final OkHttpClient clientWithoutToken;
+    private final RequestsSwimAPIWithoutToken requestsSwimAPIWithoutToken;
+
 
     public SwimAPI(String swimServerAddresses) {
         String baseSwimURL = "http://" + swimServerAddresses;
@@ -48,15 +53,34 @@ public class SwimAPI {
                     @Override
                     public Response intercept(@NonNull Chain chain) throws IOException {
                         Request request = chain.request().newBuilder()
+                                .addHeader("Authorization","Bearer " + encSharedPreferences.getString(secFileShared,""))
                                 .build();
                         return chain.proceed(request);
                     }
                 }).build();
 
+
         this.requestsSwimAPI = RetrofitSenderFactory.getAPIImpl(baseSwimURL,
                 GsonConverterFactory.create(),
                 clientWithToken,
                 RequestsSwimAPI.class);
+
+
+        this.clientWithoutToken = new OkHttpClient().newBuilder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new Interceptor() {
+                    @NonNull
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Request request = chain.request().newBuilder()
+                                .build();
+                        return chain.proceed(request);
+                    }
+                }).build();
+
+        this.requestsSwimAPIWithoutToken = RetrofitSenderFactory.getAPIImpl(baseSwimURL,
+                GsonConverterFactory.create(),
+                clientWithoutToken,
+                RequestsSwimAPIWithoutToken.class);
 
     }
 
@@ -65,7 +89,7 @@ public class SwimAPI {
                 Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
                 Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
         );
-        requestsSwimAPI.login(loginDto).enqueue(new Callback<>() {
+        requestsSwimAPIWithoutToken.login(loginDto).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
                 if (response.isSuccessful()) {
@@ -95,7 +119,7 @@ public class SwimAPI {
                 Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
                 Base64.encodeToString(email.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
         );
-        requestsSwimAPI.registration(regDto).enqueue(new Callback<>() {
+        requestsSwimAPIWithoutToken.registration(regDto).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
                 if (response.isSuccessful()) {

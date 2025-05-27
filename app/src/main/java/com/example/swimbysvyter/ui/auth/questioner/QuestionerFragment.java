@@ -1,5 +1,6 @@
 package com.example.swimbysvyter.ui.auth.questioner;
 
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
 import static com.example.swimbysvyter.helpers.SpinnerUtils.updateArrayAdapter;
 
 import android.os.Bundle;
@@ -18,8 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.swimbysvyter.databinding.FragmentQuestionerBinding;
+import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ValidText;
 
 public class QuestionerFragment extends Fragment implements TextWatcher {
@@ -45,13 +46,14 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initView(inflater,container,savedInstanceState);
+        initView(inflater, container, savedInstanceState);
         updateView();
         updateListeners();
         return mainView;
     }
+
     private void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentQuestionerBinding.inflate(inflater,container,false);
+        binding = FragmentQuestionerBinding.inflate(inflater, container, false);
         mainView = binding.getRoot();
 
         editAge = binding.questAgeEdit;
@@ -69,13 +71,13 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
 
     private void updateView() {
         //Заменить данными из ViewMode(Создать ее)
-        questionerViewModel.getGenderList().observe(getViewLifecycleOwner(),g ->updateArrayAdapter(
+        questionerViewModel.getGenderList().observe(getViewLifecycleOwner(), g -> updateArrayAdapter(
                 g,
                 genderAdapter,
                 spinnerGender,
-               null, null, requireContext()));
+                null, null, requireContext()));
         //Заменить данными из ViewMode(Создать ее)
-        questionerViewModel.getComplexityList().observe(getViewLifecycleOwner(),c -> updateArrayAdapter(
+        questionerViewModel.getComplexityList().observe(getViewLifecycleOwner(), c -> updateArrayAdapter(
                 c,
                 complexityAdapter,
                 spinnerComplexity,
@@ -84,13 +86,18 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
         spinnerGender.setDropDownVerticalOffset(100);
         spinnerComplexity.setDropDownVerticalOffset(100);
     }
+
     private void updateListeners() {
         llSave.setOnClickListener(this::clickSave);
     }
 
-    private void clickSave(View v){
-        //проверяем данные и отправляем их на сервер обновляться
-        questionerViewModel.createQuestioner(null);
+    private void clickSave(View v) {
+        Customer customerInfo = getArguments().getParcelable("customer");
+        String pass = getArguments().getString("pass");
+        if (customerInfo == null || pass == null) return;
+
+        //проверяем данные и отправляем их на сервер
+        questionerViewModel.regCustomer(customerInfo,pass,createQuestioner());
     }
 
 
@@ -101,11 +108,21 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        llSave.setEnabled(ValidText.sizeValid(editAge,editCountTrainingOneWeek,editCountWeek,editLengthPool,editTrainingTime));
+        llSave.setEnabled(ValidText.sizeValid(editAge, editCountTrainingOneWeek, editCountWeek, editLengthPool, editTrainingTime));
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    private Questioner createQuestioner(){
+        return new Questioner(Integer.parseInt(editAge.getText().toString()),
+                Integer.parseInt(editCountTrainingOneWeek.getText().toString()),
+                Integer.parseInt(editCountWeek.getText().toString()),
+                spinnerGender.getSelectedItem().toString(),
+                Integer.parseInt(editLengthPool.getText().toString()),
+                Integer.parseInt(editTrainingTime.getText().toString()),
+                baseComplexities.get(spinnerComplexity.getSelectedItem()));
     }
 }

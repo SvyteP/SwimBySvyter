@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.FragmentRegistrationBinding;
+import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ValidText;
 
@@ -91,7 +92,14 @@ public class RegistrationFragment extends Fragment implements TextWatcher{
         eyeImg.setOnClickListener(v -> EditTextUtils.clickEyeImg(v,editPass));
         eyeImgRepeat.setOnClickListener(v -> EditTextUtils.clickEyeImg(v,editPassRepeat));
 
-        createAccountBtn.setOnClickListener(v -> navController.navigate(R.id.action_regFragment_to_questionerFragment));
+        createAccountBtn.setOnClickListener(this::clickCreateAccount);
+    }
+
+    private void clickCreateAccount(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("customer",new Customer(editLogin.getText().toString(),editEmail.getText().toString()));
+        bundle.putString("pass",editPass.getText().toString());
+        navController.navigate(R.id.action_regFragment_to_questionerFragment,bundle);
     }
 
 
