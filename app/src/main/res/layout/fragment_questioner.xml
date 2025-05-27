@@ -99,8 +99,8 @@
             <EditText
                 android:id="@+id/quest_time_train_edit"
                 style="@style/colorEditor"
-                android:hint="password"
-                android:inputType="textPassword" />
+                android:hint="Time for training"
+                android:inputType="number" />
 
 
             <!--complexity-->

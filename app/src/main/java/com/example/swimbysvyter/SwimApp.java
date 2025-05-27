@@ -3,10 +3,12 @@ package com.example.swimbysvyter;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
@@ -114,6 +116,12 @@ public class SwimApp extends Application {
     public static void updateCustomerForApp(Customer c){
         encSharedPreferences.edit().putString("questionerInfo",convertorJSON.ConvertObjectToStringJSON(c)).apply();
         baseCustomer = c;
+    }
+
+    public static void transitionActivity(Context context, FragmentActivity from, Class to){
+        Intent intent = new Intent(context, to);
+        from.startActivity(intent);
+        from.finish();
     }
 
 }

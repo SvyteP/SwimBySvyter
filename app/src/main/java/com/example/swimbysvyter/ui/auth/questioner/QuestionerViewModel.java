@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +47,36 @@ public class QuestionerViewModel extends ViewModel {
         complexityList.setValue(complexitiesNames);
     }
 
-    public void regCustomer(Customer c,String pass, Questioner q){
+    public void regCustomer(Customer c,String pass, Questioner q, RequestCallBack callBackUI){
         if (q == null) return;
+        RequestCallBack responseSetQuest = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                callBackUI.onSuccess(object);
+            }
+
+            @Override
+            public void onError(Object object) {
+                callBackUI.onError(object);
+            }
+        };
+
+        RequestCallBack responseReg = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                //Отправка запроса на создание quesioner
+                swimAPI.updateQuestioner(q,responseSetQuest);
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
 
         questioner.setValue(q);
-        swimAPI.registration(c.getLogin(),c.getEmail(),pass,);
-        //Отправка запроса на создание quesioner
+        //Отправка запроса на регистрацию
+        swimAPI.registration(c.getLogin(),c.getEmail(),pass,responseReg);
 
     }
 }
