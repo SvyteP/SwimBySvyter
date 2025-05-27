@@ -73,7 +73,7 @@ public class LogInViewModel extends ViewModel {
             Log.e("LogInViewModel" , "sendLogInInfo error about login or pass == null");
             return;
         }
-        swimAPI.Login(login.getValue(),pass.getValue(),callBack);
+        swimAPI.login(login.getValue(),pass.getValue(),callBack);
     }
 
 

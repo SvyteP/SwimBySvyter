@@ -2,10 +2,12 @@ package com.example.swimbysvyter.services.api;
 
 import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.QuestionerUpdateDtoRequest;
-import com.example.swimbysvyter.dto.RequestRegistrationDto;
+import com.example.swimbysvyter.dto.RegistrationDto;
 import com.example.swimbysvyter.dto.ResponseDto;
-import com.example.swimbysvyter.dto.ResponseRegDto;
+import com.example.swimbysvyter.dto.AuthDto;
 import com.example.swimbysvyter.dto.TrainingsGetDto;
+import com.example.swimbysvyter.entity.Complexity;
+import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -19,10 +21,10 @@ import retrofit2.http.Query;
 
 public interface RequestsSwimAPI extends API {
     @POST("auth/login")
-    Call<ResponseBody> login(@Body LoginDto loginDto);
+    Call<ResponseDto<AuthDto>> login(@Body LoginDto loginDto);
 
     @POST("auth/reg")
-    Call<ResponseDto<ResponseRegDto>> registration(@Body RequestRegistrationDto requestRegistrationDto);
+    Call<ResponseDto<AuthDto>> registration(@Body RegistrationDto registrationDto);
 
     @PUT("questioner")
     Call<ResponseDto<Questioner>> createQuestioner(@Body QuestionerUpdateDtoRequest questionerUpdateDtoRequest);
@@ -44,4 +46,11 @@ public interface RequestsSwimAPI extends API {
 
     @PUT("/customer/trainings/complete/{id}?isCompl=true")
     Call<ResponseBody> isCompletedTraining(@Query("isCompl") boolean isCompl, @Path("id") long trainingId);
+
+    @GET("/compl")
+    Call<ResponseDto<List<Complexity>>> getComplexity();
+
+    @GET("/inventory")
+    Call<ResponseDto<List<Inventory>>> getInventory();
+
 }

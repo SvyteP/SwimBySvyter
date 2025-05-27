@@ -7,16 +7,21 @@ import androidx.annotation.NonNull;
 
 import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.dto.LoginDto;
+import com.example.swimbysvyter.dto.QuestionerUpdateDtoRequest;
+import com.example.swimbysvyter.dto.RegistrationDto;
 import com.example.swimbysvyter.dto.ResponseDto;
-import com.example.swimbysvyter.dto.ResponseRetrofitDto;
+import com.example.swimbysvyter.dto.AuthDto;
+import com.example.swimbysvyter.dto.TrainingsGetDto;
+import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Customer;
+import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.swimbysvyter.entity.Training;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -32,21 +37,21 @@ public class SwimAPI {
     private final String TAG = "SwimAPI";
     private final RequestsSwimAPI requestsSwimAPI;
     private final OkHttpClient clientWithToken;
-/*    private final OkHttpClient clientWithoutToken;*/
+    /*    private final OkHttpClient clientWithoutToken;*/
 
     public SwimAPI(String swimServerAddresses) {
         String baseSwimURL = "http://" + swimServerAddresses;
 
-        this.clientWithToken =  new OkHttpClient().newBuilder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        this.clientWithToken = new OkHttpClient().newBuilder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new Interceptor() {
-            @NonNull
-            @Override
-            public Response intercept(@NonNull Chain chain) throws IOException {
-                Request request = chain.request().newBuilder()
-                        .build();
-                return chain.proceed(request);
-            }
-        }).build();
+                    @NonNull
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Request request = chain.request().newBuilder()
+                                .build();
+                        return chain.proceed(request);
+                    }
+                }).build();
 
         this.requestsSwimAPI = RetrofitSenderFactory.getAPIImpl(baseSwimURL,
                 GsonConverterFactory.create(),
@@ -55,73 +60,74 @@ public class SwimAPI {
 
     }
 
-    public void Login(String login, String pass, RequestCallBack callBack){
-        String encodeLogin = Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
-        String encodePass = Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
-        requestsSwimAPI.login(new LoginDto(encodeLogin,encodePass)).enqueue(new Callback<>() {
+    public void login(String login, String pass, RequestCallBack callBack) {
+        LoginDto loginDto = new LoginDto(
+                Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
+                Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
+        );
+        requestsSwimAPI.login(loginDto).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                if (response.isSuccessful()){
-                    JSONObject data;
-                    try {
-                        data = new JSONObject(response.body().string()).getJSONObject("data");
-                        SwimApp.baseCustomer = new Customer(data);
-                        SwimApp.baseQuestioner = new Questioner(data.optJSONObject("questioner"));
-                        callBack.onSuccess(data);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+            public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
+                if (response.isSuccessful()) {
+                    AuthDto data;
+                    data = response.body().data();
+                    SwimApp.baseCustomer = new Customer(data.login(), data.email(), data.token());
+                    SwimApp.baseQuestioner = data.questioner();
+                    callBack.onSuccess(data);
                 } else {
                     callBack.onError(call);
-                    Log.e(TAG,String.format("Execution request login is failed with code: %s and body %s",response.code(),response.body()));
+                    Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ResponseDto<AuthDto>> call, Throwable t) {
                 callBack.onError(call);
-                Log.e(TAG,String.format("Send request login is failed with exception: %s",t.getMessage()));
+                Log.e(TAG, String.format("Send request login is failed with exception: %s", t.getMessage()));
             }
         });
     }
 
 
-    public void getQuestioner(Long customerId, RequestCallBack callBack){
-        requestsSwimAPI.getQuestioner(customerId).enqueue(new Callback<ResponseRetrofitDto<Questioner>>() {
+    public void registration(String login, String email, String pass, RequestCallBack callBack) {
+        RegistrationDto regDto = new RegistrationDto(
+                Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
+                Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
+                Base64.encodeToString(email.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
+        );
+        requestsSwimAPI.registration(regDto).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseRetrofitDto<Questioner>> call, retrofit2.Response<ResponseRetrofitDto<Questioner>> response) {
-                if(response.isSuccessful()){
-
-                    Questioner result = response.body().getData();
-                    if (result != null){
-                        callBack.onSuccess(result);
-                    }
-                    else {
-                        callBack.onError(call);
-                        Log.e(TAG,String.format("Execution request login is failed with code: %s and body %s",response.code(),response.body()));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseRetrofitDto<Questioner>> call, Throwable t) {
-                callBack.onError(call);
-                Log.e(TAG,String.format("Send request login is failed with exception: %s",t.getMessage()));
-            }
-        });
-    }
-
-    public void updateQuestioner(Long customerId, Questioner questioner, RequestCallBack callBack){
-        requestsSwimAPI.updateQuestioner(customerId,questioner).enqueue(new Callback<>() {
-            @Override
-            public void onResponse(Call<ResponseRetrofitDto<ResponseDto<Questioner>>> call,
-                                   retrofit2.Response<ResponseRetrofitDto<ResponseDto<Questioner>>> response) {
+            public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
                 if (response.isSuccessful()) {
-                    Questioner quest = response.body().getData().getData();
-                    if (quest != null) {
-                        callBack.onSuccess(quest);
+                    AuthDto data;
+                    data = response.body().data();
+                    SwimApp.baseCustomer = new Customer(data.login(), data.email(), data.token());
+                    SwimApp.baseQuestioner = data.questioner();
+                    callBack.onSuccess(data);
+                } else {
+                    callBack.onError(call);
+                    Log.e(TAG, String.format("Execution request registration is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<AuthDto>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, String.format("Send request registration is failed with exception: %s", t.getMessage()));
+            }
+        });
+    }
+
+
+    public void getQuestioner(RequestCallBack callBack) {
+        requestsSwimAPI.getQuestioner().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<Questioner>> call, retrofit2.Response<ResponseDto<Questioner>> response) {
+                if (response.isSuccessful()) {
+
+                    Questioner result = response.body().data();
+                    if (result != null) {
+                        callBack.onSuccess(result);
                     } else {
                         callBack.onError(call);
                         Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
@@ -130,9 +136,161 @@ public class SwimAPI {
             }
 
             @Override
-            public void onFailure(Call<ResponseRetrofitDto<ResponseDto<Questioner>>> call, Throwable t) {
+            public void onFailure(Call<ResponseDto<Questioner>> call, Throwable t) {
                 callBack.onError(call);
-                Log.e(TAG, "UpdateQuestioner failed with code: " + t.getMessage());
+                Log.e(TAG, String.format("Send request login is failed with exception: %s", t.getMessage()));
+            }
+        });
+    }
+
+    public void updateQuestioner(Questioner questioner, RequestCallBack callBack) {
+        QuestionerUpdateDtoRequest updateDto = new QuestionerUpdateDtoRequest(questioner);
+        requestsSwimAPI.updateQuestioner(updateDto).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<Questioner>> call,
+                                   retrofit2.Response<ResponseDto<Questioner>> response) {
+                if (response.isSuccessful()) {
+                    Questioner quest = response.body().data();
+                    if (quest != null) {
+                        callBack.onSuccess(quest);
+                    } else {
+                        callBack.onError(call);
+                        Log.e(TAG, String.format("Execution request updateQuestioner is failed with code: %s and body %s", response.code(), response.body()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<Questioner>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "UpdateQuestioner failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void setTrainings(RequestCallBack callBack) {
+        requestsSwimAPI.generateTrainings().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<TrainingsGetDto>>> call, retrofit2.Response<ResponseDto<List<TrainingsGetDto>>> response) {
+                List<TrainingsGetDto> data = response.body().data();
+
+                if (data != null) {
+                    List<Training> trainings = new ArrayList<>();
+                    data.forEach(t -> trainings.add(new Training(t.id(), t.trainingDTO(), t.likeTrain(), t.completed())));
+                    callBack.onSuccess(trainings);
+                } else {
+                    callBack.onError(response.body());
+                    Log.e(TAG, String.format("Execution request generateTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<TrainingsGetDto>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "setTrainings failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getTraining(long id, RequestCallBack callBack) {
+
+        requestsSwimAPI.getInfoAboutTraining(id).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<TrainingsGetDto>> call, retrofit2.Response<ResponseDto<TrainingsGetDto>> response) {
+                TrainingsGetDto getDto = response.body().data();
+                if (getDto != null) {
+                    Training training = new Training(getDto.id(), getDto.trainingDTO(), getDto.likeTrain(), getDto.completed());
+                    callBack.onSuccess(training);
+                } else {
+                    callBack.onError(response.body());
+                    Log.e(TAG, String.format("Execution request getTraining is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<TrainingsGetDto>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "getTraining failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void changeLike(boolean isLike, long trainingId, RequestCallBack callBack) {
+        requestsSwimAPI.isLikeTraining(isLike, trainingId).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callBack.onSuccess(response.body());
+                    return;
+                }
+                callBack.onError(response.body());
+                Log.e(TAG, String.format("Execution request changeLike is failed with code: %s and body %s", response.code(), response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "changeLike failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void changeComplete(boolean isComplete, long trainingId, RequestCallBack callBack) {
+        requestsSwimAPI.isCompletedTraining(isComplete, trainingId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callBack.onSuccess(response.body());
+                    return;
+                }
+                callBack.onError(response.body());
+                Log.e(TAG, String.format("Execution request isCompletedTraining is failed with code: %s and body %s", response.code(), response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "changeLike failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getAllInventories(RequestCallBack callBack){
+        requestsSwimAPI.getInventory().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<Inventory>>> call, retrofit2.Response<ResponseDto<List<Inventory>>> response) {
+                if (response.isSuccessful()) {
+                    callBack.onSuccess(response.body());
+                    return;
+                }
+                callBack.onError(response.body());
+                Log.e(TAG, String.format("Execution request getAllInventories is failed with code: %s and body %s", response.code(), response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<Inventory>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG, "getAllInventories failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getAllComplexity(RequestCallBack callBack){
+        requestsSwimAPI.getComplexity().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<Complexity>>> call, retrofit2.Response<ResponseDto<List<Complexity>>> response) {
+                if (response.isSuccessful()){
+                    callBack.onSuccess(response.body());
+                    return;
+                }
+                callBack.onError(response.body());
+                Log.e(TAG,String.format("Execution request getAllComplexity is failed with code: %s and body %s", response.code(), response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<Complexity>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG,"getAllComplexity failed with message: " + t.getMessage());
             }
         });
     }

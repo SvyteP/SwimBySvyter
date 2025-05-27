@@ -5,5 +5,5 @@ import com.example.swimbysvyter.entity.Questioner;
 
 import java.util.List;
 
-public record ResponseRegDto (String login, String email, List<Inventory> inventory, Questioner questioner, String token) {
+public record AuthDto(String login, String email, List<Inventory> inventory, Questioner questioner, String token) {
 }

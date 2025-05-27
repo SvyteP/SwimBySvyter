@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import com.example.swimbysvyter.R;
+import com.example.swimbysvyter.dto.TrainingDto;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -45,6 +46,16 @@ public class Training implements Parcelable {
         this.inventories = inventories;
     }
 
+    public Training(Long id, TrainingDto training, boolean isLike, boolean isCompleted) {
+        this.id = id;
+        this.name = training.name();
+        this.warmUp = training.warmUp();
+        this.main = training.mainTraining();
+        this.hitch = training.hitch();
+        this.inventories = training.inventories();
+        this.isLike = isLike;
+        this.isCompleted = isCompleted;
+    }
 
     public Training(Long id, String name, String warmUp, String main, String hitch, List<Inventory> inventories, boolean isCompleted, boolean isLike) {
         this.id = id;
