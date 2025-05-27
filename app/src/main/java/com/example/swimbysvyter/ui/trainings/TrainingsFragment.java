@@ -37,6 +37,8 @@ public class TrainingsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         initViews(inflater,container,savedInstanceState);
         updateViews();
+        updateListeners();
+
         return mainView;
     }
 
@@ -51,12 +53,14 @@ public class TrainingsFragment extends Fragment {
         trainingsRec = binding.recTrainings;
         llUpdate = binding.trainingsLlUpdate;
 
-
     }
 
     private void updateViews(){
 
         isUpdated();
+        if (trainingsViewModel.getTrainings().getValue().isEmpty()){
+            llUpdate.setVisibility(View.VISIBLE);
+        }
 
         trainingsViewModel.getRVTrainingsAdapter(pos -> {
             clickTraining(trainingsViewModel.getTrainings().getValue().get(pos));
@@ -90,6 +94,14 @@ public class TrainingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void updateListeners(){
+        llUpdate.setOnClickListener(this::clickUpdate);
+    }
+
+    private void clickUpdate(View view) {
+        trainingsViewModel.loadTrainings();
     }
 
     private void clickTraining(Training training){

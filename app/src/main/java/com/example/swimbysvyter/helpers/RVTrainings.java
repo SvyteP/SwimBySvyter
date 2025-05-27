@@ -16,14 +16,15 @@ import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.entity.Training;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RVTrainings extends RecyclerView.Adapter {
 
-    private ArrayList<Training> items;
+    private List<Training> items;
     private ClickItemListener clickItemListener;
 
-    public RVTrainings(MutableLiveData<ArrayList<Training>> items,ClickItemListener clickItemListener) {
-        ArrayList<Training> mItems = items.getValue();
+    public RVTrainings(MutableLiveData<List<Training>> items,ClickItemListener clickItemListener) {
+        List<Training> mItems = items.getValue();
         this.clickItemListener = clickItemListener;
         if (mItems != null) {
             this.items = mItems;

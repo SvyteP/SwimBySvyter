@@ -1,41 +1,59 @@
 package com.example.swimbysvyter.ui.trainings;
 
 import static com.example.swimbysvyter.SwimApp.baseInventories;
+import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVTrainings;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 @Getter
 public class TrainingsViewModel extends ViewModel implements Serializable {
 
-    private MutableLiveData<ArrayList<Training>> trainings;
+    private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
+    private boolean isStartLoadTraining = false;
 
     public TrainingsViewModel() {
-        this.trainings = new MutableLiveData<>(new ArrayList<>(setTrainings()));
+        this.trainings = new MutableLiveData<>(new ArrayList<>());
         this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
+        loadData();
     }
 
-    private ArrayList<Training> setTrainings(){
-        ArrayList<Training> trainings1 =  new ArrayList<>();
-        ArrayList<Inventory> inventories = new ArrayList<>();
-        inventories.add(baseInventories.get(1));
-        inventories.add(baseInventories.get(3));
+    private void loadData(){
+        loadTrainings();
+    }
 
-        trainings1.add(new Training(1L,"name","warmUp","main","hitch",inventories,false,false));
-        trainings1.add(new Training(2L,"2name","2warmUp","2main","2hitch",inventories,false,true));
+    public void loadTrainings(){
+        if (!isStartLoadTraining) {
+            isStartLoadTraining = true;
+            RequestCallBack callBack = new RequestCallBack() {
+                @Override
+                public void onSuccess(Object object) {
+                    List<Training> trainingList = (List<Training>) object;
+                    if (trainingList != null) {
+                        trainings.setValue(trainingList);
+                    }
+                    isStartLoadTraining = false;
+                }
 
-        return trainings1;
+                @Override
+                public void onError(Object object) {
+                    isStartLoadTraining = false;
+                }
+            };
+            swimAPI.setTrainings(callBack);
+        }
     }
 
     public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener clickItemListener){
@@ -44,7 +62,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
     }
 
     public void updateTraining(Training updated) {
-        ArrayList<Training> current = trainings.getValue();
+        List<Training> current = trainings.getValue();
         if (current == null) return;
 
         for (int i = 0; i < current.size(); i++) {
@@ -58,7 +76,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
     }
 
     public void delTraining(Training t) {
-        ArrayList<Training> current = trainings.getValue();
+        List<Training> current = trainings.getValue();
         if (current == null) return;
 
        for(int i = 0; i<current.size(); i++){

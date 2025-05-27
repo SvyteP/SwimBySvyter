@@ -22,13 +22,11 @@ import lombok.Getter;
 public class EditProfileDialogViewModel extends ViewModel {
     private final MutableLiveData<List<String>> genderList;
     private final MutableLiveData<List<String>> complexityList;
-    private final MutableLiveData<Questioner> questionerDialog;
 
 
     public EditProfileDialogViewModel() {
         this.genderList = new MutableLiveData<>();
         this.complexityList = new MutableLiveData<>();
-        this.questionerDialog = new MutableLiveData<>();
         updateData();
     }
 
@@ -54,6 +52,8 @@ public class EditProfileDialogViewModel extends ViewModel {
         RequestCallBack callBack = new RequestCallBack() {
             @Override
             public void onSuccess(Object object) {
+                Questioner quest = (Questioner) object;
+                updateQuestionerForApp(quest);
                 Log.i("EditProfileDialogViewModel","updateQuestioner success: " + object.toString());
             }
 
@@ -63,13 +63,5 @@ public class EditProfileDialogViewModel extends ViewModel {
             }
         };
         swimAPI.updateQuestioner(q, callBack);
-        questionerDialog.setValue(q);
-        updateQuestionerForApp(q);
     }
-
-    public void serQuestioner(Questioner q){
-        if (q == null) return;
-
-    }
-
 }

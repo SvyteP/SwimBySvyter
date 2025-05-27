@@ -49,7 +49,6 @@ public class LogInViewModel extends ViewModel {
                     checkAuthorized(customerInfo,questionerInfo);
                     encSharedPreferences.edit().putString("authToken",data.token()).apply();
                     isAuthorized.setValue(true);
-
                     modelCallBack.success(object);
             }
 
@@ -64,6 +63,7 @@ public class LogInViewModel extends ViewModel {
             Log.e("LogInViewModel" , "sendLogInInfo error about login or pass == null");
             return;
         }
+
         swimAPI.login(login.getValue(),pass.getValue(),callBack);
     }
 
@@ -88,7 +88,6 @@ public class LogInViewModel extends ViewModel {
 
     private void updateAppInfo(Customer customerInfo, Questioner questionerInfo){
         if (isAuthorized.getValue()){
-
             String customerPref = encSharedPreferences.getString("customerInfo",null);
             String questionerPref = sharedPreferences.getString("questionerInfo",null);
 
