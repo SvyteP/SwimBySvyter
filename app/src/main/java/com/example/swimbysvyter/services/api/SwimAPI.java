@@ -2,6 +2,8 @@ package com.example.swimbysvyter.services.api;
 
 import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
 import static com.example.swimbysvyter.SwimApp.secFileShared;
+import static com.example.swimbysvyter.SwimApp.updateCustomerForApp;
+import static com.example.swimbysvyter.SwimApp.updateQuestionerForApp;
 
 import android.util.Base64;
 import android.util.Log;
@@ -52,8 +54,9 @@ public class SwimAPI {
                     @NonNull
                     @Override
                     public Response intercept(@NonNull Chain chain) throws IOException {
+                       String token = encSharedPreferences.getString(secFileShared,"");
                         Request request = chain.request().newBuilder()
-                                .addHeader("Authorization","Bearer " + encSharedPreferences.getString(secFileShared,""))
+                                .addHeader("Authorization","Bearer " + token)
                                 .build();
                         return chain.proceed(request);
                     }
@@ -93,10 +96,7 @@ public class SwimAPI {
             @Override
             public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
                 if (response.isSuccessful()) {
-                    AuthDto data;
-                    data = response.body().data();
-                    SwimApp.baseCustomer = new Customer(data.login(), data.email(), data.token());
-                    SwimApp.baseQuestioner = data.questioner();
+                    AuthDto data = response.body().data();
                     callBack.onSuccess(data);
                 } else {
                     callBack.onError(call);
@@ -116,8 +116,8 @@ public class SwimAPI {
     public void registration(String login, String email, String pass, RequestCallBack callBack) {
         RegistrationDto regDto = new RegistrationDto(
                 Base64.encodeToString(login.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
-                Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
-                Base64.encodeToString(email.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
+                Base64.encodeToString(email.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP),
+                Base64.encodeToString(pass.getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP)
         );
         requestsSwimAPIWithoutToken.registration(regDto).enqueue(new Callback<>() {
             @Override
@@ -125,8 +125,8 @@ public class SwimAPI {
                 if (response.isSuccessful()) {
                     AuthDto data;
                     data = response.body().data();
-                    SwimApp.baseCustomer = new Customer(data.login(), data.email(), data.token());
-                    SwimApp.baseQuestioner = data.questioner();
+                    updateCustomerForApp(new Customer(data.login(), data.email(), data.token()));
+                    encSharedPreferences.edit().putString(secFileShared,data.token()).apply();
                     callBack.onSuccess(data);
                 } else {
                     callBack.onError(call);
@@ -176,6 +176,7 @@ public class SwimAPI {
                 if (response.isSuccessful()) {
                     Questioner quest = response.body().data();
                     if (quest != null) {
+                        updateQuestionerForApp(quest);
                         callBack.onSuccess(quest);
                     } else {
                         callBack.onError(call);

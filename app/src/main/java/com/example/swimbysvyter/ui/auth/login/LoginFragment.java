@@ -6,6 +6,7 @@ import static com.example.swimbysvyter.SwimApp.enabledBtn;
 import static com.example.swimbysvyter.SwimApp.loginShared;
 import static com.example.swimbysvyter.SwimApp.masterKey;
 import static com.example.swimbysvyter.SwimApp.secFileShared;
+import static com.example.swimbysvyter.SwimApp.transitionActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 
 import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.R;
+import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.databinding.FragmentLoginBinding;
 import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ModelCallBack;
@@ -71,7 +73,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(logInViewModel.checkAuthorized(null,null)){
-            startMainMenu();
+            transitionActivity(requireContext(),requireActivity(),MainActivity.class);
         } else{
             updateView();
             updateListener();
@@ -174,7 +176,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void success(Object o) {
 
-                startMainMenu();
+                transitionActivity(requireContext(),requireActivity(),MainActivity.class);
             }
 
             @Override
@@ -183,12 +185,4 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-
-    private void startMainMenu(){
-        Intent intent = new Intent(requireContext(), MainActivity.class);
-        startActivity(intent);
-        requireActivity().finish();
-    }
-
-
 }

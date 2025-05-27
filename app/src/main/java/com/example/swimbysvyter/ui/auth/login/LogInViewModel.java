@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.swimbysvyter.SwimApp;
+import com.example.swimbysvyter.dto.AuthDto;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ModelCallBack;
@@ -41,25 +42,15 @@ public class LogInViewModel extends ViewModel {
         RequestCallBack callBack = new RequestCallBack() {
             @Override
             public void onSuccess(Object object) {
-                try {
-                    JSONObject data = new JSONObject(object.toString());
-                    JSONObject questionerJSON = data.optJSONObject("questioner");
-                    Questioner questionerInfo = null;
-                    Customer customerInfo = new Customer(data.optString("login"),data.optString("email"),data.optString("token"));
-
-                    if (questionerJSON != null){
-                       questionerInfo = new Questioner(questionerJSON);
-                    }
+                    AuthDto data = (AuthDto) object;
+                    Customer customerInfo = new Customer(data.login(), data.email(), data.token());
+                    Questioner questionerInfo = data.questioner();
 
                     checkAuthorized(customerInfo,questionerInfo);
-                    encSharedPreferences.edit().putString("authToken",data.optString("token")).apply();
+                    encSharedPreferences.edit().putString("authToken",data.token()).apply();
                     isAuthorized.setValue(true);
 
                     modelCallBack.success(object);
-                } catch (JSONException e) {
-                    Log.e("sendLogInInfo","RequestCallBack error: " + e.getMessage());
-                    modelCallBack.error(object);
-                }
             }
 
             @Override

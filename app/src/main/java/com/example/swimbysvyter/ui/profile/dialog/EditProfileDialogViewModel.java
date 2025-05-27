@@ -62,7 +62,7 @@ public class EditProfileDialogViewModel extends ViewModel {
                 Log.e("EditProfileDialogViewModel","updateQuestioner error: " + object.toString());
             }
         };
-        swimAPI.updateQuestioner(3L,q, callBack);
+        swimAPI.updateQuestioner(q, callBack);
         questionerDialog.setValue(q);
         updateQuestionerForApp(q);
     }

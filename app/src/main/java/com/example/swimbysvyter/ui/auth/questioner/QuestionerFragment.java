@@ -1,6 +1,7 @@
 package com.example.swimbysvyter.ui.auth.questioner;
 
 import static com.example.swimbysvyter.SwimApp.baseComplexities;
+import static com.example.swimbysvyter.SwimApp.transitionActivity;
 import static com.example.swimbysvyter.helpers.SpinnerUtils.updateArrayAdapter;
 
 import android.os.Bundle;
@@ -9,19 +10,23 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.databinding.FragmentQuestionerBinding;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ValidText;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 public class QuestionerFragment extends Fragment implements TextWatcher {
     private final QuestionerViewModel questionerViewModel;
@@ -85,9 +90,40 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
 
         spinnerGender.setDropDownVerticalOffset(100);
         spinnerComplexity.setDropDownVerticalOffset(100);
+
     }
 
     private void updateListeners() {
+        editAge.addTextChangedListener(this);
+        editCountWeek.addTextChangedListener(this);
+        editLengthPool.addTextChangedListener(this);
+        editTrainingTime.addTextChangedListener(this);
+        editCountTrainingOneWeek.addTextChangedListener(this);
+
+
+        spinnerComplexity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                llSave.setEnabled(ValidText.sizeValid(editAge, editCountTrainingOneWeek, editCountWeek, editLengthPool, editTrainingTime));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                llSave.setEnabled(ValidText.sizeValid(editAge, editCountTrainingOneWeek, editCountWeek, editLengthPool, editTrainingTime));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         llSave.setOnClickListener(this::clickSave);
     }
 
@@ -97,7 +133,18 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
         if (customerInfo == null || pass == null) return;
 
         //проверяем данные и отправляем их на сервер
-        questionerViewModel.regCustomer(customerInfo,pass,createQuestioner());
+        RequestCallBack callBackUI = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                transitionActivity(requireContext(),requireActivity(), MainActivity.class);
+            }
+
+            @Override
+            public void onError(Object object) {
+                Toast.makeText(requireContext(),object.toString(),Toast.LENGTH_LONG).show();
+            }
+        };
+        questionerViewModel.regCustomer(customerInfo,pass,createQuestioner(), callBackUI);
     }
 
 
