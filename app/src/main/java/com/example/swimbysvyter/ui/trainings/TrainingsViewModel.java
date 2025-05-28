@@ -59,6 +59,29 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
         }
     }
 
+    public void reloadTrainings(){
+        if (!isStartLoadTraining) {
+            isStartLoadTraining = true;
+            RequestCallBack callBack = new RequestCallBack() {
+                @Override
+                public void onSuccess(Object object) {
+                    List<Training> trainingList = (List<Training>) object;
+                    if (trainingList != null) {
+                        trainings.setValue(trainingList);
+                        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener.getValue()));
+                    }
+                    isStartLoadTraining = false;
+                }
+
+                @Override
+                public void onError(Object object) {
+                    isStartLoadTraining = false;
+                }
+            };
+            swimAPI.getActiveTrainings(callBack);
+        }
+    }
+
     public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener listener){
         adapterRVTrainings.setValue(new RVTrainings(trainings,listener));
         clickItemListener.setValue(listener);

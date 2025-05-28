@@ -48,4 +48,7 @@ public interface RequestsSwimAPI extends API {
     @GET("/inventory")
     Call<ResponseDto<List<Inventory>>> getInventory();
 
+    @GET("/customer/trainings/all/active/user")
+    Call<ResponseDto<List<TrainingsGetDto>>> getAllActiveTrainings();
+
 }
