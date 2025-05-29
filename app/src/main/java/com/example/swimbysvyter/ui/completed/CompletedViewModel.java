@@ -28,13 +28,8 @@ public class CompletedViewModel extends ViewModel {
 
     public CompletedViewModel() {
         this.trainings = new MutableLiveData<>();
-        this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
+        this.adapterRVTrainings = new MutableLiveData<>();
         this.clickItem = new MutableLiveData<>();
-        loadData();
-    }
-
-    private void loadData(){
-        loadTraining();
     }
 
     public void loadTraining(){
