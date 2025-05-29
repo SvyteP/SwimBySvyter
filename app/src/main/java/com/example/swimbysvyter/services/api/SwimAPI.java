@@ -294,8 +294,10 @@ public class SwimAPI {
             @Override
             public void onResponse(Call<ResponseDto<List<Inventory>>> call, retrofit2.Response<ResponseDto<List<Inventory>>> response) {
                 if (response.isSuccessful()) {
-                    callBack.onSuccess(response.body());
-                    return;
+                    if(response.body() != null) {
+                        callBack.onSuccess(response.body().data());
+                        return;
+                    }
                 }
                 callBack.onError(response.body());
                 Log.e(TAG, String.format("Execution request getAllInventories is failed with code: %s and body %s", response.code(), response.body()));
@@ -309,13 +311,15 @@ public class SwimAPI {
         });
     }
 
-    public void getAllComplexity(RequestCallBack callBack){
+    public void getAllComplexities(RequestCallBack callBack){
         requestsSwimAPI.getComplexity().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<List<Complexity>>> call, retrofit2.Response<ResponseDto<List<Complexity>>> response) {
                 if (response.isSuccessful()){
-                    callBack.onSuccess(response.body());
-                    return;
+                    if (response.body() != null) {
+                        callBack.onSuccess(response.body().data());
+                        return;
+                    }
                 }
                 callBack.onError(response.body());
                 Log.e(TAG,String.format("Execution request getAllComplexity is failed with code: %s and body %s", response.code(), response.body()));

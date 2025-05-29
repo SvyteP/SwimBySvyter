@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
@@ -25,7 +26,7 @@ import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ValidText;
 
 public class EditProfileDialogFragment extends DialogFragment implements TextWatcher {
-    private final EditProfileDialogViewModel dialogViewModel;
+    private EditProfileDialogViewModel dialogViewModel;
     private DialogEditProfileFragmentBinding binding;
     private View mainView;
     private EditText
@@ -43,7 +44,7 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
     private Questioner profileQuestioner;
 
     public EditProfileDialogFragment() {
-        this.dialogViewModel = new EditProfileDialogViewModel();
+
     }
 
     @Nullable
@@ -68,6 +69,7 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
     }
 
     private void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        dialogViewModel = new ViewModelProvider(this).get(EditProfileDialogViewModel.class);
         binding = DialogEditProfileFragmentBinding.inflate(inflater, container, false);
         mainView = binding.getRoot();
 

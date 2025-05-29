@@ -18,6 +18,7 @@ import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ConvertorJSON;
 import com.example.swimbysvyter.helpers.Convertors;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 import com.example.swimbysvyter.services.api.SwimAPI;
 
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SwimApp extends Application {
+    private final String TAG = "SwimApp";
     public static final String secFileShared = "secure_auth_prefs";
     public static final String loginShared = "loginPref";
     public static Convertors convertorJSON;
@@ -52,22 +54,8 @@ public class SwimApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-        baseComplexities = new HashMap<>(Map.of(
-                "Easy", new Complexity(3,"Easy"),
-                "Medium" ,new Complexity(5,"Medium"),
-                "High" ,new Complexity(6,"High")
-        ));
-
-        baseGenderNames = new ArrayList<>(List.of("Man","Women"));
-
-        baseCustomer = new Customer("login","email","token");
-        baseQuestioner = new Questioner(1,2,3,baseGenderNames.get(0),5,6,baseComplexities.get("Easy"));
-
         swimAPI = new SwimAPI("192.168.1.211:8080");
-
         context = getApplicationContext();
-
         try {
             masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -89,13 +77,18 @@ public class SwimApp extends Application {
         } catch (GeneralSecurityException | IOException e) {
             Log.e("LogInViewModel","EncryptedSharedPreferences or MasterKey error: " + e.getMessage());
         }
+        baseInventories = new ArrayList<>();
+        loadInventories();
 
-        baseInventories = new ArrayList<>(List.of(
-                new Inventory(1L,"Flippers",false),// Ласты
-                new Inventory(2L,"Pull buoy",true), //Колобашка
-                new Inventory(3L,"Board",false),
-                new Inventory(4L,"Gloves-flippers",true))); // Ласты для рук
+        baseComplexities = new HashMap<>();
+        loadComplexities();
+        baseGenderNames = new ArrayList<>(List.of("Man","Women"));
+
+        baseCustomer = new Customer("login","email","token");
+
     }
+
+
 
     public static void disableBtn(LinearLayout layout){
         layout.setClickable(false);
@@ -122,6 +115,51 @@ public class SwimApp extends Application {
         Intent intent = new Intent(context, to);
         from.startActivity(intent);
         from.finish();
+    }
+
+    private void loadComplexities(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                try {
+                    List<Complexity> allComplexity = (List<Complexity>) object;
+                    allComplexity.forEach(compl -> {
+                        baseComplexities.put(compl.getName(),compl);
+                    });
+                    baseQuestioner = new Questioner(1,2,3,baseGenderNames.get(0),5,6,baseComplexities.get("Easy"));
+                } catch (ClassCastException e) {
+                    Log.e(TAG,"loadComplexity error:" + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        swimAPI.getAllComplexities(callBack);
+    }
+
+    private void loadInventories(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                try {
+                    List<Inventory> allInventories = (List<Inventory>) object;
+                    if (allInventories != null) {
+                        baseInventories = allInventories;
+                    }
+                } catch (ClassCastException e) {
+                    Log.e(TAG,"loadInventories error:" + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        swimAPI.getAllInventories(callBack);
     }
 
 }
