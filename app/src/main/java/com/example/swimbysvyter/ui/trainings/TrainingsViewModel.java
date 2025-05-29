@@ -1,12 +1,10 @@
 package com.example.swimbysvyter.ui.trainings;
 
-import static com.example.swimbysvyter.SwimApp.baseInventories;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVTrainings;
@@ -78,7 +76,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
                     isStartLoadTraining = false;
                 }
             };
-            swimAPI.getActiveTrainings(callBack);
+            swimAPI.getIsCompletedTrainings(callBack, false);
         }
     }
 

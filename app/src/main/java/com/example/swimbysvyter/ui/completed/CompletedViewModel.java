@@ -21,29 +21,48 @@ import lombok.Getter;
 public class CompletedViewModel extends ViewModel {
     private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
+    private boolean isStartLoadTraining = false;
+    private MutableLiveData<ClickItemListener> clickItem;
+
 
 
     public CompletedViewModel() {
         this.trainings = new MutableLiveData<>();
         this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
+        this.clickItem = new MutableLiveData<>();
+        loadData();
     }
 
-    private void setTrainings(){
-        RequestCallBack callBack = new RequestCallBack() {
-            @Override
-            public void onSuccess(Object object) {
+    private void loadData(){
+        loadTraining();
+    }
 
-            }
+    public void loadTraining(){
+        if (!isStartLoadTraining) {
+            isStartLoadTraining = true;
+            RequestCallBack callBack = new RequestCallBack() {
+                @Override
+                public void onSuccess(Object object) {
+                    List<Training> trainingList = (List<Training>) object;
+                    if (trainingList != null) {
+                        trainings.setValue(trainingList);
+                        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItem.getValue()));
+                    }
+                    isStartLoadTraining = false;
+                }
 
-            @Override
-            public void onError(Object object) {
-
-            }
-        };
+                @Override
+                public void onError(Object object) {
+                    isStartLoadTraining = false;
+                }
+            };
+            swimAPI.getIsCompletedTrainings(callBack,true);
+        }
     }
 
     public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener clickItemListener){
-        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener));
+        clickItem.setValue(clickItemListener);
+        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItem.getValue()));
         return adapterRVTrainings;
     }
 }

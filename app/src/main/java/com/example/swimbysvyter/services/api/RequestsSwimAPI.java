@@ -51,4 +51,11 @@ public interface RequestsSwimAPI extends API {
     @GET("/customer/trainings/all/active/user")
     Call<ResponseDto<List<TrainingsGetDto>>> getAllActiveTrainings();
 
+    @GET("/customer/trainings/all/isCompleted")
+    Call<ResponseDto<List<TrainingsGetDto>>> getIsCompletedTraining(@Query("isCompleted") boolean isCompl);
+
+    @GET("/customer/trainings/all/isLiked")
+    Call<ResponseDto<List<TrainingsGetDto>>> getIsLikedTraining(@Query("isLike") boolean isLike);
+
+
 }
