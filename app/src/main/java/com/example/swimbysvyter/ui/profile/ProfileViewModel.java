@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.swimbysvyter.entity.Inventory;
+import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVInventories;
@@ -48,17 +49,28 @@ public class ProfileViewModel extends ViewModel {
     public ProfileViewModel() {
         this.name = new MutableLiveData<>(baseCustomer.getLogin());
         this.email = new MutableLiveData<>(baseCustomer.getEmail());
-        this.age = new MutableLiveData<>(String.valueOf(baseQuestioner.getAge()));
-        this.countTrainOneWeek = new MutableLiveData<>(String.valueOf(baseQuestioner.getCountTrainOneWeek()));
-        this.countWeek = new MutableLiveData<>(String.valueOf(baseQuestioner.getCountWeek()));
-        this.gender = new MutableLiveData<>(baseQuestioner.getGender());
-        this.lengthPool = new MutableLiveData<>(String.valueOf(baseQuestioner.getLengthPool()));
-        this.timeTrain = new MutableLiveData<>(String.valueOf(baseQuestioner.getTimeTrain()));
-        this.complexity = new MutableLiveData<>(baseQuestioner.getComplexity().getName());
+        this.age = new MutableLiveData<>("");
+        this.countTrainOneWeek = new MutableLiveData<>("");
+        this.countWeek = new MutableLiveData<>("");
+        this.gender = new MutableLiveData<>("");
+        this.lengthPool = new MutableLiveData<>("");
+        this.timeTrain = new MutableLiveData<>("");
+        this.complexity = new MutableLiveData<>("");
 
         this.adapterRVInventories = new MutableLiveData<>();
         this.inventoriesCheckList = new MutableLiveData<>();
         loadData();
+      /*  setInfoQuestioner(baseQuestioner);*/
+    }
+
+    private void setInfoQuestioner(Questioner q){
+        age.setValue(String.valueOf(q.getAge()));
+        countTrainOneWeek.setValue(String.valueOf(q.getCountTrainOneWeek()));
+        countWeek.setValue(String.valueOf(q.getCountWeek()));
+        gender.setValue(q.getGender());
+        lengthPool.setValue(String.valueOf(q.getLengthPool()));
+        timeTrain.setValue(String.valueOf(q.getTimeTrain()));
+        complexity.setValue(q.getComplexity().getName());
     }
 
     private void loadData(){
@@ -122,5 +134,22 @@ public class ProfileViewModel extends ViewModel {
             }
         };
         swimAPI.setTrainings(callBack);
+    }
+
+    public void loadQuestioner(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                Questioner q = (Questioner) object;
+                if (q == null) return;
+                setInfoQuestioner(q);
+            }
+
+            @Override
+            public void onError(Object object) {
+                Log.e(TAG,"loadQuestioner error with object: " + object);
+            }
+        };
+        swimAPI.getQuestioner(callBack);
     }
 }

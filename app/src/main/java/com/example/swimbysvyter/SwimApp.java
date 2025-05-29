@@ -126,7 +126,7 @@ public class SwimApp extends Application {
                     allComplexity.forEach(compl -> {
                         baseComplexities.put(compl.getName(),compl);
                     });
-                    baseQuestioner = new Questioner(1,2,3,baseGenderNames.get(0),5,6,baseComplexities.get("Easy"));
+                    baseQuestioner = new Questioner(0,0,0,baseGenderNames.get(0),0,0,baseComplexities.get("Easy"));
                 } catch (ClassCastException e) {
                     Log.e(TAG,"loadComplexity error:" + e.getMessage());
                 }

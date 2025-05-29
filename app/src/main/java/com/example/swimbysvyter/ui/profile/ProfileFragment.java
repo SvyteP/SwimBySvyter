@@ -20,6 +20,7 @@ import com.example.swimbysvyter.databinding.FragmentProfileBinding;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ClickItemListener;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.ui.profile.dialog.EditProfileDialogFragment;
 
 public class ProfileFragment extends Fragment {
@@ -88,7 +89,7 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getAdapterRVInventories().observe(getViewLifecycleOwner(),recInventory::setAdapter);
         recInventory.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        editDialogFragment = new EditProfileDialogFragment();
+
     }
 
     private void updateListeners(){
@@ -96,6 +97,19 @@ public class ProfileFragment extends Fragment {
     }
 
     private void clickEditBtn(View v){
+
+        editDialogFragment = new EditProfileDialogFragment(new ModelCallBack() {
+            @Override
+            public void success(Object o) {
+                profileViewModel.loadQuestioner();
+            }
+
+            @Override
+            public void error(Object o) {
+
+            }
+        });
+
         Bundle args = new Bundle();
         args.putSerializable("profileQuestioner",getProfileQuestioner());
         editDialogFragment.setArguments(args);

@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.ValidText;
 
 public class EditProfileDialogFragment extends DialogFragment implements TextWatcher {
@@ -42,9 +43,10 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
             spinnerComplexity;
     private ArrayAdapter<String> genderAdapter, complexityAdapter;
     private Questioner profileQuestioner;
+    private ModelCallBack callBack;
 
-    public EditProfileDialogFragment() {
-
+    public EditProfileDialogFragment(ModelCallBack callBack) {
+        this.callBack = callBack;
     }
 
     @Nullable
@@ -142,7 +144,9 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
     }
 
     private void clickSave(View v){
-            dialogViewModel.updateQuestioner(createQuestioner());
+        callBack.success(null);
+        dialogViewModel.updateQuestioner(createQuestioner());
+        dismiss();
     }
 
 
