@@ -36,11 +36,11 @@ public interface RequestsSwimAPI extends API {
     @GET("/customer/trainings/one/{id}")
     Call<ResponseDto<TrainingsGetDto>> getInfoAboutTraining(@Path("id") long id);
 
-    @PUT("/customer/trainings/like/{id}?isLike=true")
-    Call<ResponseBody> isLikeTraining(@Query("isLike") boolean isLike, @Path("id") long trainingId);
+    @PUT("/customer/trainings/like/{id}")
+    Call<ResponseBody> isLikeTraining(@Path("id") long trainingId, @Query("isLike") boolean isLike);
 
-    @PUT("/customer/trainings/complete/{id}?isCompl=true")
-    Call<ResponseBody> isCompletedTraining(@Query("isCompl") boolean isCompl, @Path("id") long trainingId);
+    @PUT("/customer/trainings/complete/{id}")
+    Call<ResponseBody> isCompletedTraining(@Path("id") long trainingId, @Query("isCompl") boolean isCompl);
 
     @GET("/compl")
     Call<ResponseDto<List<Complexity>>> getComplexity();

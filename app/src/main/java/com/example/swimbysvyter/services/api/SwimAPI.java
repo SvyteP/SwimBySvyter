@@ -251,7 +251,7 @@ public class SwimAPI {
     }
 
     public void changeLike(boolean isLike, long trainingId, RequestCallBack callBack) {
-        requestsSwimAPI.isLikeTraining(isLike, trainingId).enqueue(new Callback<>() {
+        requestsSwimAPI.isLikeTraining(trainingId, isLike).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -271,7 +271,7 @@ public class SwimAPI {
     }
 
     public void changeComplete(boolean isComplete, long trainingId, RequestCallBack callBack) {
-        requestsSwimAPI.isCompletedTraining(isComplete, trainingId).enqueue(new Callback<ResponseBody>() {
+        requestsSwimAPI.isCompletedTraining(trainingId, isComplete).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
