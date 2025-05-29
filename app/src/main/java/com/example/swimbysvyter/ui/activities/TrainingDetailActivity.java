@@ -113,7 +113,7 @@ public class TrainingDetailActivity extends AppCompatActivity {
         result.putExtra("completedTraining", true);
         training.setCompleted(!training.isCompleted());
         updateCompleted(training);
-        getOnBackPressedDispatcher().onBackPressed();
+
     }
 
     private void updateFavorite(Training t){
@@ -135,12 +135,12 @@ public class TrainingDetailActivity extends AppCompatActivity {
         RequestCallBack callBack = new RequestCallBack() {
             @Override
             public void onSuccess(Object object) {
-
+                getOnBackPressedDispatcher().onBackPressed();
             }
 
             @Override
             public void onError(Object object) {
-
+                getOnBackPressedDispatcher().onBackPressed();
             }
         };
         swimAPI.changeComplete(t.isCompleted(),t.getId(),callBack);

@@ -1,6 +1,7 @@
 package com.example.swimbysvyter.ui.trainings.dialog;
 
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,20 @@ import androidx.fragment.app.DialogFragment;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.DialogEditProfileFragmentBinding;
 import com.example.swimbysvyter.databinding.DialogRefreshTrainingsFragmentBinding;
+import com.example.swimbysvyter.helpers.ModelCallBack;
+import com.example.swimbysvyter.ui.trainings.TrainingsViewModel;
 
 public class RefreshTrainingsDialogFragment extends DialogFragment{
     private final RefreshTrainingsDialogViewModel dialogViewModel;
     private DialogRefreshTrainingsFragmentBinding binding;
+    private ModelCallBack callBack;
     private View mainView;
     private LinearLayout llUpdate;
     private TextView topMessage, bottomMessage;
     private ImageView closeImg;
 
-    public RefreshTrainingsDialogFragment() {
+    public RefreshTrainingsDialogFragment(ModelCallBack callBack) {
+        this.callBack = callBack;
         this.dialogViewModel = new RefreshTrainingsDialogViewModel();
     }
 
@@ -69,6 +74,7 @@ public class RefreshTrainingsDialogFragment extends DialogFragment{
     }
 
     private void clickUpdate(View v){
+        callBack.success("");
         dismiss();
     }
 

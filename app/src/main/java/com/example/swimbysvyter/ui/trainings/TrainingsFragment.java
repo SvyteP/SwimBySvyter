@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.swimbysvyter.databinding.FragmentTrainingsBinding;
 import com.example.swimbysvyter.entity.Training;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 import com.example.swimbysvyter.ui.trainings.dialog.RefreshTrainingsDialogFragment;
 
@@ -85,8 +86,7 @@ public class TrainingsFragment extends Fragment {
                                 trainingsViewModel.updateTraining(training);
                             }
                             if (data.getBooleanExtra("completedTraining",false)) {
-                                trainingsViewModel.delTraining(training);
-                                if(trainingsViewModel.getTrainings().getValue().isEmpty()){
+                                if(trainingsViewModel.delTraining(training).getValue().isEmpty()){
                                     startRefreshDialog();
                                 }
                             }
@@ -124,7 +124,19 @@ public class TrainingsFragment extends Fragment {
     }
 
     private void startRefreshDialog(){
-        refreshDialog = new RefreshTrainingsDialogFragment();
+        ModelCallBack callBack = new ModelCallBack() {
+            @Override
+            public void success(Object o) {
+                trainingsViewModel.loadTrainings();
+            }
+
+            @Override
+            public void error(Object o) {
+
+            }
+        };
+
+        refreshDialog = new RefreshTrainingsDialogFragment(callBack);
         refreshDialog.show(requireActivity().getSupportFragmentManager(),"RefreshDialog");
     }
 

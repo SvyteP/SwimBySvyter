@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.RVTrainings;
 import com.example.swimbysvyter.services.api.RequestCallBack;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 import lombok.Getter;
 @Getter
-public class TrainingsViewModel extends ViewModel implements Serializable {
+public class TrainingsViewModel extends ViewModel implements Serializable, ModelCallBack {
 
     private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
@@ -93,24 +94,33 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
         for (int i = 0; i < current.size(); i++) {
             if (current.get(i).getId().equals(updated.getId())) {
                 current.set(i, updated);
-                adapterRVTrainings.getValue().notifyItemChanged(i);
+                adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener.getValue()));
                 break;
             }
         }
         trainings.setValue(current);
     }
 
-    public void delTraining(Training t) {
+    public MutableLiveData<List<Training>> delTraining(Training t) {
         List<Training> current = trainings.getValue();
-        if (current == null) return;
-
-       for(int i = 0; i<current.size(); i++){
-           if (current.get(i).getId() == t.getId()){
-               current.remove(t);
-               adapterRVTrainings.getValue().notifyItemRemoved(i);
-           }
+        if (current == null) return null;
+        for (int i = 0; i < current.size(); i++) {
+            if (current.get(i).getId().equals(t.getId())) {
+                current.remove(i);
+                adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener.getValue()));
+                break;
+            }
         }
+        return trainings;
+    }
 
-        trainings.setValue(current);
+    @Override
+    public void success(Object o) {
+        loadTrainings();
+    }
+
+    @Override
+    public void error(Object o) {
+
     }
 }
