@@ -4,6 +4,7 @@ package com.example.swimbysvyter.ui.profile;
 import static com.example.swimbysvyter.SwimApp.baseCustomer;
 import static com.example.swimbysvyter.SwimApp.baseInventories;
 import static com.example.swimbysvyter.SwimApp.baseQuestioner;
+import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import android.util.Log;
 
@@ -14,9 +15,11 @@ import androidx.lifecycle.ViewModel;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVInventories;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfileViewModel extends ViewModel {
+    private final String TAG = "ProfileViewModel";
     private final MutableLiveData<String> name;
     private final MutableLiveData<String> email;
 
@@ -60,11 +64,7 @@ public class ProfileViewModel extends ViewModel {
 
 
     public MutableLiveData<RVInventories> getAdapterRVInventories(){
-        adapterRVInventories.setValue(new RVInventories(inventoriesCheckList.getValue(), pos -> {
-            inventoriesCheckList.getValue().get(pos);
-            ArrayList<Inventory> inventoriesTest = (ArrayList<Inventory>) inventoriesCheckList.getValue();
-            Log.i("TestProfileView",inventoriesTest.toString());
-        }));
+        adapterRVInventories.setValue(new RVInventories(inventoriesCheckList.getValue(), pos -> {}));
         return adapterRVInventories;
     }
 
@@ -76,4 +76,24 @@ public class ProfileViewModel extends ViewModel {
         }
     }
 
+    public void updateInventories(){
+        List<Inventory> inv= inventoriesCheckList.getValue();
+        if (inv != null) {
+            List<Long> inventoriesId = inventoriesCheckList.getValue().stream().filter(Inventory::getIsStock).map(Inventory::getId).collect(Collectors.toCollection(ArrayList::new));
+            RequestCallBack callBack = new RequestCallBack() {
+                @Override
+                public void onSuccess(Object object) {
+                    Log.i(TAG, "updateInventories success with id's: " + inventoriesId + " and result obj: " + object);
+                }
+
+                @Override
+                public void onError(Object object) {
+                    Log.e(TAG, "updateInventories error with id's: " + inventoriesId + " and result obj: " + object);
+                }
+            };
+            swimAPI.updateInventories(inventoriesId, callBack);
+            return;
+        }
+        Log.e(TAG,"updateInventories: inventoriesCheckList is null");
+    }
 }

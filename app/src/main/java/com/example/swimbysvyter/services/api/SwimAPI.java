@@ -391,4 +391,26 @@ public class SwimAPI {
             }
         });
     }
+
+    public void updateInventories(List<Long> inventoriesId,RequestCallBack callBack) {
+        requestsSwimAPI.setInventories(inventoriesId).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<Long>>> call, retrofit2.Response<ResponseDto<List<Long>>> response) {
+                if (response.body() != null) {
+                    callBack.onSuccess(response.body().data());
+                } else {
+                    callBack.onError(call);
+                    Log.e(TAG, String.format("Execution request updateInventories is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<Long>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG,"updateInventories failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+
 }

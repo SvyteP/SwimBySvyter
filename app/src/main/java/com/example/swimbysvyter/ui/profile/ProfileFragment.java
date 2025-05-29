@@ -67,6 +67,12 @@ public class ProfileFragment extends Fragment {
         recInventory =binding.recInventory;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        profileViewModel.updateInventories();
+    }
+
     private void updateView(){
         profileViewModel.getName().observe(getViewLifecycleOwner(),nameText::setText);
         profileViewModel.getEmail().observe(getViewLifecycleOwner(),emailText::setText);

@@ -1,10 +1,7 @@
 package com.example.swimbysvyter.services.api;
 
-import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.QuestionerUpdateDtoRequest;
-import com.example.swimbysvyter.dto.RegistrationDto;
 import com.example.swimbysvyter.dto.ResponseDto;
-import com.example.swimbysvyter.dto.AuthDto;
 import com.example.swimbysvyter.dto.TrainingsGetDto;
 import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Inventory;
@@ -56,6 +53,9 @@ public interface RequestsSwimAPI extends API {
 
     @GET("/customer/trainings/all/isLiked")
     Call<ResponseDto<List<TrainingsGetDto>>> getIsLikedTraining(@Query("isLike") boolean isLike);
+
+    @PUT("/inventory/set")
+    Call<ResponseDto<List<Long>>> setInventories(@Body List<Long> inventoriesDto);
 
 
 }
