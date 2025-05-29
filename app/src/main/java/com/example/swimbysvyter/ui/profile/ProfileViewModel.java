@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.swimbysvyter.entity.Inventory;
+import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVInventories;
 import com.example.swimbysvyter.services.api.RequestCallBack;
@@ -39,6 +40,8 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> timeTrain;
     private final MutableLiveData<String> complexity;
 
+    private boolean isChangedInfo = false;
+
     private MutableLiveData<RVInventories> adapterRVInventories;
     private MutableLiveData<List<Inventory>> inventoriesCheckList;
 
@@ -63,8 +66,19 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
+    public void fixingUpdateCustomerInfo(){
+        if (!isChangedInfo) return;
+
+        updateInventories();
+        updateTrainings();
+
+        isChangedInfo = false;
+    }
+
     public MutableLiveData<RVInventories> getAdapterRVInventories(){
-        adapterRVInventories.setValue(new RVInventories(inventoriesCheckList.getValue(), pos -> {}));
+        adapterRVInventories.setValue(new RVInventories(inventoriesCheckList.getValue(), pos -> {
+            isChangedInfo = true;
+        }));
         return adapterRVInventories;
     }
 
@@ -95,5 +109,18 @@ public class ProfileViewModel extends ViewModel {
             return;
         }
         Log.e(TAG,"updateInventories: inventoriesCheckList is null");
+    }
+
+    public void updateTrainings(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+            }
+
+            @Override
+            public void onError(Object object) {
+            }
+        };
+        swimAPI.setTrainings(callBack);
     }
 }

@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        profileViewModel.updateInventories();
+        profileViewModel.fixingUpdateCustomerInfo();
     }
 
     private void updateView(){
