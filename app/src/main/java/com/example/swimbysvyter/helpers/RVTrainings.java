@@ -90,6 +90,7 @@ public class RVTrainings extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if (items == null) return 0;
         return items.size();
     }
 }

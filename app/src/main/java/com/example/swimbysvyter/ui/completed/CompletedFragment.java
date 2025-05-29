@@ -33,6 +33,12 @@ public class CompletedFragment extends Fragment {
         return mainView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        completedViewModel.loadTraining();
+    }
+
     private void updateView(@NonNull LayoutInflater inflater,
                             @Nullable ViewGroup container,
                             @Nullable Bundle savedInstanceState){
@@ -47,8 +53,7 @@ public class CompletedFragment extends Fragment {
 
     private void initView(){
         completedViewModel.getRVTrainingsAdapter(pos -> {
-            completedViewModel.getTrainings().observe(getViewLifecycleOwner(),
-                    t -> clickTraining(t.get(pos)));
+            clickTraining(completedViewModel.getTrainings().getValue().get(pos));
         }).observe(getViewLifecycleOwner(),recCompletedTraining::setAdapter);
         recCompletedTraining.setLayoutManager(new LinearLayoutManager(getContext()));;
     }

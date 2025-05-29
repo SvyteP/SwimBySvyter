@@ -10,7 +10,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.QuestionerUpdateDtoRequest;
 import com.example.swimbysvyter.dto.RegistrationDto;
@@ -95,13 +94,19 @@ public class SwimAPI {
         requestsSwimAPIWithoutToken.login(loginDto).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<AuthDto>> call, retrofit2.Response<ResponseDto<AuthDto>> response) {
-                if (response.isSuccessful()) {
-                    AuthDto data = response.body().data();
-                    callBack.onSuccess(data);
-                } else {
-                    callBack.onError(call);
-                    Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
-                }
+               if (response.body() != null) {
+                   if (response.isSuccessful()) {
+                       AuthDto data = response.body().data();
+                       encSharedPreferences.edit().putString(secFileShared, data.token()).apply();
+                       callBack.onSuccess(data);
+                   } else {
+                       callBack.onError(call);
+                       Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
+                   }
+               }else {
+                   callBack.onError(call);
+                   Log.e(TAG, String.format("Execution request login is failed with code: %s and body %s", response.code(), response.body()));
+               }
             }
 
             @Override
@@ -197,16 +202,21 @@ public class SwimAPI {
         requestsSwimAPI.generateTrainings().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<List<TrainingsGetDto>>> call, retrofit2.Response<ResponseDto<List<TrainingsGetDto>>> response) {
-                List<TrainingsGetDto> data = response.body().data();
+               if (response.body() != null) {
+                   List<TrainingsGetDto> data = response.body().data();
 
-                if (data != null) {
-                    List<Training> trainings = new ArrayList<>();
-                    data.forEach(t -> trainings.add(new Training(t.id(), t.trainingDTO(), t.likeTrain(), t.completed())));
-                    callBack.onSuccess(trainings);
-                } else {
-                    callBack.onError(response.body());
-                    Log.e(TAG, String.format("Execution request generateTrainings is failed with code: %s and body %s", response.code(), response.body()));
-                }
+                   if (data != null) {
+                       List<Training> trainings = new ArrayList<>();
+                       data.forEach(t -> trainings.add(new Training(t.id(), t.trainingsDTO(), t.likeTrain(), t.completed())));
+                       callBack.onSuccess(trainings);
+                   } else {
+                       callBack.onError(response.body());
+                       Log.e(TAG, String.format("Execution request generateTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                   }
+               } else {
+                   callBack.onError(call);
+                   Log.e(TAG, String.format("Execution request generateTrainings is failed with code: %s and body %s", response.code(), response.body()));
+               }
             }
 
             @Override
@@ -223,7 +233,7 @@ public class SwimAPI {
             public void onResponse(Call<ResponseDto<TrainingsGetDto>> call, retrofit2.Response<ResponseDto<TrainingsGetDto>> response) {
                 TrainingsGetDto getDto = response.body().data();
                 if (getDto != null) {
-                    Training training = new Training(getDto.id(), getDto.trainingDTO(), getDto.likeTrain(), getDto.completed());
+                    Training training = new Training(getDto.id(), getDto.trainingsDTO(), getDto.likeTrain(), getDto.completed());
                     callBack.onSuccess(training);
                 } else {
                     callBack.onError(response.body());
@@ -240,7 +250,7 @@ public class SwimAPI {
     }
 
     public void changeLike(boolean isLike, long trainingId, RequestCallBack callBack) {
-        requestsSwimAPI.isLikeTraining(isLike, trainingId).enqueue(new Callback<>() {
+        requestsSwimAPI.isLikeTraining(trainingId, isLike).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -260,7 +270,7 @@ public class SwimAPI {
     }
 
     public void changeComplete(boolean isComplete, long trainingId, RequestCallBack callBack) {
-        requestsSwimAPI.isCompletedTraining(isComplete, trainingId).enqueue(new Callback<ResponseBody>() {
+        requestsSwimAPI.isCompletedTraining(trainingId, isComplete).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -320,4 +330,61 @@ public class SwimAPI {
     }
 
 
+    public void getIsCompletedTrainings(RequestCallBack callBack, boolean isCompleted) {
+        requestsSwimAPI.getIsCompletedTraining(isCompleted).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<TrainingsGetDto>>> call, retrofit2.Response<ResponseDto<List<TrainingsGetDto>>> response) {
+                if (response.body() != null) {
+                    List<TrainingsGetDto> data = response.body().data();
+
+                    if (data != null) {
+                        List<Training> trainings = new ArrayList<>();
+                        data.forEach(t -> trainings.add(new Training(t.id(), t.trainingsDTO(), t.likeTrain(), t.completed())));
+                        callBack.onSuccess(trainings);
+                    } else {
+                        callBack.onError(response.body());
+                        Log.e(TAG, String.format("Execution request getIsCompletedTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                    }
+                } else {
+                    callBack.onError(call);
+                    Log.e(TAG, String.format("Execution request getIsCompletedTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<TrainingsGetDto>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG,"getIsCompletedTrainings failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getIsLikedTrainings(boolean isLike,RequestCallBack callBack) {
+        requestsSwimAPI.getIsLikedTraining(isLike).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ResponseDto<List<TrainingsGetDto>>> call, retrofit2.Response<ResponseDto<List<TrainingsGetDto>>> response) {
+                if (response.body() != null) {
+                    List<TrainingsGetDto> data = response.body().data();
+
+                    if (data != null) {
+                        List<Training> trainings = new ArrayList<>();
+                        data.forEach(t -> trainings.add(new Training(t.id(), t.trainingsDTO(), t.likeTrain(), t.completed())));
+                        callBack.onSuccess(trainings);
+                    } else {
+                        callBack.onError(response.body());
+                        Log.e(TAG, String.format("Execution request getIsLikedTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                    }
+                } else {
+                    callBack.onError(call);
+                    Log.e(TAG, String.format("Execution request getIsLikedTrainings is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<TrainingsGetDto>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG,"getIsLikedTrainings failed with message: " + t.getMessage());
+            }
+        });
+    }
 }

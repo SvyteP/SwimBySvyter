@@ -54,9 +54,9 @@ public class SwimApp extends Application {
 
 
         baseComplexities = new HashMap<>(Map.of(
-                "Easy", new Complexity(1,"Easy"),
-                "Medium" ,new Complexity(2,"Medium"),
-                "High" ,new Complexity(3,"High")
+                "Easy", new Complexity(3,"Easy"),
+                "Medium" ,new Complexity(5,"Medium"),
+                "High" ,new Complexity(6,"High")
         ));
 
         baseGenderNames = new ArrayList<>(List.of("Man","Women"));
@@ -64,7 +64,7 @@ public class SwimApp extends Application {
         baseCustomer = new Customer("login","email","token");
         baseQuestioner = new Questioner(1,2,3,baseGenderNames.get(0),5,6,baseComplexities.get("Easy"));
 
-        swimAPI = new SwimAPI("10.0.2.2:8080");
+        swimAPI = new SwimAPI("100.126.1.49:8080");
 
         context = getApplicationContext();
 

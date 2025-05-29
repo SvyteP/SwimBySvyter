@@ -27,7 +27,9 @@
             android:paddingVertical="@dimen/indent_edge_screen"
             android:visibility="gone">
             <LinearLayout
-                style="@style/btn">
+                android:id="@+id/trainings_btn_update"
+                style="@style/btn"
+                android:clickable="true">
                 <TextView
                     style="@style/textBtn"
                     android:text="Обновить"/>

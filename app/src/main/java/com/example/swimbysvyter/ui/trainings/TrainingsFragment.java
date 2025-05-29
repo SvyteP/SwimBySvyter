@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +31,7 @@ public class TrainingsFragment extends Fragment {
     private TrainingsViewModel trainingsViewModel;
     private ActivityResultLauncher<Intent> trainingDetailLauncher;
     private RefreshTrainingsDialogFragment refreshDialog;
-    private LinearLayout llUpdate;
+    private LinearLayout llUpdate, btnUpdate;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,16 +53,20 @@ public class TrainingsFragment extends Fragment {
 
         trainingsRec = binding.recTrainings;
         llUpdate = binding.trainingsLlUpdate;
+        btnUpdate = binding.trainingsBtnUpdate;
 
     }
 
     private void updateViews(){
+       trainingsViewModel.getTrainings().observe(getViewLifecycleOwner(),t -> {
+           if (t.isEmpty()){
+               llUpdate.setVisibility(View.VISIBLE);
+           } else {
+               llUpdate.setVisibility(View.GONE);
+           }
+       });
 
         isUpdated();
-        if (trainingsViewModel.getTrainings().getValue().isEmpty()){
-            llUpdate.setVisibility(View.VISIBLE);
-        }
-
         trainingsViewModel.getRVTrainingsAdapter(pos -> {
             clickTraining(trainingsViewModel.getTrainings().getValue().get(pos));
         }).observe(getViewLifecycleOwner(), trainingsRec::setAdapter);
@@ -88,6 +93,8 @@ public class TrainingsFragment extends Fragment {
                         }
                     }
                 });
+
+
     }
 
     @Override
@@ -96,8 +103,14 @@ public class TrainingsFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        trainingsViewModel.reloadTrainings();
+    }
+
     private void updateListeners(){
-        llUpdate.setOnClickListener(this::clickUpdate);
+        btnUpdate.setOnClickListener(this::clickUpdate);
     }
 
     private void clickUpdate(View view) {

@@ -42,10 +42,15 @@ public class FavoriteFragment extends Fragment {
         recFavTraining = binding.recFavTrainings;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        favoriteViewModel.loadTraining();
+    }
+
     private void updateView(){
         favoriteViewModel.getRVTrainingsAdapter(pos -> {
-            favoriteViewModel.getTrainings().observe(getViewLifecycleOwner(),
-                    t -> clickTraining(t.get(pos)));
+            clickTraining(favoriteViewModel.getTrainings().getValue().get(pos));
         }).observe(getViewLifecycleOwner(),recFavTraining::setAdapter);
         recFavTraining.setLayoutManager(new LinearLayoutManager(getContext()));
     }

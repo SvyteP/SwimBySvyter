@@ -35,13 +35,14 @@ public class Inventory implements Parcelable {
     }
 
     public Inventory(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
+        if (in.readByte() != 0) {
             id = in.readLong();
         }
         name = in.readString();
-        isStock = in.readBoolean();
+        if (in.readByte() == 1) {
+            isStock = in.readBoolean();
+        }
+
     }
 
     @Override
@@ -56,6 +57,11 @@ public class Inventory implements Parcelable {
             dest.writeLong(id);
         }
         dest.writeString(name);
-        dest.writeBoolean(isStock);
+        if (isStock != null){
+            dest.writeByte((byte) 1);
+            dest.writeBoolean(isStock);
+        } else {
+            dest.writeByte((byte) 0);
+        }
     }
 }

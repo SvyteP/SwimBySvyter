@@ -1,12 +1,10 @@
 package com.example.swimbysvyter.ui.trainings;
 
-import static com.example.swimbysvyter.SwimApp.baseInventories;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.RVTrainings;
@@ -22,11 +20,13 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
 
     private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
+    private MutableLiveData<ClickItemListener> clickItemListener;
     private boolean isStartLoadTraining = false;
 
     public TrainingsViewModel() {
         this.trainings = new MutableLiveData<>(new ArrayList<>());
         this.adapterRVTrainings = new MutableLiveData<>(new RVTrainings(trainings,pos -> {}));
+        this.clickItemListener = new MutableLiveData<>();
         loadData();
     }
 
@@ -43,6 +43,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
                     List<Training> trainingList = (List<Training>) object;
                     if (trainingList != null) {
                         trainings.setValue(trainingList);
+                        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener.getValue()));
                     }
                     isStartLoadTraining = false;
                 }
@@ -56,8 +57,32 @@ public class TrainingsViewModel extends ViewModel implements Serializable {
         }
     }
 
-    public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener clickItemListener){
-        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener));
+    public void reloadTrainings(){
+        if (!isStartLoadTraining) {
+            isStartLoadTraining = true;
+            RequestCallBack callBack = new RequestCallBack() {
+                @Override
+                public void onSuccess(Object object) {
+                    List<Training> trainingList = (List<Training>) object;
+                    if (trainingList != null) {
+                        trainings.setValue(trainingList);
+                        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItemListener.getValue()));
+                    }
+                    isStartLoadTraining = false;
+                }
+
+                @Override
+                public void onError(Object object) {
+                    isStartLoadTraining = false;
+                }
+            };
+            swimAPI.getIsCompletedTrainings(callBack, false);
+        }
+    }
+
+    public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener listener){
+        adapterRVTrainings.setValue(new RVTrainings(trainings,listener));
+        clickItemListener.setValue(listener);
         return adapterRVTrainings;
     }
 

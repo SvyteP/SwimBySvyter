@@ -36,16 +36,26 @@ public interface RequestsSwimAPI extends API {
     @GET("/customer/trainings/one/{id}")
     Call<ResponseDto<TrainingsGetDto>> getInfoAboutTraining(@Path("id") long id);
 
-    @PUT("/customer/trainings/like/{id}?isLike=true")
-    Call<ResponseBody> isLikeTraining(@Query("isLike") boolean isLike, @Path("id") long trainingId);
+    @PUT("/customer/trainings/like/{id}")
+    Call<ResponseBody> isLikeTraining(@Path("id") long trainingId, @Query("isLike") boolean isLike);
 
-    @PUT("/customer/trainings/complete/{id}?isCompl=true")
-    Call<ResponseBody> isCompletedTraining(@Query("isCompl") boolean isCompl, @Path("id") long trainingId);
+    @PUT("/customer/trainings/complete/{id}")
+    Call<ResponseBody> isCompletedTraining(@Path("id") long trainingId, @Query("isCompl") boolean isCompl);
 
     @GET("/compl")
     Call<ResponseDto<List<Complexity>>> getComplexity();
 
     @GET("/inventory")
     Call<ResponseDto<List<Inventory>>> getInventory();
+
+    @GET("/customer/trainings/all/active/user")
+    Call<ResponseDto<List<TrainingsGetDto>>> getAllActiveTrainings();
+
+    @GET("/customer/trainings/all/isCompleted")
+    Call<ResponseDto<List<TrainingsGetDto>>> getIsCompletedTraining(@Query("isCompleted") boolean isCompl);
+
+    @GET("/customer/trainings/all/isLiked")
+    Call<ResponseDto<List<TrainingsGetDto>>> getIsLikedTraining(@Query("isLike") boolean isLike);
+
 
 }

@@ -1,5 +1,7 @@
 package com.example.swimbysvyter.ui.activities;
 
+import static com.example.swimbysvyter.SwimApp.swimAPI;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.TrainingDetailsActivityBinding;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.RVTrainingDetailInventory;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 public class TrainingDetailActivity extends AppCompatActivity {
     private Intent intentArgs;
@@ -103,20 +106,44 @@ public class TrainingDetailActivity extends AppCompatActivity {
         result.putExtra("likedTraining", true);
         training.setLike(!training.isLike());
         favoriteBtn.setImageResource(training.getFavoriteIcon());
-        updateFavorite();
+        updateFavorite(training);
     }
 
     private void clickCompletedBtn(View v){
         result.putExtra("completedTraining", true);
+        training.setCompleted(!training.isCompleted());
+        updateCompleted(training);
         getOnBackPressedDispatcher().onBackPressed();
     }
 
-    private void updateFavorite(){
+    private void updateFavorite(Training t){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
 
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        swimAPI.changeLike(t.isLike(),t.getId(),callBack);
     }
 
-    private void updateCompleted(){
+    private void updateCompleted(Training t){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
 
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        swimAPI.changeComplete(t.isCompleted(),t.getId(),callBack);
     }
 
 }
