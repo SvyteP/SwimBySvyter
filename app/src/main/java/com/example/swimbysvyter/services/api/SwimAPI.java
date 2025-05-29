@@ -218,7 +218,6 @@ public class SwimAPI {
     }
 
     public void getTraining(long id, RequestCallBack callBack) {
-
         requestsSwimAPI.getInfoAboutTraining(id).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<TrainingsGetDto>> call, retrofit2.Response<ResponseDto<TrainingsGetDto>> response) {
