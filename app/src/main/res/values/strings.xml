@@ -1,7 +1,8 @@
 <resources>
     <!--Setting's-->
     <!--Адрес основного сервера-->
-    <string name="swim_api_server_address" translatable="false">77.95.94.42:8080</string>
+    <string name="swim_api_server_address" translatable="false">192.168.31.116:8080</string>
+
 
     <!--All-->
     <string name="app_name">SwimBySvyter</string>

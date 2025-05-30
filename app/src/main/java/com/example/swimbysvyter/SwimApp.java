@@ -54,7 +54,7 @@ public class SwimApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        swimAPI = new SwimAPI("192.168.1.211:8080");
+        swimAPI = new SwimAPI(getString(R.string.swim_api_server_address));
         context = getApplicationContext();
         try {
             masterKey = new MasterKey.Builder(context)
@@ -78,14 +78,9 @@ public class SwimApp extends Application {
             Log.e("LogInViewModel","EncryptedSharedPreferences or MasterKey error: " + e.getMessage());
         }
         baseInventories = new ArrayList<>();
-        loadInventories();
-
         baseComplexities = new HashMap<>();
-        loadComplexities();
         baseGenderNames = new ArrayList<>(List.of("Man","Women"));
-
         baseCustomer = new Customer("login","email","token");
-
     }
 
 
@@ -107,7 +102,7 @@ public class SwimApp extends Application {
         baseQuestioner = q;
     }
     public static void updateCustomerForApp(Customer c){
-        encSharedPreferences.edit().putString("questionerInfo",convertorJSON.ConvertObjectToStringJSON(c)).apply();
+        encSharedPreferences.edit().putString("customerInfo",convertorJSON.ConvertObjectToStringJSON(c)).apply();
         baseCustomer = c;
     }
 
@@ -117,49 +112,5 @@ public class SwimApp extends Application {
         from.finish();
     }
 
-    private void loadComplexities(){
-        RequestCallBack callBack = new RequestCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-                try {
-                    List<Complexity> allComplexity = (List<Complexity>) object;
-                    allComplexity.forEach(compl -> {
-                        baseComplexities.put(compl.getName(),compl);
-                    });
-                    baseQuestioner = new Questioner(0,0,0,baseGenderNames.get(0),0,0,baseComplexities.get("Easy"));
-                } catch (ClassCastException e) {
-                    Log.e(TAG,"loadComplexity error:" + e.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Object object) {
-
-            }
-        };
-        swimAPI.getAllComplexities(callBack);
-    }
-
-    private void loadInventories(){
-        RequestCallBack callBack = new RequestCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-                try {
-                    List<Inventory> allInventories = (List<Inventory>) object;
-                    if (allInventories != null) {
-                        baseInventories = allInventories;
-                    }
-                } catch (ClassCastException e) {
-                    Log.e(TAG,"loadInventories error:" + e.getMessage());
-                }
-            }
-
-            @Override
-            public void onError(Object object) {
-
-            }
-        };
-        swimAPI.getAllInventories(callBack);
-    }
 
 }

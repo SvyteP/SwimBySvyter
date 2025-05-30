@@ -60,7 +60,7 @@ public class ProfileViewModel extends ViewModel {
         this.adapterRVInventories = new MutableLiveData<>();
         this.inventoriesCheckList = new MutableLiveData<>();
         loadData();
-      /*  setInfoQuestioner(baseQuestioner);*/
+        setInfoQuestioner(baseQuestioner);
     }
 
     private void setInfoQuestioner(Questioner q){

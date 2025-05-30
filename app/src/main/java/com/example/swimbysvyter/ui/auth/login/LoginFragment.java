@@ -1,11 +1,14 @@
 package com.example.swimbysvyter.ui.auth.login;
 
+import static com.example.swimbysvyter.SwimApp.baseComplexities;
+import static com.example.swimbysvyter.SwimApp.baseGenderNames;
 import static com.example.swimbysvyter.SwimApp.context;
 import static com.example.swimbysvyter.SwimApp.disableBtn;
 import static com.example.swimbysvyter.SwimApp.enabledBtn;
 import static com.example.swimbysvyter.SwimApp.loginShared;
 import static com.example.swimbysvyter.SwimApp.masterKey;
 import static com.example.swimbysvyter.SwimApp.secFileShared;
+import static com.example.swimbysvyter.SwimApp.swimAPI;
 import static com.example.swimbysvyter.SwimApp.transitionActivity;
 
 import android.content.Context;
@@ -35,15 +38,21 @@ import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.SwimApp;
 import com.example.swimbysvyter.databinding.FragmentLoginBinding;
+import com.example.swimbysvyter.entity.Complexity;
+import com.example.swimbysvyter.entity.Inventory;
+import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.EditTextUtils;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.ValidText;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 
 public class LoginFragment extends Fragment {
+    private final String TAG = "LoginFragment";
     private final LogInViewModel logInViewModel;
     private FragmentLoginBinding binding;
     private View mainView;
@@ -175,7 +184,6 @@ public class LoginFragment extends Fragment {
         logInViewModel.sendLogInInfo(new ModelCallBack() {
             @Override
             public void success(Object o) {
-
                 transitionActivity(requireContext(),requireActivity(),MainActivity.class);
             }
 
@@ -185,4 +193,6 @@ public class LoginFragment extends Fragment {
             }
         });
     }
+
+
 }
