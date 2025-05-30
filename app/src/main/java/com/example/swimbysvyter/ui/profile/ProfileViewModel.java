@@ -16,6 +16,7 @@ import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.RVInventories;
 import com.example.swimbysvyter.services.api.RequestCallBack;
 
@@ -151,5 +152,24 @@ public class ProfileViewModel extends ViewModel {
             }
         };
         swimAPI.getQuestioner(callBack);
+    }
+
+    public ModelCallBack getCallBackForUpdateQuestioner() {
+        return new ModelCallBack() {
+            @Override
+            public void success(Object o) {
+                Questioner q = (Questioner) o;
+                if (q != null) {
+                    setInfoQuestioner(q);
+                    return;
+                }
+                Log.e(TAG,"getCallBackForUpdateQuestioner error success questioner is null");
+            }
+
+            @Override
+            public void error(Object o) {
+                Log.e(TAG,"getCallBackForUpdateQuestioner error success questioner is null");
+            }
+        };
     }
 }

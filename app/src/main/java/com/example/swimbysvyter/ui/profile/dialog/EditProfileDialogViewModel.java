@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.swimbysvyter.entity.Questioner;
+import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.services.api.RequestCallBack;
 
 import java.util.ArrayList;
@@ -47,18 +48,20 @@ public class EditProfileDialogViewModel extends ViewModel {
         complexityList.setValue(complexitiesNames);
     }
 
-    public void updateQuestioner(Questioner q){
+    public void updateQuestioner(Questioner q, ModelCallBack callBackUI){
         if (q == null) return;
         RequestCallBack callBack = new RequestCallBack() {
             @Override
             public void onSuccess(Object object) {
                 Questioner quest = (Questioner) object;
                 updateQuestionerForApp(quest);
+                callBackUI.success(quest);
                 Log.i("EditProfileDialogViewModel","updateQuestioner success: " + object.toString());
             }
 
             @Override
             public void onError(Object object) {
+                callBackUI.success(object);
                 Log.e("EditProfileDialogViewModel","updateQuestioner error: " + object.toString());
             }
         };

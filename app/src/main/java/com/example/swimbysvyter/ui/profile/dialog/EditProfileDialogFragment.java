@@ -144,8 +144,7 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
     }
 
     private void clickSave(View v){
-        callBack.success(null);
-        dialogViewModel.updateQuestioner(createQuestioner());
+        dialogViewModel.updateQuestioner(createQuestioner(),callBack);
         dismiss();
     }
 

@@ -77,12 +77,14 @@ public class ProfileFragment extends Fragment {
     private void updateView(){
         profileViewModel.getName().observe(getViewLifecycleOwner(),nameText::setText);
         profileViewModel.getEmail().observe(getViewLifecycleOwner(),emailText::setText);
-        profileViewModel.getAge().observe(getViewLifecycleOwner(),ageText::setText);
+        profileViewModel.getAge().observe(getViewLifecycleOwner(),
+                ageText::setText);
         profileViewModel.getCountTrainOneWeek().observe(getViewLifecycleOwner(),countTrainOneWeekText::setText);
 
         profileViewModel.getCountWeek().observe(getViewLifecycleOwner(),countWeekText::setText);
         profileViewModel.getGender().observe(getViewLifecycleOwner(),genderText::setText);
-        profileViewModel.getLengthPool().observe(getViewLifecycleOwner(),lengthPoolText::setText);
+        profileViewModel.getLengthPool().observe(getViewLifecycleOwner(),
+                lengthPoolText::setText);
         profileViewModel.getTimeTrain().observe(getViewLifecycleOwner(),timeTrainText::setText);
         profileViewModel.getComplexity().observe(getViewLifecycleOwner(),complexityText::setText);
 
@@ -98,17 +100,7 @@ public class ProfileFragment extends Fragment {
 
     private void clickEditBtn(View v){
 
-        editDialogFragment = new EditProfileDialogFragment(new ModelCallBack() {
-            @Override
-            public void success(Object o) {
-                profileViewModel.loadQuestioner();
-            }
-
-            @Override
-            public void error(Object o) {
-
-            }
-        });
+        editDialogFragment = new EditProfileDialogFragment(profileViewModel.getCallBackForUpdateQuestioner());
 
         Bundle args = new Bundle();
         args.putSerializable("profileQuestioner",getProfileQuestioner());
