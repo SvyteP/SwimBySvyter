@@ -42,7 +42,7 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<String> timeTrain;
     private final MutableLiveData<String> complexity;
 
-    private boolean isChangedInfo = false;
+    private boolean isChangedInventory = false;
 
     private MutableLiveData<RVInventories> adapterRVInventories;
     private MutableLiveData<List<Inventory>> inventoriesCheckList;
@@ -79,18 +79,9 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
-    public void fixingUpdateCustomerInfo(){
-        if (!isChangedInfo) return;
-
-        updateInventories();
-        updateTrainings();
-
-        isChangedInfo = false;
-    }
-
     public MutableLiveData<RVInventories> getAdapterRVInventories(){
         adapterRVInventories.setValue(new RVInventories(inventoriesCheckList.getValue(), pos -> {
-            isChangedInfo = true;
+            updateInventories();
         }));
         return adapterRVInventories;
     }
@@ -110,6 +101,7 @@ public class ProfileViewModel extends ViewModel {
             RequestCallBack callBack = new RequestCallBack() {
                 @Override
                 public void onSuccess(Object object) {
+                    updateTrainings();
                     Log.i(TAG, "updateInventories success with id's: " + inventoriesId + " and result obj: " + object);
                 }
 
@@ -137,29 +129,14 @@ public class ProfileViewModel extends ViewModel {
         swimAPI.setTrainings(callBack);
     }
 
-    public void loadQuestioner(){
-        RequestCallBack callBack = new RequestCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-                Questioner q = (Questioner) object;
-                if (q == null) return;
-                setInfoQuestioner(q);
-            }
-
-            @Override
-            public void onError(Object object) {
-                Log.e(TAG,"loadQuestioner error with object: " + object);
-            }
-        };
-        swimAPI.getQuestioner(callBack);
-    }
-
     public ModelCallBack getCallBackForUpdateQuestioner() {
+
         return new ModelCallBack() {
             @Override
             public void success(Object o) {
                 Questioner q = (Questioner) o;
                 if (q != null) {
+                    updateTrainings();
                     setInfoQuestioner(q);
                     return;
                 }
