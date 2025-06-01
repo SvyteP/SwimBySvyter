@@ -78,6 +78,6 @@ public class RVInventories extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items != null ? items.size() : 0;
     }
 }

@@ -18,8 +18,6 @@ import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.services.api.RequestCallBack;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -171,7 +169,7 @@ public class LogInViewModel extends ViewModel {
 
             }
         };
-        swimAPI.getAllInventories(callBack);
+        swimAPI.getAllInventoriesForCustomer(callBack);
     }
 
 

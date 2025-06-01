@@ -289,8 +289,8 @@ public class SwimAPI {
         });
     }
 
-    public void getAllInventories(RequestCallBack callBack){
-        requestsSwimAPI.getInventory().enqueue(new Callback<>() {
+    public void getAllInventoriesForCustomer(RequestCallBack callBack){
+        requestsSwimAPI.getInventoryForCustomer().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<List<Inventory>>> call, retrofit2.Response<ResponseDto<List<Inventory>>> response) {
                 if (response.isSuccessful()) {
@@ -406,6 +406,28 @@ public class SwimAPI {
 
             @Override
             public void onFailure(Call<ResponseDto<List<Long>>> call, Throwable t) {
+                callBack.onError(call);
+                Log.e(TAG,"updateInventories failed with message: " + t.getMessage());
+            }
+        });
+    }
+
+
+    public void getAllInventories(RequestCallBack callBack) {
+        requestsSwimAPIWithoutToken.getInventoryForCustomer().enqueue(new Callback<>() {
+
+            @Override
+            public void onResponse(Call<ResponseDto<List<Inventory>>> call, retrofit2.Response<ResponseDto<List<Inventory>>> response) {
+                if (response.body() != null) {
+                    callBack.onSuccess(response.body().data());
+                } else {
+                    callBack.onError(call);
+                    Log.e(TAG, String.format("Execution request updateInventories is failed with code: %s and body %s", response.code(), response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDto<List<Inventory>>> call, Throwable t) {
                 callBack.onError(call);
                 Log.e(TAG,"updateInventories failed with message: " + t.getMessage());
             }

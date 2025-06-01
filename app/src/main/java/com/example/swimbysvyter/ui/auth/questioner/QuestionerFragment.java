@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.MainActivity;
 import com.example.swimbysvyter.databinding.FragmentQuestionerBinding;
@@ -43,6 +45,7 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
             spinnerGender,
             spinnerComplexity;
     private ArrayAdapter<String> genderAdapter, complexityAdapter;
+    private RecyclerView recInventory;
 
     public QuestionerFragment() {
         this.questionerViewModel = new QuestionerViewModel();
@@ -68,6 +71,7 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
         editLengthPool = binding.questLengthPoolEdit;
         editTrainingTime = binding.questTimeTrainEdit;
         spinnerComplexity = binding.questComplexitySinner;
+        recInventory = binding.questRecInventory;
 
 
         llSave = binding.questSaveBtn;
@@ -75,6 +79,10 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
     }
 
     private void updateView() {
+
+        questionerViewModel.getAdapterRVInventories().observe(getViewLifecycleOwner(), adapter -> recInventory.setAdapter(adapter));
+        recInventory.setLayoutManager(new LinearLayoutManager(getContext()));
+
         //Заменить данными из ViewMode(Создать ее)
         questionerViewModel.getGenderList().observe(getViewLifecycleOwner(), g -> updateArrayAdapter(
                 g,

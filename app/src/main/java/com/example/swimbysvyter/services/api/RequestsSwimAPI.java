@@ -43,7 +43,7 @@ public interface RequestsSwimAPI extends API {
     Call<ResponseDto<List<Complexity>>> getComplexity();
 
     @GET("/inventory")
-    Call<ResponseDto<List<Inventory>>> getInventory();
+    Call<ResponseDto<List<Inventory>>> getInventoryForCustomer();
 
     @GET("/customer/trainings/all/active/user")
     Call<ResponseDto<List<TrainingsGetDto>>> getAllActiveTrainings();
