@@ -21,10 +21,8 @@ import lombok.Getter;
 public class CompletedViewModel extends ViewModel {
     private MutableLiveData<List<Training>> trainings;
     private MutableLiveData<RVTrainings> adapterRVTrainings;
-    private boolean isStartLoadTraining = false;
     private MutableLiveData<ClickItemListener> clickItem;
-
-
+    private boolean isStartLoadTraining = false;
 
     public CompletedViewModel() {
         this.trainings = new MutableLiveData<>();
@@ -32,7 +30,8 @@ public class CompletedViewModel extends ViewModel {
         this.clickItem = new MutableLiveData<>();
     }
 
-    public void loadTraining(){
+    /*Загружает выполненные тренировки*/
+    public void loadTraining() {
         if (!isStartLoadTraining) {
             isStartLoadTraining = true;
             RequestCallBack callBack = new RequestCallBack() {
@@ -41,7 +40,7 @@ public class CompletedViewModel extends ViewModel {
                     List<Training> trainingList = (List<Training>) object;
                     if (trainingList != null) {
                         trainings.setValue(trainingList);
-                        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItem.getValue()));
+                        adapterRVTrainings.setValue(new RVTrainings(trainings, clickItem.getValue()));
                     }
                     isStartLoadTraining = false;
                 }
@@ -51,13 +50,46 @@ public class CompletedViewModel extends ViewModel {
                     isStartLoadTraining = false;
                 }
             };
-            swimAPI.getIsCompletedTrainings(callBack,true);
+            swimAPI.getIsCompletedTrainings(callBack, true);
         }
     }
 
-    public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener clickItemListener){
+    /*Формирует адаптер для RecycleView*/
+    public MutableLiveData<RVTrainings> getRVTrainingsAdapter(ClickItemListener clickItemListener) {
         clickItem.setValue(clickItemListener);
-        adapterRVTrainings.setValue(new RVTrainings(trainings,clickItem.getValue()));
+        adapterRVTrainings.setValue(new RVTrainings(trainings, clickItem.getValue()));
         return adapterRVTrainings;
+    }
+
+    /*
+     * Метод обновляет измененную тренировку в TrainingDetailActivity на случай
+     * если по возвращению на TrainingsFragment сервер не успеет обновить данные
+     * */
+    public void updateTraining(Training updated) {
+        List<Training> current = trainings.getValue();
+        if (current == null) return;
+
+        for (int i = 0; i < current.size(); i++) {
+            if (current.get(i).getId().equals(updated.getId())) {
+                current.set(i, updated);
+                adapterRVTrainings.setValue(new RVTrainings(trainings, clickItem.getValue()));
+                break;
+            }
+        }
+        trainings.setValue(current);
+
+    }
+
+    public MutableLiveData<List<Training>> delTraining(Training t) {
+        List<Training> current = trainings.getValue();
+        if (current == null) return null;
+        for (int i = 0; i < current.size(); i++) {
+            if (current.get(i).getId().equals(t.getId())) {
+                current.remove(i);
+                adapterRVTrainings.setValue(new RVTrainings(trainings, clickItem.getValue()));
+                break;
+            }
+        }
+        return trainings;
     }
 }

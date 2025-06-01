@@ -2,7 +2,6 @@ package com.example.swimbysvyter.services.api;
 
 import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
 import static com.example.swimbysvyter.SwimApp.secFileShared;
-import static com.example.swimbysvyter.SwimApp.swimAPI;
 import static com.example.swimbysvyter.SwimApp.updateCustomerForApp;
 import static com.example.swimbysvyter.SwimApp.updateQuestionerForApp;
 
@@ -22,7 +21,6 @@ import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
 import com.example.swimbysvyter.entity.Training;
-import com.example.swimbysvyter.helpers.RVTrainings;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -200,8 +198,8 @@ public class SwimAPI {
         });
     }
 
-    public void setTrainings(RequestCallBack callBack) {
-        requestsSwimAPI.generateTrainings().enqueue(new Callback<>() {
+    public void setTrainings(Boolean isRelevation, RequestCallBack callBack) {
+        requestsSwimAPI.generateTrainings(isRelevation).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<List<TrainingsGetDto>>> call, retrofit2.Response<ResponseDto<List<TrainingsGetDto>>> response) {
                if (response.body() != null) {

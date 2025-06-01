@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/nav_completed"
         android:name="com.example.swimbysvyter.ui.completed.CompletedFragment"
-        android:label="@string/menu_profile"
+        android:label="@string/menu_completed"
         tools:layout="@layout/fragment_completed"/>
 
 

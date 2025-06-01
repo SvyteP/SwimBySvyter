@@ -28,7 +28,7 @@ public interface RequestsSwimAPI extends API {
     Call<ResponseDto<Questioner>> updateQuestioner(@Body QuestionerUpdateDtoRequest questionerUpdateDtoRequest);
 
     @POST("customer/trainings")
-    Call<ResponseDto<List<TrainingsGetDto>>> generateTrainings();
+    Call<ResponseDto<List<TrainingsGetDto>>> generateTrainings(@Query("isRelevation") boolean isRelevation);
 
     @GET("/customer/trainings/one/{id}")
     Call<ResponseDto<TrainingsGetDto>> getInfoAboutTraining(@Path("id") long id);

@@ -14,8 +14,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
-import com.example.swimbysvyter.entity.Training;
-import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.ModelCallBack;
 import com.example.swimbysvyter.helpers.RVInventories;
 import com.example.swimbysvyter.services.api.RequestCallBack;
@@ -126,7 +124,7 @@ public class ProfileViewModel extends ViewModel {
             public void onError(Object object) {
             }
         };
-        swimAPI.setTrainings(callBack);
+        swimAPI.setTrainings(true, callBack);
     }
 
     public ModelCallBack getCallBackForUpdateQuestioner() {

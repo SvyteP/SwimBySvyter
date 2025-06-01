@@ -35,6 +35,7 @@
     <!--Detail-->
     <string name="inv_header">Инвентарь</string>
     <string name="completed">Выполнена</string>
+    <string name="no_completed">Не выполнена</string>
 
     <!--Questioner-->
     <string name="auth_comment">Хватит откладывать на потом, индивидульные тренировки уже ждут тебя!</string>

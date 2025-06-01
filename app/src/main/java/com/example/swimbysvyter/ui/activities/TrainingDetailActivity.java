@@ -20,19 +20,20 @@ import com.example.swimbysvyter.R;
 import com.example.swimbysvyter.databinding.TrainingDetailsActivityBinding;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.RVTrainingDetailInventory;
+import com.example.swimbysvyter.helpers.TrainingStatus;
 import com.example.swimbysvyter.services.api.RequestCallBack;
 
 public class TrainingDetailActivity extends AppCompatActivity {
     private Intent intentArgs;
     private Training training;
     private TrainingDetailsActivityBinding binding;
-    private TextView name,warmUp,main,hitch;
+    private TextView name,warmUp,main,hitch, completedBtnTxt;
     private LinearLayout detailTrainingBackLL;
     private RecyclerView recInventory;
     private ImageButton favoriteBtn;
     private LinearLayout completedBtn;
     private Intent result;
-    private Boolean isTrainingsFragment;
+    private int trainingStatus;
 
     private OnBackPressedCallback onBackPressed;
     @Override
@@ -55,14 +56,15 @@ public class TrainingDetailActivity extends AppCompatActivity {
         recInventory = binding.recDetailInv;
         favoriteBtn = binding.favoriteButton;
         completedBtn = binding.detailTrainingCompletedBtn;
+        completedBtnTxt = binding.detailTrainingCompletedBtnTxt;
         result = new Intent();
 
         intentArgs = getIntent();
         if (intentArgs != null) {
             training = intentArgs.getParcelableExtra("trainingDetail");
-            isTrainingsFragment = intentArgs.getBooleanExtra("trainingsView",true);
+            trainingStatus = intentArgs.getIntExtra("trainingsView", TrainingStatus.NO_COMPLETED);
         } else {
-            isTrainingsFragment = true;
+            trainingStatus = TrainingStatus.NO_COMPLETED;
         }
     }
 
@@ -96,10 +98,17 @@ public class TrainingDetailActivity extends AppCompatActivity {
     private void updateListeners(){
         detailTrainingBackLL.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
         favoriteBtn.setOnClickListener(this::clickFavoriteBtn);
-        if (!isTrainingsFragment){
+        if (trainingStatus == TrainingStatus.FAVORITE){
             completedBtn.setVisibility(View.GONE);
+        } else {
+            completedBtn.setOnClickListener(this::clickCompletedBtn);
         }
-        completedBtn.setOnClickListener(this::clickCompletedBtn);
+
+        if (trainingStatus == TrainingStatus.NO_COMPLETED) {
+          completedBtnTxt.setText(getString(R.string.completed));
+        } else if (trainingStatus == TrainingStatus.COMPLETED){
+            completedBtnTxt.setText(getString(R.string.no_completed));
+        }
     }
 
     private void clickFavoriteBtn(View v){
@@ -113,7 +122,6 @@ public class TrainingDetailActivity extends AppCompatActivity {
         result.putExtra("completedTraining", true);
         training.setCompleted(!training.isCompleted());
         updateCompleted(training);
-
     }
 
     private void updateFavorite(Training t){

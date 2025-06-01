@@ -36,7 +36,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable, Model
     }
 
     public void loadTrainings(){
-        if (!isStartLoadTraining) {
+        if (!isStartLoadTraining ) {
             isStartLoadTraining = true;
             RequestCallBack callBack = new RequestCallBack() {
                 @Override
@@ -54,7 +54,7 @@ public class TrainingsViewModel extends ViewModel implements Serializable, Model
                     isStartLoadTraining = false;
                 }
             };
-            swimAPI.setTrainings(callBack);
+            swimAPI.setTrainings(false, callBack);
         }
     }
 
@@ -87,6 +87,10 @@ public class TrainingsViewModel extends ViewModel implements Serializable, Model
         return adapterRVTrainings;
     }
 
+    /*
+    * Метод обновляет измененную тренировку в TrainingDetailActivity на случай
+    * если по возвращению на TrainingsFragment сервер не успеет обновить данные
+    * */
     public void updateTraining(Training updated) {
         List<Training> current = trainings.getValue();
         if (current == null) return;

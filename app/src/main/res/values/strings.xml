@@ -43,6 +43,7 @@
     <!--Detail-->
     <string name="inv_header">Inventories</string>
     <string name="completed">Completed</string>
+    <string name="no_completed">Not Completed</string>
 
     <!--Questioner-->
     <string name="auth_comment">Stop putting it off for later, individual training is already waiting for you!</string>

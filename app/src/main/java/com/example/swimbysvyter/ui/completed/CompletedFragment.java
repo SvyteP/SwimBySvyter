@@ -1,10 +1,14 @@
 package com.example.swimbysvyter.ui.completed;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.swimbysvyter.databinding.FragmentCompletedBinding;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
+import com.example.swimbysvyter.helpers.TrainingStatus;
 import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 
 public class CompletedFragment extends Fragment {
@@ -22,6 +27,8 @@ public class CompletedFragment extends Fragment {
     private CompletedViewModel completedViewModel;
     private RecyclerView recCompletedTraining;
     private View mainView;
+
+    private ActivityResultLauncher<Intent> trainingDetailLauncher;
 
     @Nullable
     @Override
@@ -49,6 +56,29 @@ public class CompletedFragment extends Fragment {
 
         recCompletedTraining = binding.recCompletedTrainings;
 
+
+        // Регистрируем коллбэк результата от Activity
+        trainingDetailLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+
+                        Intent data = result.getData();
+                        Training training = data.getParcelableExtra("updatedTraining");
+                        if (training != null){
+                            if (data.getBooleanExtra("likedTraining",false) ){
+                                completedViewModel.updateTraining(training);
+                            }
+                            if (data.getBooleanExtra("completedTraining",false)) {
+                                if(completedViewModel.delTraining(training).getValue().isEmpty()){
+                                    /*Добавить отображение текста*/
+                                }
+                            }
+                        }
+                    }
+                });
+
+
     }
 
     private void initView(){
@@ -60,9 +90,9 @@ public class CompletedFragment extends Fragment {
 
     public void clickTraining(Training training){
         Intent intent = new Intent(getContext(), TrainingDetailActivity.class);
-        intent.putExtra("trainingsView",false);
+        intent.putExtra("trainingsView", TrainingStatus.COMPLETED);
         intent.putExtra("trainingDetail",training);
-        startActivity(intent);
+        trainingDetailLauncher.launch(intent);
     }
 
 }

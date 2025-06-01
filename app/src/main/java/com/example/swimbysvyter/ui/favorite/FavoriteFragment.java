@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimbysvyter.databinding.FragmentFavouriteBinding;
 import com.example.swimbysvyter.entity.Training;
+import com.example.swimbysvyter.helpers.TrainingStatus;
 import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
 
 public class FavoriteFragment extends Fragment {
@@ -57,7 +58,7 @@ public class FavoriteFragment extends Fragment {
 
     public void clickTraining(Training training){
         Intent intent = new Intent(getContext(), TrainingDetailActivity.class);
-        intent.putExtra("trainingsView",false);
+        intent.putExtra("trainingsView", TrainingStatus.FAVORITE);
         intent.putExtra("trainingDetail",training);
         startActivity(intent);
     }

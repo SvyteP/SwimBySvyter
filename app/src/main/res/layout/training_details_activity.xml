@@ -167,6 +167,7 @@
                 android:clickable="false"/>
 
             <TextView
+                android:id="@+id/detail_training_completed_btn_txt"
                 style="@style/textBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
