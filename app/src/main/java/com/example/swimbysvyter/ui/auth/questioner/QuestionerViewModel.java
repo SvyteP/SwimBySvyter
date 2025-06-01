@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.swimbysvyter.SwimApp;
+import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Customer;
 import com.example.swimbysvyter.entity.Inventory;
 import com.example.swimbysvyter.entity.Questioner;
@@ -45,7 +46,7 @@ public class QuestionerViewModel extends ViewModel {
 
     private void updateData(){
         loadGenderList();
-        loadComplexityList();
+        loadComplexities();
         loadInventories();
     }
 
@@ -53,12 +54,29 @@ public class QuestionerViewModel extends ViewModel {
         genderList.setValue(baseGenderNames);
     }
 
-    private void loadComplexityList(){
-        List<String> complexitiesNames = new ArrayList<>();
-        baseComplexities.forEach((k, v) -> {
-            complexitiesNames.add(k);
-        });
-        complexityList.setValue(complexitiesNames);
+    private void loadComplexities(){
+        RequestCallBack callBack = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                try {
+                    List<Complexity> allComplexity = (List<Complexity>) object;
+                    List<String> complexitiesNames =  new ArrayList<>();
+                    allComplexity.forEach(compl -> {
+                        baseComplexities.put(compl.getName(),compl);
+                        complexitiesNames.add(compl.getName());
+                    });
+                    complexityList.setValue(complexitiesNames);
+                } catch (ClassCastException e) {
+                    Log.e(TAG,"loadComplexity error:" + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Object object) {
+                Log.e(TAG,"loadComplexity error:" + object);
+            }
+        };
+        swimAPI.getAllComplexities(callBack);
     }
 
     private void loadInventories(){

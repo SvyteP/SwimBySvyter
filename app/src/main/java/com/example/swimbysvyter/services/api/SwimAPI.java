@@ -312,7 +312,7 @@ public class SwimAPI {
     }
 
     public void getAllComplexities(RequestCallBack callBack){
-        requestsSwimAPI.getComplexity().enqueue(new Callback<>() {
+        requestsSwimAPIWithoutToken.getComplexity().enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseDto<List<Complexity>>> call, retrofit2.Response<ResponseDto<List<Complexity>>> response) {
                 if (response.isSuccessful()){
@@ -415,7 +415,6 @@ public class SwimAPI {
 
     public void getAllInventories(RequestCallBack callBack) {
         requestsSwimAPIWithoutToken.getInventoryForCustomer().enqueue(new Callback<>() {
-
             @Override
             public void onResponse(Call<ResponseDto<List<Inventory>>> call, retrofit2.Response<ResponseDto<List<Inventory>>> response) {
                 if (response.body() != null) {

@@ -4,6 +4,7 @@ import com.example.swimbysvyter.dto.AuthDto;
 import com.example.swimbysvyter.dto.LoginDto;
 import com.example.swimbysvyter.dto.RegistrationDto;
 import com.example.swimbysvyter.dto.ResponseDto;
+import com.example.swimbysvyter.entity.Complexity;
 import com.example.swimbysvyter.entity.Inventory;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface RequestsSwimAPIWithoutToken extends API{
 
     @GET("/inventory/get")
     Call<ResponseDto<List<Inventory>>> getInventoryForCustomer();
+
+    @GET("/compl/get")
+    Call<ResponseDto<List<Complexity>>> getComplexity();
 }

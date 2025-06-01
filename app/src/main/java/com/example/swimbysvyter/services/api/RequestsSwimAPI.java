@@ -39,9 +39,6 @@ public interface RequestsSwimAPI extends API {
     @PUT("/customer/trainings/complete/{id}")
     Call<ResponseBody> isCompletedTraining(@Path("id") long trainingId, @Query("isCompl") boolean isCompl);
 
-    @GET("/compl")
-    Call<ResponseDto<List<Complexity>>> getComplexity();
-
     @GET("/inventory")
     Call<ResponseDto<List<Inventory>>> getInventoryForCustomer();
 

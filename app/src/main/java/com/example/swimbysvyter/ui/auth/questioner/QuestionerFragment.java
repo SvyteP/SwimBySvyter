@@ -114,7 +114,6 @@ public class QuestionerFragment extends Fragment implements TextWatcher {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 llSave.setEnabled(ValidText.sizeValid(editAge, editCountTrainingOneWeek, editCountWeek, editLengthPool, editTrainingTime));
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 

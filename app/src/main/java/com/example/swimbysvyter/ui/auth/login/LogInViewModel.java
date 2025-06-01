@@ -1,6 +1,7 @@
 package com.example.swimbysvyter.ui.auth.login;
 
 import static com.example.swimbysvyter.SwimApp.baseComplexities;
+import static com.example.swimbysvyter.SwimApp.baseInventories;
 import static com.example.swimbysvyter.SwimApp.convertorJSON;
 import static com.example.swimbysvyter.SwimApp.baseCustomer;
 import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
@@ -112,8 +113,14 @@ public class LogInViewModel extends ViewModel {
                 Log.e("LogInViewModel", "checkAuthorized error about customerPref or questionerPref == null");
                 return;
             }
-            loadComplexities();
-            loadInventories();
+
+            if (baseComplexities.isEmpty()  ) {
+                loadComplexities();
+            }
+            if (baseInventories.isEmpty()){
+                loadInventories();
+            }
+
         }else {
             Log.e("LogInViewModel" , "checkAuthorized error about customerPref or questionerPref == null");
         }
