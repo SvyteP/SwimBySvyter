@@ -31,7 +31,7 @@ public class FavoriteViewModel extends ViewModel {
 
     }
 
-    public void loadTraining(){
+    public void loadTraining(RequestCallBack callBackUI){
         if (!isStartLoadTraining) {
             isStartLoadTraining = true;
             RequestCallBack callBack = new RequestCallBack() {
@@ -41,12 +41,14 @@ public class FavoriteViewModel extends ViewModel {
                     if (trainingList != null) {
                         trainings.setValue(trainingList);
                         adapterRVTrainings.setValue(new RVTrainings(trainings,clickItem.getValue()));
+                        callBackUI.onSuccess(trainingList);
                     }
                     isStartLoadTraining = false;
                 }
 
                 @Override
                 public void onError(Object object) {
+                    callBackUI.onSuccess(object);
                     isStartLoadTraining = false;
                 }
             };

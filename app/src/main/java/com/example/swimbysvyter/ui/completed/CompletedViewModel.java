@@ -31,7 +31,7 @@ public class CompletedViewModel extends ViewModel {
     }
 
     /*Загружает выполненные тренировки*/
-    public void loadTraining() {
+    public void loadTraining(RequestCallBack callBackUI) {
         if (!isStartLoadTraining) {
             isStartLoadTraining = true;
             RequestCallBack callBack = new RequestCallBack() {
@@ -43,11 +43,13 @@ public class CompletedViewModel extends ViewModel {
                         adapterRVTrainings.setValue(new RVTrainings(trainings, clickItem.getValue()));
                     }
                     isStartLoadTraining = false;
+                    callBackUI.onSuccess(trainingList);
                 }
 
                 @Override
                 public void onError(Object object) {
                     isStartLoadTraining = false;
+                    callBackUI.onError(object);
                 }
             };
             swimAPI.getIsCompletedTrainings(callBack, true);

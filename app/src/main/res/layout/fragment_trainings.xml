@@ -20,11 +20,14 @@
             android:paddingVertical="5dp" />
 
         <TextView
-            style="@style/text"
+            android:id="@+id/not_trainings_txt"
+            style="@style/text.noAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="В данный момент нет доступных тренировок"/>
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:text="В данный момент нет доступных тренировок"
+            android:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/trainings_ll_update"

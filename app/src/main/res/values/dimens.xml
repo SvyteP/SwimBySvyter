@@ -33,6 +33,4 @@
 
     <dimen name="big_text">40sp</dimen>
     <dimen name="very_big_indent">50dp</dimen>
-
-
 </resources>

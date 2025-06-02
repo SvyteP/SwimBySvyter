@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -20,13 +21,17 @@ import com.example.swimbysvyter.databinding.FragmentCompletedBinding;
 import com.example.swimbysvyter.entity.Training;
 import com.example.swimbysvyter.helpers.ClickItemListener;
 import com.example.swimbysvyter.helpers.TrainingStatus;
+import com.example.swimbysvyter.services.api.RequestCallBack;
 import com.example.swimbysvyter.ui.activities.TrainingDetailActivity;
+
+import java.util.List;
 
 public class CompletedFragment extends Fragment {
     private FragmentCompletedBinding binding;
     private CompletedViewModel completedViewModel;
     private RecyclerView recCompletedTraining;
     private View mainView;
+    private TextView notCompletedTxt;
 
     private ActivityResultLauncher<Intent> trainingDetailLauncher;
 
@@ -43,7 +48,8 @@ public class CompletedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        completedViewModel.loadTraining();
+        loadTrainings();
+
     }
 
     private void updateView(@NonNull LayoutInflater inflater,
@@ -55,6 +61,8 @@ public class CompletedFragment extends Fragment {
         mainView = binding.getRoot();
 
         recCompletedTraining = binding.recCompletedTrainings;
+
+        notCompletedTxt = binding.notCompletedTxt;
 
 
         // Регистрируем коллбэк результата от Activity
@@ -84,7 +92,9 @@ public class CompletedFragment extends Fragment {
     private void initView(){
         completedViewModel.getRVTrainingsAdapter(pos -> {
             clickTraining(completedViewModel.getTrainings().getValue().get(pos));
-        }).observe(getViewLifecycleOwner(),recCompletedTraining::setAdapter);
+        }).observe(getViewLifecycleOwner(),adapter ->  {
+            recCompletedTraining.setAdapter(adapter);
+        });
         recCompletedTraining.setLayoutManager(new LinearLayoutManager(getContext()));;
     }
 
@@ -93,6 +103,28 @@ public class CompletedFragment extends Fragment {
         intent.putExtra("trainingsView", TrainingStatus.COMPLETED);
         intent.putExtra("trainingDetail",training);
         trainingDetailLauncher.launch(intent);
+    }
+
+    private void loadTrainings(){
+        RequestCallBack callBackUI = new RequestCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                if (object == null) return;
+                List<Training> t = (List<Training>) object;
+
+                if (t.isEmpty()){
+                    notCompletedTxt.setVisibility(View.VISIBLE);
+                } else {
+                    notCompletedTxt.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(Object object) {
+
+            }
+        };
+        completedViewModel.loadTraining(callBackUI);
     }
 
 }

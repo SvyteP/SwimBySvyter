@@ -3,15 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/indent_edge_screen"
     tools:context=".ui.completed.CompletedFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_completed_trainings"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingVertical="5dp"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_completed_trainings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp" />
+
+        <TextView
+            android:id="@+id/not_completed_txt"
+            style="@style/text.noAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:text="В данный момент нет выполненных тренировок"
+            android:visibility="gone" />
+    </FrameLayout>
+
 
 </LinearLayout>

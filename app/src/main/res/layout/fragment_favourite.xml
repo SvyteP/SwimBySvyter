@@ -9,10 +9,25 @@
     android:paddingHorizontal="@dimen/indent_edge_screen"
     tools:context=".ui.favorite.FavoriteFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_fav_trainings"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingVertical="5dp"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_fav_trainings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp"/>
+        <TextView
+            android:id="@+id/not_favorite_txt"
+            style="@style/text.noAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:text="В данный момент нет избранных тренировок"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+
 
 </LinearLayout>

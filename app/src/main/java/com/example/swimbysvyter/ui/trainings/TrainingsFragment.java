@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -33,6 +34,7 @@ public class TrainingsFragment extends Fragment {
     private ActivityResultLauncher<Intent> trainingDetailLauncher;
     private RefreshTrainingsDialogFragment refreshDialog;
     private LinearLayout llUpdate, btnUpdate;
+    private TextView notTrainingsTxt;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,14 +57,17 @@ public class TrainingsFragment extends Fragment {
         trainingsRec = binding.recTrainings;
         llUpdate = binding.trainingsLlUpdate;
         btnUpdate = binding.trainingsBtnUpdate;
+        notTrainingsTxt = binding.notTrainingsTxt;
 
     }
 
     private void updateViews(){
        trainingsViewModel.getTrainings().observe(getViewLifecycleOwner(),t -> {
            if (t.isEmpty()){
+               notTrainingsTxt.setVisibility(View.VISIBLE);
                llUpdate.setVisibility(View.VISIBLE);
            } else {
+               notTrainingsTxt.setVisibility(View.GONE);
                llUpdate.setVisibility(View.GONE);
            }
        });
@@ -147,10 +152,13 @@ public class TrainingsFragment extends Fragment {
                 (requestKey, result) -> {
                     boolean clickCloseRefresh = result.getBoolean("clickCloseRefresh");
                     if (clickCloseRefresh || trainingsViewModel.getTrainings().getValue().isEmpty()){
+                        notTrainingsTxt.setVisibility(View.VISIBLE);
                         llUpdate.setVisibility(View.VISIBLE);
                     }
                 }
         );
     }
+
+
 
 }
