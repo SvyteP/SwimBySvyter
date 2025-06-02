@@ -10,12 +10,14 @@
         <item name="colorSecondaryVariant">@color/teal_200</item> <!--Не используется-->
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="colorOutline">@color/gray_500</item>
         <item name="colorAccent">@color/gray_300</item>
         <item name="colorEditBackground">@color/purple_dark_100</item>
         <item name="colorNoAccent">@color/gray_300</item>
+        <item name="colorEditorTxt">@color/white</item>
 
 
         <item name="switchBack">@color/gray_300</item>

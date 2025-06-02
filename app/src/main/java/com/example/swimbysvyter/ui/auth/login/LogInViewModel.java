@@ -6,6 +6,7 @@ import static com.example.swimbysvyter.SwimApp.convertorJSON;
 import static com.example.swimbysvyter.SwimApp.baseCustomer;
 import static com.example.swimbysvyter.SwimApp.encSharedPreferences;
 import static com.example.swimbysvyter.SwimApp.baseQuestioner;
+import static com.example.swimbysvyter.SwimApp.secFileShared;
 import static com.example.swimbysvyter.SwimApp.sharedPreferences;
 import static com.example.swimbysvyter.SwimApp.swimAPI;
 import android.util.Log;
@@ -127,7 +128,7 @@ public class LogInViewModel extends ViewModel {
     }
 
     private void updateIsAuthorized(){
-        String token = encSharedPreferences.getString("authToken",null);
+        String token = encSharedPreferences.getString(secFileShared,null);
         if (token != null && !token.isBlank()){
             isAuthorized.setValue(true);
             return;

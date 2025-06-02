@@ -3,6 +3,8 @@ package com.example.swimbysvyter.ui.header;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.swimbysvyter.SwimApp;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,10 +22,10 @@ public class NavHeaderViewModel extends ViewModel {
 
     private MutableLiveData<String> requestForName(){
 
-        return new MutableLiveData<>("name");
+        return new MutableLiveData<>(SwimApp.baseCustomer.getLogin());
     }
     private MutableLiveData<String> requestForEmail(){
 
-        return new MutableLiveData<>("email");
+        return new MutableLiveData<>(SwimApp.baseCustomer.getEmail());
     }
 }

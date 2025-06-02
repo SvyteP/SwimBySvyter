@@ -105,7 +105,7 @@
             <!--complexity-->
             <Spinner
                 android:id="@+id/quest_complexity_sinner"
-                style="@style/colorEditor"/>
+                style="@style/colorEditor" />
 
         </LinearLayout>
 

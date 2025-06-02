@@ -84,7 +84,10 @@
         <item name="android:paddingVertical">@dimen/small_indent_from_box</item>
         <item name="android:paddingLeft">@dimen/medium_indent_text_in_box</item>
         <item name="android:layout_marginTop">@dimen/medium_indent_from_box</item>
+        <item name="android:textColor">?attr/colorEditorTxt</item>
+        <item name="android:textSize">@dimen/info_txt</item>
     </style>
+
 
     <!--Profile's-->
     <style name="textQuestioner">
@@ -109,7 +112,7 @@
 
     <!--EditDialog-->
     <style name="textQuestioner.editor">
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textColor">?attr/colorEditorTxt</item>
         <item name="android:textSize">@dimen/info_txt</item>
     </style>
 

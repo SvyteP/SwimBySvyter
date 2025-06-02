@@ -128,8 +128,8 @@ public class EditProfileDialogFragment extends DialogFragment implements TextWat
             }
         }, requireContext()));
 
-        spinnerGender.setDropDownVerticalOffset(100);
-        spinnerComplexity.setDropDownVerticalOffset(100);
+        spinnerGender.setDropDownVerticalOffset(120);
+        spinnerComplexity.setDropDownVerticalOffset(120);
     }
 
     private void updateListener(){

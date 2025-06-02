@@ -7,4 +7,5 @@
     <attr name="colorNoAccent" format="color"/>
     <attr name="switchBack" format="color"/>
     <attr name="switchBtn" format="color"/>
+    <attr name="colorEditorTxt" format="color"/>
 </resources>
